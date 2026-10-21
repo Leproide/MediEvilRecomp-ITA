@@ -1,0 +1,8 @@
+{
+    "id": "trucchi-ita",
+    "name": "Trucchi (MediEvil ITA)",
+    "version": "1.0",
+    "author": "https://github.com/Leproide",
+    "description": "Attiva la Modalita' Trucchi o la Modalita' Trucchi Estesa del gioco senza inserire le combinazioni. Solo versione PAL italiana (SCES-01494). Licenza GPL-3.0-or-later.",
+    "dependencies": []
+}

@@ -12,6 +12,7 @@ Prima versione del fork per MediEvil PAL italiano.
 - Script di compilazione in italiano, con i nomi dei file `(Italy)`.
 - Aggiornamento automatico collegato alle release di questo fork.
 - Strumenti di porting e di verifica in `tools/pal-port/`.
+- Nuova mod **Trucchi (MediEvil ITA)** (`mods/Trucchi/`): attiva la Modalità Trucchi o la Modalità Trucchi Estesa dal pannello delle mod.
 
 Autore del port: https://github.com/Leproide
 

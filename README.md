@@ -127,6 +127,17 @@ Allega `debug.txt` alle issue quando segnali un blocco o un crash.
 
 ---
 
+## Trucchi
+
+Il gioco ha due menu trucchi integrati, e nel recomp funzionano come sulla console. In pausa tieni premuto **L2** e premi:
+
+- **Modalità Trucchi**: Giù, Su, Quadrato, Triangolo, Triangolo, Cerchio, Giù, Su, Quadrato, Triangolo
+- **Modalità Trucchi Estesa**: Triangolo, Cerchio, Triangolo, Cerchio, Cerchio, Triangolo, Sinistra, Cerchio, Su, Giù, Destra, Cerchio, Sinistra, Sinistra, Triangolo, Destra, Cerchio, Sinistra, Sinistra, Triangolo, Cerchio, Giù, Cerchio, Cerchio, Destra
+
+In alternativa, la mod inclusa **Trucchi (MediEvil ITA)** li attiva dal pannello delle mod, senza combinazioni. I dettagli sono nel [README della mod](mods/Trucchi/README.md).
+
+---
+
 ## Strumenti di porting
 
 In [`tools/pal-port/`](tools/pal-port/) ci sono gli script Python che hanno generato questo port a partire dal progetto USA:
@@ -144,6 +155,7 @@ Servono per aggiornare il fork quando l'originale riceve nuove patch. Le istruzi
 config/            configurazione del recompiler e funcmap (PAL)
 patches/           patch C# di rendering, widescreen e supporto PAL
 recompone-fixes/   correzioni da applicare al sottomodulo RecompOne
+mods/Trucchi/      mod per attivare i menu trucchi del gioco
 disc/              qui vanno i file del tuo disco (non inclusi)
 tools/pal-port/    strumenti di porting e report
 misc/              aggiornamento automatico
@@ -162,7 +174,7 @@ assets/            icona e lingue dell'interfaccia
 
 ## Licenza
 
-Le modifiche introdotte da questo fork (port PAL, strumenti in `tools/pal-port/`, script, `PalDispatch.cs`, `PalDebug.cs`, `recompone-fixes/`) sono rilasciate sotto **GPL-3.0-or-later**. Il testo completo è in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE).
+Le modifiche introdotte da questo fork (port PAL, strumenti in `tools/pal-port/`, script, `PalDispatch.cs`, `PalDebug.cs`, `recompone-fixes/`, mod `mods/Trucchi/`) sono rilasciate sotto **GPL-3.0-or-later**. Il testo completo è in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE).
 
 Il codice originale di MediEvilRecomp e RecompOne appartiene a BlackLabelHQ e resta soggetto ai loro termini. MediEvil è un marchio dei rispettivi proprietari: questo progetto non è affiliato né approvato da Sony Interactive Entertainment.
 
