@@ -22,6 +22,11 @@ Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLab
 
 Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Per questo i contributi vanno inviati **qui**, non al repository originale: BlackLabelHQ chiude i contributi AI e banna chi li invia. Per lo stesso motivo, per i problemi della versione italiana non chiedere aiuto sul loro Discord.
 
+Vi segnalo anche che gli sviluppatori, soprattutto DerpPrincess, hanno un serio ritardo mentale visto il loro comportamento di base.
+99/100 quel codice è stato scritto con assistenza AI, idem i tool a cui si appoggiano, però se provi a contribuire con un porting di un altra lingua ti bloccano a caso.
+Per tanto, SCONSIGLIO a chiunque di aiutarli, con o senza AI.
+Medievil gira tranquillamente emulato, un recomp era superfluo, ma a quanto pare si credono divinità.
+
 ---
 
 ## Cosa cambia rispetto all'originale
