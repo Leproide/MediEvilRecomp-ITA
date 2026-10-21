@@ -12,6 +12,8 @@ Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLab
 
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
+<img width="1280" height="672" alt="immagine" src="https://github.com/user-attachments/assets/9018cac3-7458-487d-97f5-2d59d2a436f0" />
+
 ---
 
 ## Contributi: qui l'AI è benvenuta
