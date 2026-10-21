@@ -1,10 +1,10 @@
 {
   "game": {
-    "id": "SCUS-942.27",
+    "id": "SCES-014.94",
     "name": "MediEvil",
     "output": "../generated"
   },
-  "cue": "../disc/MediEvil (USA).cue",
+  "cue": "../disc/MediEvil (Italy).cue",
   "funcMap": "funcmaps/main.json",
   "debug": false,
   "pointerScan": true,
@@ -15,11 +15,31 @@
       "file": "MEDIEVIL.EXE",
       "funcMap": "funcmaps/game.json",
       "skip": 2048,
-      "base": "0x80021CA4",
+      "base": "0x80021D14",
       "functions": [
         {
-          "address": "80099A54",
-          "name": "func_80099A54"
+          "address": "80099ACC",
+          "name": "func_80099ACC"
+        },
+        {
+          "address": "0x80021E34",
+          "name": "func_80021E34"
+        },
+        {
+          "address": "0x80021E5C",
+          "name": "func_80021E5C"
+        },
+        {
+          "address": "0x80022070",
+          "name": "func_80022070"
+        },
+        {
+          "address": "0x80022460",
+          "name": "func_80022460"
+        },
+        {
+          "address": "0x80022AF0",
+          "name": "func_80022AF0"
         }
       ]
     },
@@ -159,7 +179,36 @@
       "file": "OVERLAYS/LANDMAP.BIN",
       "funcMap": "funcmaps/landmap.json",
       "base": "0x80010000",
-      "functions": []
+      "functions": [
+        {
+          "address": "0x80012FDC",
+          "name": "func_80012FDC"
+        },
+        {
+          "address": "0x80013328",
+          "name": "func_80013328"
+        },
+        {
+          "address": "0x80013778",
+          "name": "func_80013778"
+        },
+        {
+          "address": "0x80013798",
+          "name": "func_80013798"
+        },
+        {
+          "address": "0x80013C8C",
+          "name": "func_80013C8C"
+        },
+        {
+          "address": "0x80013D90",
+          "name": "func_80013D90"
+        },
+        {
+          "address": "0x80013FF0",
+          "name": "func_80013FF0"
+        }
+      ]
     },
     {
       "name": "pd",
@@ -221,266 +270,266 @@
   "patches": [
     {
       "overlay": "game",
-      "function": "func_8004F2B0",
+      "function": "func_8004F358",
       "target": "Recompiled.WidescreenPatch.BeginScreenFadeRender",
       "mode": "pre"
     },
     {
       "overlay": "game",
-      "function": "func_8004F2B0",
+      "function": "func_8004F358",
       "target": "Recompiled.WidescreenPatch.EndScreenFadeRender",
       "mode": "post"
     },
     {
       "overlay": "game",
-      "address": "8005176C",
+      "address": "800517DC",
       "target": "Recompiled.TerrainPatch.Capture",
       "mode": "pre"
     },
     {
       "overlay": "game",
-      "address": "80021CEC",
-      "target": "Recompiled.CullPatch.func_80021CEC",
+      "address": "80021D5C",
+      "target": "Recompiled.CullPatch.func_80021D5C",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "80021DEC",
-      "target": "Recompiled.CullPatch.func_80021DEC",
+      "address": "80021E5C",
+      "target": "Recompiled.CullPatch.func_80021E5C",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "80022000",
-      "target": "Recompiled.CullPatch.func_80022000",
+      "address": "80022070",
+      "target": "Recompiled.CullPatch.func_80022070",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800223F0",
-      "target": "Recompiled.CullPatch.func_800223F0",
+      "address": "80022460",
+      "target": "Recompiled.CullPatch.func_80022460",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "80024A90",
-      "target": "Recompiled.CullPatch.func_80024A90",
+      "address": "80024B00",
+      "target": "Recompiled.CullPatch.func_80024B00",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "80025260",
-      "target": "Recompiled.CullPatch.func_80025260",
+      "address": "800252D0",
+      "target": "Recompiled.CullPatch.func_800252D0",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "8009A4C8",
-      "target": "Recompiled.CullPatch.func_8009A4C8",
+      "address": "8009A540",
+      "target": "Recompiled.CullPatch.func_8009A540",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "8009A61C",
-      "target": "Recompiled.CullPatch.func_8009A61C",
+      "address": "8009A694",
+      "target": "Recompiled.CullPatch.func_8009A694",
       "mode": "replace"
     },
     {
       "overlay": "tl",
-      "address": "80010808",
-      "target": "Recompiled.CullPatch.func_80010808_tl",
+      "address": "80010800",
+      "target": "Recompiled.CullPatch.func_80010800_tl",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B0068",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0068",
+      "address": "800B00E4",
+      "target": "Recompiled.EntityFloatFunctions.func_800B00E4",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B0240",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0240",
+      "address": "800B02BC",
+      "target": "Recompiled.EntityFloatFunctions.func_800B02BC",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B0458",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0458",
+      "address": "800B04D4",
+      "target": "Recompiled.EntityFloatFunctions.func_800B04D4",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B065C",
-      "target": "Recompiled.EntityFloatFunctions.func_800B065C",
+      "address": "800B06D8",
+      "target": "Recompiled.EntityFloatFunctions.func_800B06D8",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B0900",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0900",
+      "address": "800B097C",
+      "target": "Recompiled.EntityFloatFunctions.func_800B097C",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B0AC0",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0AC0",
+      "address": "800B0B3C",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0B3C",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B0CB8",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0CB8",
+      "address": "800B0D34",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0D34",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B0EA4",
-      "target": "Recompiled.EntityFloatFunctions.func_800B0EA4",
+      "address": "800B0F20",
+      "target": "Recompiled.EntityFloatFunctions.func_800B0F20",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B59C8",
-      "target": "Recompiled.EntityFloatFunctions.func_800B59C8",
+      "address": "800B5A44",
+      "target": "Recompiled.EntityFloatFunctions.func_800B5A44",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B5DA4",
-      "target": "Recompiled.EntityFloatFunctions.func_800B5DA4",
+      "address": "800B5E20",
+      "target": "Recompiled.EntityFloatFunctions.func_800B5E20",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B6238",
-      "target": "Recompiled.EntityFloatFunctions.func_800B6238",
+      "address": "800B62B4",
+      "target": "Recompiled.EntityFloatFunctions.func_800B62B4",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B6724",
-      "target": "Recompiled.EntityFloatFunctions.func_800B6724",
+      "address": "800B67A0",
+      "target": "Recompiled.EntityFloatFunctions.func_800B67A0",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B6E70",
-      "target": "Recompiled.EntityFloatFunctions.func_800B6E70",
+      "address": "800B6EEC",
+      "target": "Recompiled.EntityFloatFunctions.func_800B6EEC",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B7224",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7224",
+      "address": "800B72A0",
+      "target": "Recompiled.EntityFloatFunctions.func_800B72A0",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B76BC",
-      "target": "Recompiled.EntityFloatFunctions.func_800B76BC",
+      "address": "800B7738",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7738",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B7A04",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7A04",
+      "address": "800B7A80",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7A80",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B7DBC",
-      "target": "Recompiled.EntityFloatFunctions.func_800B7DBC",
+      "address": "800B7E38",
+      "target": "Recompiled.EntityFloatFunctions.func_800B7E38",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B8288",
-      "target": "Recompiled.EntityFloatFunctions.func_800B8288",
+      "address": "800B8304",
+      "target": "Recompiled.EntityFloatFunctions.func_800B8304",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B89A8",
-      "target": "Recompiled.EntityFloatFunctions.func_800B89A8",
+      "address": "800B8A24",
+      "target": "Recompiled.EntityFloatFunctions.func_800B8A24",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B906C",
-      "target": "Recompiled.EntityFloatFunctions.func_800B906C",
+      "address": "800B90E8",
+      "target": "Recompiled.EntityFloatFunctions.func_800B90E8",
       "mode": "replace"
     },
     {
       "overlay": "landmap",
-      "address": "80012B38",
-      "target": "Recompiled.LandMapPatch.func_80012B38",
+      "address": "80012BBC",
+      "target": "Recompiled.LandMapPatch.func_80012BBC",
       "mode": "replace"
     },
     {
       "overlay": "landmap",
-      "address": "80012EEC",
-      "target": "Recompiled.LandMapPatch.func_80012EEC",
+      "address": "80012F70",
+      "target": "Recompiled.LandMapPatch.func_80012F70",
       "mode": "replace"
     },
     {
       "overlay": "landmap",
-      "address": "80012F58",
-      "target": "Recompiled.LandMapPatch.func_80012F58_landmap",
+      "address": "80012FDC",
+      "target": "Recompiled.LandMapPatch.func_80012FDC_landmap",
       "mode": "replace"
     },
     {
       "overlay": "landmap",
-      "address": "800132A4",
-      "target": "Recompiled.LandMapPatch.func_800132A4_landmap",
+      "address": "80013328",
+      "target": "Recompiled.LandMapPatch.func_80013328_landmap",
       "mode": "replace"
     },
     {
       "overlay": "landmap",
-      "address": "80013BB8",
-      "target": "Recompiled.LandMapPatch.func_80013BB8",
+      "address": "80013C3C",
+      "target": "Recompiled.LandMapPatch.func_80013C3C",
       "mode": "replace"
     },
     {
       "overlay": "landmap",
-      "address": "80013C08",
-      "target": "Recompiled.LandMapPatch.func_80013C08",
+      "address": "80013C8C",
+      "target": "Recompiled.LandMapPatch.func_80013C8C",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "8009FD78",
+      "address": "8009FDF4",
       "target": "Recompiled.TerrainPatch.PrepareFrame",
       "mode": "pre"
     },
     {
       "overlay": "game",
-      "address": "8009F2F4",
+      "address": "8009F370",
       "target": "Recompiled.TerrainPatch.ReleaseViewport",
       "mode": "pre"
     },
     {
       "overlay": "game",
-      "address": "800B36CC",
-      "target": "Recompiled.CullPatch.func_800B36CC",
+      "address": "800B3748",
+      "target": "Recompiled.CullPatch.func_800B3748",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B3FAC",
-      "target": "Recompiled.CullPatch.func_800B3FAC",
+      "address": "800B4028",
+      "target": "Recompiled.CullPatch.func_800B4028",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800B41C8",
-      "target": "Recompiled.CullPatch.func_800B41C8",
+      "address": "800B4244",
+      "target": "Recompiled.CullPatch.func_800B4244",
       "mode": "replace"
     },
     {
       "overlay": "game",
-      "address": "800A105C",
-      "target": "Recompiled.CullPatch.func_800A105C",
+      "address": "800A10D8",
+      "target": "Recompiled.CullPatch.func_800A10D8",
       "mode": "replace"
     }
   ],
@@ -490,7 +539,7 @@
       "overlay": "game",
       "comment": "the game uses a fixed table of 100 grid units, and there is an array right after it that wont let me expand it for widescreen, this will put it on another location so i can increase the size",
       "name": "gapsPolySquaresCaptured",
-      "address": "800EEA24",
+      "address": "800EEC88",
       "size": "0x194",
       "to": "80300000"
     }

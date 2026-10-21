@@ -1,33 +1,41 @@
 @echo off
-title MediEvilRecomp 
+REM ==================================================================================================
+REM MediEvilRecomp ITA - avvio (versione PAL italiana, SCES-01494)
+REM Basato su windows_run.bat di BlackLabelHQ.
+REM Modifiche per il port PAL: Author: https://github.com/Leproide - GPL-3.0-or-later
+REM ==================================================================================================
+title MediEvilRecomp ITA
 
-REM ============================================= Credits =============================================
+REM ============================================= Crediti =============================================
 	echo ========
-	echo Credits:
+	echo Crediti:
 	echo ========
 	echo.
-	echo This project was made possible by:
+	echo Progetto originale MediEvilRecomp:
 	echo.
-    echo	BlackLabelHQ:
+	echo	BlackLabelHQ:
 	echo	- Derp Princess
 	echo	- flaffymg
 	echo.
-REM =================================================================================================
+	echo Port PAL italiano:
+	echo	- https://github.com/Leproide
+	echo.
+REM ===================================================================================================
 
-REM ========================================= Run MediEvilRecomp ====================================
+REM ========================================= Avvia MediEvilRecomp ====================================
 echo.
-echo ^> Running MediEvilRecomp...
+echo ^> Avvio MediEvilRecomp ITA...
 
 if not exist "generated\" (
-    echo Initial setup probably wasn't run, so we're running it for you... Aren't we nice?
+    echo La prima compilazione non e' ancora stata fatta: la eseguo adesso.
     echo.
-    echo Running windows_initial_build.bat...
+    echo Avvio windows_initial_build.bat...
     echo.
     call windows_initial_build.bat nocredits
 
-    REM Stop if the build failed
+    REM Interrompe se la compilazione e' fallita
     if errorlevel 1 (
-        echo Initial build failed.
+        echo Prima compilazione fallita.
         pause
         exit /b 1
     )
@@ -36,5 +44,5 @@ if not exist "generated\" (
 dotnet run
 
 echo.
-REM =================================================================================================
+REM ===================================================================================================
 pause

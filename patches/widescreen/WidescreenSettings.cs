@@ -1,3 +1,7 @@
+// PAL port: addresses/constants rewritten for the PAL release by
+// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide
+// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.
+
 using ImGuiNET;
 using RecompOne.Runtime.Hle;
 using RecompOne.Runtime.Host.Window;

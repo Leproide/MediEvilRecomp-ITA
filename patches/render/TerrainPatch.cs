@@ -1,3 +1,7 @@
+// PAL port: addresses/constants rewritten for the PAL release by
+// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide
+// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.
+
 using RecompOne.Runtime.Context;
 using RecompOne.Runtime.Events;
 using RecompOne.Runtime.Hle;
@@ -7,7 +11,7 @@ namespace Recompiled;
 
 public static class TerrainPatch
 {
-    const uint FreeTerrData = 0x800EEDC0u;
+    const uint FreeTerrData = 0x800EF024u;
     const uint PrimBuffer0 = FreeTerrData + 0x04u;
     const uint PrimBuffer1 = FreeTerrData + 0x08u;
     const uint CaptureListPtr = FreeTerrData + 0x0Cu;
@@ -19,7 +23,7 @@ public static class TerrainPatch
     const uint BackOfOt = FreeTerrData + 0x2Cu;
     const uint OldViewDistance = FreeTerrData + 0x26u;
     
-    const uint MainViewPortSlot = 0x5E0u;
+    const uint MainViewPortSlot = 0x5D0u;
     const uint VpOtSize = 0x68u;
     const uint VpOtSizeBits = 0x6Au;
     const uint VpOtzShift = 0x6Cu;
@@ -31,7 +35,7 @@ public static class TerrainPatch
     const uint OtBase = 0x803F0000u;
     const uint OtStride = 0x8000u;
     
-    const uint TerrainFog = 0x800F17B8u;
+    const uint TerrainFog = 0x800F1A1Cu;
     const uint FogTablePtr = TerrainFog + 0x00u;
     const uint FogEntries = TerrainFog + 0x04u;
 
@@ -40,7 +44,7 @@ public static class TerrainPatch
     const int FogPadEntries = 64;
     const int FogFull = 0xFFF;
 
-    const uint ViewPlaneSvecs = 0x800EEA04u;
+    const uint ViewPlaneSvecs = 0x800EEC68u;
     const int PlaneHalfWidth = 160;
     const int PlaneHalfHeight = 120;
     const float CaptureOvershoot = 1.25f;

@@ -1,3 +1,7 @@
+// MediEvilRecomp ITA (port PAL italiano): aggiornamenti scaricati dalle release del fork.
+// Modifica: Author: https://github.com/Leproide - GPL-3.0-or-later per la modifica;
+// il resto del file e' codice originale di BlackLabelHQ con i loro termini.
+
 using System;
 using System.Diagnostics;
 using System.Formats.Tar;
@@ -18,7 +22,7 @@ namespace Recompiled;
 
 public static class AutoUpdater //should be generic enough to use on other recomps
 {
-    const string Repo = "BlackLabelHQ/MediEvilRecomp";
+    const string Repo = "Leproide/MediEvilRecomp-ITA"; // fork ITA: non scaricare le build USA dell'originale
     const string ReleasesUrl = "https://github.com/" + Repo + "/releases/latest";
     const string ApiUrl = "https://api.github.com/repos/" + Repo + "/releases/latest";
     const string ApplyArg = "--apply-update";

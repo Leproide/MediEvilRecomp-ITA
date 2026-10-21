@@ -1,3 +1,7 @@
+// PAL port: addresses/constants rewritten for the PAL release by
+// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide
+// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.
+
 using RecompOne.Runtime.Context;
 using RecompOne.Runtime.Memory;
 
@@ -6,16 +10,16 @@ namespace Recompiled;
 //todo: when using no triangle subdivision fix the culling, i havent fixed that yet
 public static class TerrainCapture
 {
-    const uint ViewPlaneSvecs = 0x800EEA04u;
+    const uint ViewPlaneSvecs = 0x800EEC68u;
     const uint SquaresCaptured = 0x80300000u;
-    const uint CurrentLevel = 0x800EEE2Cu;
-    const uint CurrentMap = 0x800EEE7Cu;
-    const uint ViewDistance = 0x800EEDE4u;
+    const uint CurrentLevel = 0x800EF090u;
+    const uint CurrentMap = 0x800EF0E0u;
+    const uint ViewDistance = 0x800EF048u;
 
-    const uint GpCameraTarget = 0x560u;
-    const uint GpProjDepth = 0x5B0u;
-    const uint GpBasePoint = 0x5B4u;
-    const uint GpTitleWorld = 0x648u;
+    const uint GpCameraTarget = 0x550u;
+    const uint GpProjDepth = 0x5A0u;
+    const uint GpBasePoint = 0x5A4u;
+    const uint GpTitleWorld = 0x638u;
 
     const uint CameraMatrix = 0x60u;
     const uint MatrixTranslation = 0x14u;
@@ -71,7 +75,7 @@ public static class TerrainCapture
         int squaresZ = m.ReadU8(grid + GridZSquares);
         if (squaresX is < 1 or > MaxGridRows || squaresZ is < 1 or > MaxGridRows) return false;
 
-        ReadOnlySpan<uint> candidates = [0x5ACu, 0x5BCu, 0x5C0u, 0x5C4u, 0x5C8u];
+        ReadOnlySpan<uint> candidates = [0x59Cu, 0x5ACu, 0x5B0u, 0x5B4u, 0x5B8u];
 
         uint shift = 0u;
         uint len = 0u;

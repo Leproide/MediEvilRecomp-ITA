@@ -1,5 +1,10 @@
 @echo off
-title MediEvilRecomp Initial Build
+REM ==================================================================================================
+REM MediEvilRecomp ITA - prima compilazione (versione PAL italiana, SCES-01494)
+REM Basato su windows_initial_build.bat di BlackLabelHQ.
+REM Modifiche per il port PAL: Author: https://github.com/Leproide - GPL-3.0-or-later
+REM ==================================================================================================
+title MediEvilRecomp ITA - Prima compilazione
 
 REM =============================================== INIT ==============================================
 set "DISC=disc"
@@ -8,74 +13,96 @@ set "RECOMPONE=RecompOne"
 set "RECOMPILER=%RECOMPONE%\RecompOne.Recompiler"
 set "MISSING=0"
 set "MEDIEVILJSON=%CONFIG%/MediEvil.json"
+set "CDFIX=recompone-fixes\cd-whole-sector-mode.patch"
 REM ===================================================================================================
 
-REM ============================================= Credits =============================================
+REM ============================================= Crediti =============================================
 if /I not "%~1"=="nocredits" (
 	echo ========
-	echo Credits:
+	echo Crediti:
 	echo ========
 	echo.
-	echo This project was made possible by:
+	echo Progetto originale MediEvilRecomp:
 	echo.
-    echo	BlackLabelHQ:
+	echo	BlackLabelHQ:
 	echo	- Derp Princess
 	echo	- flaffymg
 	echo.
+	echo Port PAL italiano:
+	echo	- https://github.com/Leproide
+	echo.
 )
 REM ===================================================================================================
 
-REM ================================= Did You Mean To Run This File? ==================================
+REM ============================== Compilazione gia' eseguita? =========================================
 if exist "generated\" (
     echo.
-    echo Note:
-    choice /m "You've probably already initialized this project before. Are you sure you meant to run this?"
+    echo Nota:
+    choice /m "Sembra che il progetto sia gia' stato compilato. Vuoi davvero rieseguire la prima compilazione?"
     if errorlevel 2 (
-        echo Cancelled.
-	echo.
+        echo Annullato.
+        echo.
         pause
-	exit /b 1
+        exit /b 1
     )
 )
 REM ===================================================================================================
 
 echo ============================================================================================
-echo Pull and Initialize Dependencies, Build C# Solutions, and Build from MediEvil.json!
+echo Scarico le dipendenze, compilo RecompOne e genero il codice da MediEvil.json
 echo ============================================================================================
 
-REM ======================================== Update Submodules ========================================
+REM ======================================== Sottomoduli ==============================================
 echo.
-echo ^> Updating Submodules...
+echo ^> Aggiorno i sottomoduli...
 git submodule update --init --recursive >nul 2>&1
 
 if errorlevel 1 (
-    echo Failed to update submodules! The project will not work correctly without them!
+    echo Aggiornamento dei sottomoduli fallito! Senza sottomoduli il progetto non funziona.
     echo.
-    choice /m "Do you want to continue anyway? Hint: Probably not, but if you had them already and they just failed to update..."
+    choice /m "Vuoi continuare lo stesso? Di solito no, a meno che non li avessi gia'."
 
     if errorlevel 2 (
-        echo Cancelled.
-	echo.
+        echo Annullato.
+        echo.
         pause
-	exit /b 1
+        exit /b 1
     )
 
-    echo Continuing anyway... Hopefully it still works!
+    echo Continuo comunque...
 )
 
 echo.
 REM ===================================================================================================
 
-REM ======================================== Check for .NET 10+ ========================================
-echo ^> Checking for .NET 10+...
+REM =================================== Correzione RecompOne (CD) =====================================
+REM Applica la correzione della modalita' "settore intero" del lettore CD al sottomodulo RecompOne.
+REM Se e' gia' applicata non fa nulla.
+echo ^> Correzione RecompOne per il boot PAL...
+git -C "%RECOMPONE%" apply --reverse --check "..\%CDFIX%" >nul 2>&1
+if errorlevel 1 (
+    git -C "%RECOMPONE%" apply "..\%CDFIX%"
+    if errorlevel 1 (
+        echo Impossibile applicare %CDFIX%. Controlla che il sottomodulo RecompOne sia alla versione prevista.
+        pause
+        exit /b 1
+    )
+    echo Correzione applicata.
+) else (
+    echo Correzione gia' presente.
+)
+echo.
+REM ===================================================================================================
+
+REM ======================================== .NET 10 o superiore ======================================
+echo ^> Controllo .NET 10...
 dotnet --list-sdks | findstr /r "^10\." >nul
 
 if errorlevel 1 (
     echo.
     echo ============================================================
-    echo ERROR: .NET 10 SDK or higher is required!
-    echo Please install .NET 10 SDK before continuing.
-    echo Download it from:
+    echo ERRORE: serve l'SDK di .NET 10 o superiore!
+    echo Installalo prima di continuare:
     echo https://dotnet.microsoft.com/download/dotnet/10.0
     echo ============================================================
     echo.
@@ -83,60 +110,70 @@ if errorlevel 1 (
     exit /b 1
 )
 
-echo You have it! Aren't you such a good human?
+echo Trovato.
 echo.
 REM ===================================================================================================
 
-REM ========================================= Build RecompOne =========================================
+REM ========================================= Compila RecompOne =======================================
 echo.
-echo ^> Building RecompOne...
+echo ^> Compilo RecompOne...
 
 dotnet build "%RECOMPONE%\RecompOne.sln"
 
 if errorlevel 1 (
     echo.
-    echo Failed to build RecompOne! That's a huge problem. Can't continue, sorry!
+    echo Compilazione di RecompOne fallita. Impossibile continuare.
     pause
     exit /b 1
 )
 
-echo Build of RecompOne's Recompiler and Runtime complete!
+echo Recompiler e runtime di RecompOne compilati.
 echo.
 REM ===================================================================================================
 
-REM ======================================== Check Disc Files =========================================
+REM ======================================== Controllo file del disco =================================
 echo.
-echo ^> Checking disc files...
+echo ^> Controllo i file del disco...
 
-if not exist "%DISC%\MediEvil (USA) (Track 1)" (
-    echo Missing: MediEvil ^(USA^) ^(Track 1^).bin
+if not exist "%DISC%\MediEvil (Italy) (Track 1).bin" (
+    echo Manca: MediEvil ^(Italy^) ^(Track 1^).bin
     set "MISSING=1"
 )
 
-if not exist "%DISC%\MediEvil (USA) (Track 2)" (
-    echo Missing: MediEvil ^(USA^) ^(Track 1^).bin
+if not exist "%DISC%\MediEvil (Italy) (Track 2).bin" (
+    echo Manca: MediEvil ^(Italy^) ^(Track 2^).bin
     set "MISSING=1"
 )
 
-if not exist "%DISC%\MediEvil (USA).cue" (
-    echo Missing: MediEvil ^(USA^).cue
+if not exist "%DISC%\MediEvil (Italy).cue" (
+    echo Manca: MediEvil ^(Italy^).cue
     set "MISSING=1"
 )
 
+if "%MISSING%"=="1" (
+    echo.
+    echo ============================================================
+    echo ERRORE: file del disco mancanti o con il nome sbagliato.
+    echo Leggi disc\README.md
+    echo ============================================================
+    echo.
+    pause
+    exit /b 1
+)
 
-echo Disc files found and properly named!
+echo File del disco trovati.
 echo.
 REM ===================================================================================================
 
-REM ========================================== Check Config ===========================================
+REM ========================================== Controllo config =======================================
 echo.
-echo ^> Checking configuration file...
+echo ^> Controllo il file di configurazione...
 
 if not exist "%MEDIEVILJSON%" (
     echo.
     echo ============================================================
-    echo ERROR: Missing configuration file!
-    echo Expected:
+    echo ERRORE: file di configurazione mancante!
+    echo Atteso:
     echo %CD%\config\MediEvil.json
     echo ============================================================
     echo.
@@ -144,18 +181,18 @@ if not exist "%MEDIEVILJSON%" (
     exit /b 1
 )
 
-echo Config file found!
+echo Configurazione trovata.
 echo.
 
-REM ======================================== Generate C# Code =========================================
+REM ======================================== Genera il codice C# ======================================
 echo.
-echo ^> Generating Recompiled C# Code
+echo ^> Genero il codice C# ricompilato...
 
 dotnet run --project "%RECOMPILER%" "%MEDIEVILJSON%"
 
 if errorlevel 1 (
     echo.
-    echo Failed to generate C# code!
+    echo Generazione del codice C# fallita.
     pause
     exit /b 1
 )
@@ -163,30 +200,26 @@ if errorlevel 1 (
 echo.
 REM ===================================================================================================
 
-
-REM ========================================= Build MediEvilRecomp ====================================
+REM ========================================= Compila MediEvilRecomp ==================================
 echo.
-echo ^> Building MediEvilRecomp...
+echo ^> Compilo MediEvilRecomp...
 
 dotnet build "%RECOMPONE%\RecompOne.sln"
 
 if errorlevel 1 (
     echo.
-    echo Failed to build MediEvilRecomp! That's a very huge problem. Can't continue, sorry!
+    echo Compilazione di MediEvilRecomp fallita.
     pause
     exit /b 1
 )
 
-echo Build of MediEvilRecomp complete!
+echo Compilazione completata.
 echo.
 REM ===================================================================================================
 
-REM ======================================== How To Run Game ==========================================
+REM ======================================== Come avviare il gioco ====================================
 echo.
-echo ^> Running the Game Instructions!
-
-echo Contratulations, you've successfully built MediEvilRecomp! Use windows_run.bat to play the game!
-
+echo Fatto! Usa windows_run.bat per giocare.
 echo.
 REM ===================================================================================================
 

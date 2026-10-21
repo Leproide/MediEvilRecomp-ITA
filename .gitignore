@@ -2,7 +2,8 @@ bin/
 obj/
 publish/
 generated/
-disc/
+disc/*
+!disc/README.md
 *.sav
 settings.json
 interface.ini
