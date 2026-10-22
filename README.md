@@ -12,7 +12,8 @@ Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLab
 
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
-<img width="1280" height="672" alt="immagine" src="https://github.com/user-attachments/assets/9018cac3-7458-487d-97f5-2d59d2a436f0" />
+<img width="1920" height="1032" alt="MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/76ff3ae2-808c-4718-90fa-134b96d0b832" />
+<img width="1920" height="1032" alt="2_MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/7017f74a-eed7-4d3b-8e09-200d7f5ea67f" />
 
 ---
 
@@ -132,6 +133,9 @@ Il gioco ha due menu trucchi integrati, e nel recomp funzionano come sulla conso
 - **Modalità Trucchi Estesa**: Triangolo, Cerchio, Triangolo, Cerchio, Cerchio, Triangolo, Sinistra, Cerchio, Su, Giù, Destra, Cerchio, Sinistra, Sinistra, Triangolo, Destra, Cerchio, Sinistra, Sinistra, Triangolo, Cerchio, Giù, Cerchio, Cerchio, Destra
 
 In alternativa, la mod inclusa **Trucchi (MediEvil ITA)** li attiva dal pannello delle mod, senza combinazioni. I dettagli sono nel [README della mod](mods/Trucchi/README.md).
+
+<img width="1920" height="1032" alt="Trucchi_MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/144797de-3c78-4dd3-a886-1cb8ca9e8337" />
+<img width="1920" height="1032" alt="Trucchi2_MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/0e52fbf0-33db-491f-8d57-0e539577089f" />
 
 ---
 
