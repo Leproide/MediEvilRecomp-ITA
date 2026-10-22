@@ -77,6 +77,8 @@ Questo repository **non contiene i file del gioco** e non ne distribuisce codice
    - genera il codice del gioco dal tuo disco;
    - compila il gioco.
 
+Se non hai la possibilità di ricompilare autonomamente [clicca qui](https://muninn.ovh/medievil_recomp_ita/MediEvilRecomp-ITA.zip)
+
 ### A mano (Windows, Linux, macOS)
 
 Dalla cartella del repository:
