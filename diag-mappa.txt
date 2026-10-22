@@ -1,1 +1,0 @@
-[DiagMappa 0.4] log in D:\Dati\APOCALISSE SE PERDI QUESTO\Repo_GIT\MediEvilRecomp-ITA\diag-mappa.txt | campi trovati: ready=True data=True sync=True
