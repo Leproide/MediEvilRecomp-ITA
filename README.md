@@ -10,6 +10,9 @@ Ricompilazione statica di **MediEvil per PlayStation, versione PAL italiana (SCE
 
 Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLabelHQ/MediEvilRecomp) di **BlackLabelHQ**, che ricompila la versione USA. Tutto il lavoro di base (ricompilazione, patch di rendering e widescreen, runtime RecompOne) è loro. Questo fork lo porta sulla versione italiana.
 
+Pagina del progetto:
+[MediEvil Recomp - ITA](https://muninn.ovh/medievil_recomp_ita)
+
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
 <img width="1920" height="1032" alt="MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/76ff3ae2-808c-4718-90fa-134b96d0b832" />
