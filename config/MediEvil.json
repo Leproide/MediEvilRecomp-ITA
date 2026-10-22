@@ -531,6 +531,71 @@
       "address": "800A10D8",
       "target": "Recompiled.CullPatch.func_800A10D8",
       "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "80065D20",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065D54",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065D88",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065DC0",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065E0C",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065E8C",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80065F8C",
+      "target": "Recompiled.PalCdCallbacks.SyncFromMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB0FC",
+      "target": "Recompiled.PalCdCallbacks.SyncToMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB110",
+      "target": "Recompiled.PalCdCallbacks.SyncToMemory",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800B2284",
+      "target": "Recompiled.PalCdCallbacks.AfterStUnSetRingGame",
+      "mode": "post"
+    },
+    {
+      "address": "801BBF70",
+      "target": "Recompiled.PalCdCallbacks.AfterStUnSetRingMain",
+      "mode": "post"
     }
   ],
   "functions": [],
