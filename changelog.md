@@ -1,3 +1,12 @@
+# MediEvilRecomp ITA - filmati a schermo intero
+
+## Novità
+- Nuova mod opzionale **Filmati a schermo intero** (`mods/FilmatiSchermoIntero/`): durante i filmati mostra solo l'area del video (320×176) e la adatta alla finestra senza deformarla. Si attiva dal pannello delle mod e non richiede di ricompilare.
+
+Autore: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ITA - filmati e dissolvenze
 
 ## Correzioni

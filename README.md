@@ -39,6 +39,10 @@ Segnalo che gli sviluppatori del progetto originali sono estremamente ostili, co
 | Patch C# (`patches/`) | indirizzi USA | tradotte: indirizzi, offset `$gp`, costanti a 50 Hz, 256 righe |
 | `patches/PalDispatch.cs` | — | chiamate agli overlay per indirizzo |
 | `patches/PalDebug.cs` | — | log di debug attivabili con `MEDIEVIL_DEBUG` |
+| `patches/PalCdCallbacks.cs` | — | callback del CD allineati con RecompOne: mappa fluida dopo la Sala degli Eroi e livello che si carica |
+| `patches/PalMovies.cs` | — | filmati non più saltati dopo un secondo (issue #5 dell'originale) |
+| `patches/widescreen/IrisFadePatch.cs` | — | dissolvenza a iride fino agli angoli in widescreen (issue #7 dell'originale) |
+| `patches/PalDisplay.cs` | — | 256 righe PAL: filmati centrati invece che spostati in basso |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
 | Script Windows | nomi file USA, in inglese | nomi file `(Italy)`, in italiano, correzione applicata in automatico |
 | Aggiornamento automatico | release di BlackLabelHQ | release di questo fork |
@@ -144,6 +148,12 @@ In alternativa, la mod inclusa **Trucchi (MediEvil ITA)** li attiva dal pannello
 
 ---
 
+## Filmati a schermo intero
+
+La mod opzionale **Filmati a schermo intero** ingrandisce i filmati: invece di vederli piccoli al centro del riquadro 4:3, mostra solo l'area del video e la adatta alla finestra senza deformarla. Si attiva dal pannello delle mod. I dettagli sono nel [README della mod](mods/FilmatiSchermoIntero/README.md).
+
+---
+
 ## Strumenti di porting
 
 In [`tools/pal-port/`](tools/pal-port/) ci sono gli script Python che hanno generato questo port a partire dal progetto USA:
@@ -162,6 +172,7 @@ config/            configurazione del recompiler e funcmap (PAL)
 patches/           patch C# di rendering, widescreen e supporto PAL
 recompone-fixes/   correzioni da applicare al sottomodulo RecompOne
 mods/Trucchi/      mod per attivare i menu trucchi del gioco
+mods/FilmatiSchermoIntero/  mod opzionale per i filmati a schermo intero
 disc/              qui vanno i file del tuo disco (non inclusi)
 tools/pal-port/    strumenti di porting e report
 misc/              aggiornamento automatico
@@ -180,7 +191,7 @@ assets/            icona e lingue dell'interfaccia
 
 ## Licenza
 
-Le modifiche introdotte da questo fork (port PAL, strumenti in `tools/pal-port/`, script, `PalDispatch.cs`, `PalDebug.cs`, `recompone-fixes/`, mod `mods/Trucchi/`) sono rilasciate sotto **GPL-3.0-or-later**. Il testo completo è in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE).
+Le modifiche introdotte da questo fork (port PAL, strumenti in `tools/pal-port/`, script, `PalDispatch.cs`, `PalDebug.cs`, `recompone-fixes/`, mod `mods/Trucchi/` e `mods/FilmatiSchermoIntero/`, patch PAL in `patches/`) sono rilasciate sotto **GPL-3.0-or-later**. Il testo completo è in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE).
 
 Il codice originale di MediEvilRecomp e RecompOne appartiene a BlackLabelHQ e resta soggetto ai loro termini. MediEvil è un marchio dei rispettivi proprietari: questo progetto non è affiliato né approvato da Sony Interactive Entertainment.
 
