@@ -596,6 +596,46 @@
       "address": "801BBF70",
       "target": "Recompiled.PalCdCallbacks.AfterStUnSetRingMain",
       "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "80079D90",
+      "target": "Recompiled.PalMovies.func_80079D90",
+      "mode": "replace"
+    },
+    {
+      "overlay": "game",
+      "address": "8004EEE8",
+      "target": "Recompiled.IrisFadePatch.Begin",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8004EEE8",
+      "target": "Recompiled.IrisFadePatch.End",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "8009C990",
+      "target": "Recompiled.PalDisplay.BeforePutDispEnv",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8009C990",
+      "target": "Recompiled.PalDisplay.AfterPutDispEnv",
+      "mode": "post"
+    },
+    {
+      "address": "801B2A8C",
+      "target": "Recompiled.PalDisplay.BeforePutDispEnv",
+      "mode": "pre"
+    },
+    {
+      "address": "801B2A8C",
+      "target": "Recompiled.PalDisplay.AfterPutDispEnv",
+      "mode": "post"
     }
   ],
   "functions": [],
