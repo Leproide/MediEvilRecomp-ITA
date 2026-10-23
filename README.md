@@ -43,6 +43,7 @@ Segnalo che gli sviluppatori del progetto originali sono estremamente ostili, co
 | `patches/PalMovies.cs` | — | filmati non più saltati dopo un secondo (issue #5 dell'originale) |
 | `patches/widescreen/IrisFadePatch.cs` | — | dissolvenza a iride fino agli angoli in widescreen (issue #7 dell'originale) |
 | `patches/PalDisplay.cs` | — | 256 righe PAL: filmati centrati invece che spostati in basso |
+| `patches/PalXaSpeech.cs` | — | i dialoghi non si chiudono più da soli quando parte un discorso mentre suona la musica |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
 | Script Windows | nomi file USA, in inglese | nomi file `(Italy)`, in italiano, correzione applicata in automatico |
 | Aggiornamento automatico | release di BlackLabelHQ | release di questo fork |

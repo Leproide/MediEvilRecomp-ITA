@@ -44,7 +44,10 @@ public class FilmatiSchermoInteroMod : IMod
 
     // offset (rispetto a $gp) del puntatore al descrittore del filmato in corso:
     // descrittore +6 = y del video, +0xA = altezza. 0 = nessun filmato.
-    static uint _infoSlot;
+    // Un valore separato per ciascun eseguibile: il lettore dell'eseguibile di avvio
+    // puo' non "tornare" mai (l'avvio passa direttamente a MEDIEVIL.EXE), quindi il suo
+    // stato non deve mai essere usato per le PutDispEnv del gioco.
+    static uint _gameInfoSlot, _mainInfoSlot;
     static bool _aspectChanged;
     static float _savedAspect;
 
@@ -61,7 +64,7 @@ public class FilmatiSchermoInteroMod : IMod
 
     public void OnUnload()
     {
-        _infoSlot = 0;
+        _gameInfoSlot = _mainInfoSlot = 0;
         RestoreAspect();
     }
 
@@ -74,47 +77,51 @@ public class FilmatiSchermoInteroMod : IMod
 
     // lettore filmati del gioco (MEDIEVIL.EXE): descrittore a $gp+0x764
     [PreHook("game", Address = 0x80079660u)]
-    public static void GameMovieStart(CpuContext c, IMemory m) => _infoSlot = 0x764u;
+    public static void GameMovieStart(CpuContext c, IMemory m) => _gameInfoSlot = 0x764u;
 
     [PostHook("game", Address = 0x80079660u)]
-    public static void GameMovieEnd(CpuContext c, IMemory m) => MovieEnd();
+    public static void GameMovieEnd(CpuContext c, IMemory m) { _gameInfoSlot = 0; MovieEnd(); }
 
     // lettore filmati dell'eseguibile di avvio (introduzione): descrittore a $gp+0x48
     [PreHook("main", Address = 0x801B0978u)]
-    public static void MainMovieStart(CpuContext c, IMemory m) => _infoSlot = 0x48u;
+    public static void MainMovieStart(CpuContext c, IMemory m) => _mainInfoSlot = 0x48u;
 
     [PostHook("main", Address = 0x801B0978u)]
-    public static void MainMovieEnd(CpuContext c, IMemory m) => MovieEnd();
+    public static void MainMovieEnd(CpuContext c, IMemory m) { _mainInfoSlot = 0; MovieEnd(); }
 
     static void MovieEnd()
     {
-        _infoSlot = 0;
         RestoreAspect();
         _info = "nessun filmato";
     }
 
     [PreHook("game", Address = 0x8009C990u)]
-    public static void GameBefore(CpuContext c, IMemory m) => BeforePutDispEnv(c, m);
+    public static void GameBefore(CpuContext c, IMemory m)
+    {
+        _mainInfoSlot = 0;   // il gioco e' partito: il lettore di avvio non e' piu' attivo
+        BeforePutDispEnv(c, m, _gameInfoSlot);
+    }
 
     [PostHook("game", Address = 0x8009C990u)]
     public static void GameAfter(CpuContext c, IMemory m) => AfterPutDispEnv(m);
 
     [PreHook("main", Address = 0x801B2A8Cu)]
-    public static void MainBefore(CpuContext c, IMemory m) => BeforePutDispEnv(c, m);
+    public static void MainBefore(CpuContext c, IMemory m) => BeforePutDispEnv(c, m, _mainInfoSlot);
 
     [PostHook("main", Address = 0x801B2A8Cu)]
     public static void MainAfter(CpuContext c, IMemory m) => AfterPutDispEnv(m);
 
-    static void BeforePutDispEnv(CpuContext c, IMemory m)
+    static void BeforePutDispEnv(CpuContext c, IMemory m, uint infoSlot)
     {
         _patched = false;
-        if (!Enabled || _infoSlot == 0)
+        if (!Enabled || infoSlot == 0)
         {
             RestoreAspect();
+            _info = "nessun filmato";
             return;
         }
 
-        uint info = m.ReadU32(c.GP + _infoSlot);
+        uint info = m.ReadU32(c.GP + infoSlot);
         if ((info & 0xFF000000u) != 0x80000000u) return;
         int y = m.ReadU16(info + 6u);
         int h = m.ReadU16(info + 0xAu);

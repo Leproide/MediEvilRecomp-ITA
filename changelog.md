@@ -1,3 +1,14 @@
+# MediEvilRecomp ITA - dialoghi XA e filmati a schermo intero
+
+## Correzioni
+- Il primo discorso del gargoyle nella cripta si chiudeva da solo se il filmato iniziale veniva saltato subito: un marcatore di fine traccia della musica veniva preso per la fine del discorso. Nuovo `patches/PalXaSpeech.cs`, agganciato in `config/MediEvil.json`.
+- Mod **Filmati a schermo intero** 1.1: saltando un filmato dopo qualche secondo, il gioco poteva restare con l'immagine tagliata. Ora lo stato del lettore di avvio e quello del gioco sono separati.
+- Dopo l'aggiornamento serve rigenerare il codice: cancella la cartella `generated` e rilancia `windows_initial_build.bat`.
+
+Autore: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ITA - filmati a schermo intero
 
 ## Novità

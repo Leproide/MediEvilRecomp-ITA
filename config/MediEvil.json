@@ -636,6 +636,36 @@
       "address": "801B2A8C",
       "target": "Recompiled.PalDisplay.AfterPutDispEnv",
       "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "8006D0D8",
+      "target": "Recompiled.PalXaSpeech.TrackSelected",
+      "mode": "post"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB124",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB260",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "800AB394",
+      "target": "Recompiled.PalXaSpeech.OnCdCommand",
+      "mode": "pre"
+    },
+    {
+      "overlay": "game",
+      "address": "8006D7A4",
+      "target": "Recompiled.PalXaSpeech.DataCallback",
+      "mode": "pre"
     }
   ],
   "functions": [],
