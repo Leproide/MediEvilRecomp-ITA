@@ -152,6 +152,8 @@ In alternativa, la mod inclusa **Trucchi (MediEvil ITA)** li attiva dal pannello
 
 La mod opzionale **Filmati a schermo intero** ingrandisce i filmati: invece di vederli piccoli al centro del riquadro 4:3, mostra solo l'area del video e la adatta alla finestra senza deformarla. Si attiva dal pannello delle mod. I dettagli sono nel [README della mod](mods/FilmatiSchermoIntero/README.md).
 
+<img width="1920" height="1080" alt="immagine" src="https://github.com/user-attachments/assets/dd6fb230-6839-4da4-ad41-76bc2b32bdd0" />
+
 ---
 
 ## Strumenti di porting
