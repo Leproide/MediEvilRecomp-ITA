@@ -178,6 +178,8 @@ mods/Trucchi/      mod per attivare i menu trucchi del gioco
 mods/FilmatiSchermoIntero/  mod opzionale per i filmati a schermo intero
 disc/              qui vanno i file del tuo disco (non inclusi)
 tools/pal-port/    strumenti di porting e report
+tools/pal-port/Debug Mod/  mod di diagnostica usate per trovare i bug (zip, non attive)
+BACKUP_Dipendenze/ copia di riserva di RecompOne e ShaderMod
 misc/              aggiornamento automatico
 assets/            icona e lingue dell'interfaccia
 ```
