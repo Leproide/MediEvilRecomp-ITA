@@ -43,6 +43,7 @@ Segnalo che gli sviluppatori del progetto originali sono estremamente ostili, co
 | `patches/PalMovies.cs` | — | filmati non più saltati dopo un secondo (issue #5 dell'originale) |
 | `patches/widescreen/IrisFadePatch.cs` | — | dissolvenza a iride fino agli angoli in widescreen (issue #7 dell'originale) |
 | `patches/PalDisplay.cs` | — | 256 righe PAL: filmati centrati invece che spostati in basso |
+| `patches/PalLibCrypt.cs` | — | protezione LibCrypt con un dump bin/cue: il Mausoleo in Cima alla Collina si apre |
 | `patches/PalXaSpeech.cs` | — | i dialoghi non si chiudono più da soli quando parte un discorso mentre suona la musica |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
 | Script Windows | nomi file USA, in inglese | nomi file `(Italy)`, in italiano, correzione applicata in automatico |

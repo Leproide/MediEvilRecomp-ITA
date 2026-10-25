@@ -1,3 +1,15 @@
+# MediEvilRecomp ITA - Mausoleo e LibCrypt
+
+## Correzioni
+- Il livello **Il Mausoleo in Cima alla Collina** non si apriva e il gioco restava sulla schermata con il CD e il punto esclamativo. Il disco PAL è protetto con LibCrypt: dalla mappa il gioco controlla 16 settori del disco e, da quelli con il sottocodice modificato, ricava la chiave che decifra l'inizio dei dati del Mausoleo in `MEDRES.MWD`. Un dump bin/cue non ha il sottocodice, quindi la chiave risultava 0 e i dati restavano cifrati.
+- Nuovo `patches/PalLibCrypt.cs`: sui settori protetti fa riportare a GetlocP la posizione del settore precedente, come fa il lettore reale con un sottocodice non valido. L'elenco dei settori di SCES-01494 è incluso; se in `disc` c'è un file `.sbi` o `.lsd` viene usato quello. Agganciato in `config/MediEvil.json`.
+- Corretti i commenti di `PalCdCallbacks.cs`: la macchina a stati a 0x80065D20 è il controllo LibCrypt, non la musica XA.
+- Dopo l'aggiornamento serve rigenerare il codice: cancella la cartella `generated` e rilancia `windows_initial_build.bat`, una volta completato lancia `windows_run.bat`
+
+Autore: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ITA - dialoghi XA e filmati a schermo intero
 
 ## Correzioni
