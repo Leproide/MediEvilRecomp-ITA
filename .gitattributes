@@ -1,0 +1,2 @@
+# Gli script Linux devono avere fine riga LF anche se il repo viene clonato su Windows
+*.sh text eol=lf

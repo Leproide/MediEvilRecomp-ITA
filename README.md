@@ -46,7 +46,7 @@ Segnalo che gli sviluppatori del progetto originali sono estremamente ostili, co
 | `patches/PalLibCrypt.cs` | — | protezione LibCrypt con un dump bin/cue: il Mausoleo in Cima alla Collina si apre |
 | `patches/PalXaSpeech.cs` | — | i dialoghi non si chiudono più da soli quando parte un discorso mentre suona la musica |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
-| Script Windows | nomi file USA, in inglese | nomi file `(Italy)`, in italiano, correzione applicata in automatico |
+| Script di compilazione | solo Windows, nomi file USA, in inglese | Windows e Linux (`linux_*.sh`), nomi file `(Italy)`, in italiano, correzione applicata in automatico |
 | Aggiornamento automatico | release di BlackLabelHQ | release di questo fork |
 | `tools/pal-port/` | — | strumenti che hanno generato il port, con verifica |
 
@@ -88,6 +88,20 @@ Questo repository **non contiene i file del gioco** e non ne distribuisce codice
 
 Se non hai la possibilità di ricompilare autonomamente [clicca qui](https://muninn.ovh/medievil_recomp_ita/MediEvilRecomp-ITA.zip)
 
+### Linux
+
+Servono `git` e l'[SDK di .NET 10](https://dotnet.microsoft.com/download/dotnet/10.0) (su molte distribuzioni il pacchetto `dotnet-sdk-10.0`).
+
+1. Clona il repository e copia in `disc/` i file del disco con gli stessi nomi indicati sopra. Su Linux maiuscole e minuscole contano.
+2. Dalla cartella del repository:
+   ```
+   chmod +x linux_initial_build.sh linux_run.sh
+   ./linux_initial_build.sh
+   ```
+   Lo script fa gli stessi passaggi della versione Windows.
+
+`run.sh` è il lanciatore del progetto originale per una build Linux già pronta (eseguibile `medievil` nella stessa cartella): non compila nulla.
+
 ### A mano (Windows, Linux, macOS)
 
 Dalla cartella del repository:
@@ -108,11 +122,12 @@ Il comando `git apply` serve solo la prima volta. Se la correzione è già appli
 
 - **Windows:** `windows_run.bat`. Se il gioco non è ancora compilato, la prima compilazione parte da sola.
 - **Avvio rapido senza ricompilare:** `windows_run_no_build.bat`.
+- **Linux:** `./linux_run.sh` (compila al primo avvio), oppure `./linux_run.sh --no-build`.
 - **Da terminale:** `dotnet run`.
 
 Se il gioco chiede il disco, seleziona `disc\MediEvil (Italy).cue`.
 
-Dopo un aggiornamento di `config/` va rigenerato il codice. Cancella la cartella `generated` e rilancia `windows_initial_build.bat`.
+Dopo un aggiornamento di `config/` va rigenerato il codice. Cancella la cartella `generated` e rilancia `windows_initial_build.bat` (Linux: `./linux_initial_build.sh`).
 
 ---
 

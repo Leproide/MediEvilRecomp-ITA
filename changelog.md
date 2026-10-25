@@ -1,3 +1,13 @@
+# MediEvilRecomp ITA - script per Linux
+
+## Novità
+- Nuovi `linux_initial_build.sh` e `linux_run.sh`: stessi passaggi degli script Windows (sottomoduli, correzione di RecompOne, controllo di .NET 10 e dei file del disco, generazione e compilazione). `./linux_run.sh --no-build` avvia senza ricompilare.
+- `.gitattributes`: gli script `.sh` mantengono la fine riga LF anche se il repository viene clonato su Windows.
+
+Autore: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ITA - Mausoleo e LibCrypt
 
 ## Correzioni
