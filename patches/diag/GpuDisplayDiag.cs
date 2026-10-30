@@ -21,7 +21,7 @@
 // solo con risoluzione interna maggiore di 1x. Ad ogni cambiamento scrive nel log:
 //  - le due aree di schermo note al runtime (GpuHle, una per buffer);
 //  - i render target ad alta risoluzione di GlCore (privati: letti per riflessione);
-//  - l'area di clip di ogni nuova DRAWENV.
+//  - righe mostrate dalla GPU e modo video di LibGpu (0 NTSC, 1 PAL).
 // Non modifica niente. Righe "[GpuDiag]", massimo 600.
 
 using System.Reflection;
@@ -35,7 +35,7 @@ public static class GpuDisplayDiag
 {
     static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
     static int _lines;
-    static string _lastState = "", _lastClip = "";
+    static string _lastState = "";
     static object? _core;
     static FieldInfo? _rtsField;
     static bool _searched;
@@ -49,16 +49,7 @@ public static class GpuDisplayDiag
     {
         if (!DiagOn) return;
         Event.AddListener<VSyncEvent>(OnVSync);
-        Event.AddListener<DrawEnvEvent>(OnDrawEnv);
         Event.AddListener<OverlayLoadedEvent>(e => Log($"overlay {e.Name}"));
-    }
-
-    static void OnDrawEnv(DrawEnvEvent e)
-    {
-        var clip = $"clip {e.ClipX},{e.ClipY} {e.ClipW}x{e.ClipH} ofs {e.OfsX},{e.OfsY}";
-        if (clip == _lastClip) return;
-        _lastClip = clip;
-        Log(clip);
     }
 
     static void OnVSync(VSyncEvent e)
@@ -66,7 +57,10 @@ public static class GpuDisplayDiag
         try
         {
             var sb = new StringBuilder();
-            sb.Append($"scala {GlVram.Scale} display {GpuHle.LastDisplayW}x{GpuHle.LastDisplayH} | aree:");
+            var gpu = RecompOne.Runtime.Runtime.Gpu;
+            var mode = typeof(RecompOne.Runtime.Sdk.LibGpu)
+                .GetField("_videoMode", BindingFlags.Static | BindingFlags.NonPublic)?.GetValue(null);
+            sb.Append($"modo {mode} gpu {gpu?.DisplayWidth}x{gpu?.DisplayHeight} scala {GlVram.Scale} mostrato {GpuHle.LastDisplayW}x{GpuHle.LastDisplayH} | aree:");
             for (var i = 0; i < GpuHle.RectCount; i++)
             {
                 var r = GpuHle.GetRect(i);

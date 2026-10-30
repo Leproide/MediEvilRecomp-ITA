@@ -11,6 +11,7 @@ Port PAL della versione 1.0 di MediEvilRecomp (BlackLabelHQ, commit 6383fe8) con
 - Nuovo sistema di impostazioni: le impostazioni precedenti non vengono riprese.
 
 ## Port PAL
+- Immagine tagliata in basso dopo lo skip dei filmati: il runtime 1.0 poteva trovarsi in modo video NTSC e mostrare 226 righe invece di 256. `PalDisplay.cs` rimette il modo PAL prima di ogni PutDispEnv.
 - Mod Hub: ramo `master` del repository ITA (prima cercava `main`, da qui l'errore 404).
 - Colore a 24 bit e "Better rendering" attivi di default.
 - Release automatiche con GitHub Actions (`.github/workflows/release.yml`, `tools/ci/make_disc.py`): Windows, Linux e macOS.
