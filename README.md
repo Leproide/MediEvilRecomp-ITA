@@ -194,6 +194,11 @@ Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo in
 
 Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **Dan's Curse** viene scaricato dagli script di prima compilazione dal repository del suo autore (flaffymg), alla versione fissata, in `shaders/dans-curse-shader`. Non è incluso nel repository perché non ha una licenza che ne permetta la ridistribuzione. Si attiva da **Mods**, nella scheda degli shader.
 
+<img width="1280" height="672" alt="immagine" src="https://github.com/user-attachments/assets/fe5e1d0b-4df4-47cb-ae0e-e2ce565b58b8" />
+
+
+<img width="1280" height="688" alt="immagine" src="https://github.com/user-attachments/assets/e99fad5b-edbd-49cd-a3f2-7243fd80f0c4" />
+
 ---
 
 ## Release automatiche (GitHub Actions)
