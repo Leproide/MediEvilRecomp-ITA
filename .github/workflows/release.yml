@@ -1,0 +1,188 @@
+# SPDX-License-Identifier: GPL-3.0-or-later
+#
+# MediEvilRecomp ITA - compilazione automatica delle release
+# Author: https://github.com/Leproide
+# Basato sul workflow di release di MediEvilRecomp (BlackLabelHQ).
+#
+# Si avvia con un tag "v*" (es. git tag v1.0.0-ita && git push origin v1.0.0-ita) oppure
+# a mano da Actions -> Release -> Run workflow (in quel caso crea solo gli artifact,
+# senza pubblicare la release).
+#
+# Serve un repository PRIVATO con i file estratti dal proprio disco PAL italiano
+# (SYSTEM.CNF, SCES_014.94, MEDIEVIL.EXE, cartella OVERLAYS) e due impostazioni del
+# repository (Settings -> Secrets and variables -> Actions):
+#   - secret   DISC_SOURCE_PAT : token con accesso in lettura a quel repository
+#   - variable DISC_SOURCE_REPO: nome del repository, es. Leproide/MediEvilRecomp-ITA-Disc
+# Il codice del gioco viene generato solo da questi file: musica, filmati e dati dei
+# livelli non servono e restano sul disco di chi gioca.
+
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout MediEvilRecomp ITA
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Checkout file del disco (repository privato)
+        uses: actions/checkout@v4
+        with:
+          repository: ${{ vars.DISC_SOURCE_REPO }}
+          token: ${{ secrets.DISC_SOURCE_PAT }}
+          path: disc-files
+
+      - name: Immagine disco minima
+        run: |
+          pip install --quiet pycdlib
+          python3 tools/ci/make_disc.py disc-files "disc/MediEvil (Italy).cue"
+
+      - name: Correzione RecompOne (lettore CD)
+        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Build recompiler
+        run: dotnet build RecompOne/RecompOne.Recompiler/RecompOne.Recompiler.csproj -c Release
+
+      - name: Generazione del codice
+        run: dotnet run --project RecompOne/RecompOne.Recompiler -c Release --no-build -- config/MediEvil.json
+
+      - name: Upload codice generato
+        uses: actions/upload-artifact@v4
+        with:
+          name: generated-source
+          path: generated/
+          retention-days: 1
+
+  build:
+    needs: [generate]
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - rid: win-x64
+            asset: windows-x64
+            archive: zip
+            outputType: WinExe
+          - rid: win-arm64
+            asset: windows-arm64
+            archive: zip
+            outputType: WinExe
+          - rid: linux-x64
+            asset: linux-x64
+            archive: tar
+            outputType: Exe
+          - rid: osx-x64
+            asset: macos-x64
+            archive: zip
+            outputType: Exe
+          - rid: osx-arm64
+            asset: macos-arm64
+            archive: zip
+            outputType: Exe
+    steps:
+      - name: Checkout MediEvilRecomp ITA
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Correzione RecompOne (lettore CD)
+        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+
+      - name: Download codice generato
+        uses: actions/download-artifact@v4
+        with:
+          name: generated-source
+          path: generated
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '10.0.x'
+
+      - name: Publish (framework-dependent, ReadyToRun)
+        run: >
+          dotnet publish RecompOne.MediEvil.csproj -c Release
+          -r ${{ matrix.rid }}
+          --self-contained false
+          -p:PublishSingleFile=false
+          -p:PublishReadyToRun=true
+          -p:OutputType=${{ matrix.outputType }}
+          -p:UseRidGraph=true
+          -p:InformationalVersion=${{ github.ref_name }}
+          -p:NoWarn=0162
+          -o publish/${{ matrix.rid }}
+
+      - name: Lanciatore Linux
+        if: startsWith(matrix.rid, 'linux')
+        run: |
+          cp run.sh "publish/${{ matrix.rid }}/run.sh"
+          chmod +x "publish/${{ matrix.rid }}/run.sh"
+          chmod +x "publish/${{ matrix.rid }}/medievil"
+
+      - name: Mod incluse e istruzioni
+        run: |
+          rsync -a --exclude '.git*' --exclude '.cache' mods/ "publish/${{ matrix.rid }}/mods/"
+          mkdir -p "publish/${{ matrix.rid }}/disc"
+          cp disc/README.md "publish/${{ matrix.rid }}/disc/README.md"
+          cp README.md changelog.md "publish/${{ matrix.rid }}/"
+          cp tools/pal-port/LICENSE "publish/${{ matrix.rid }}/LICENSE-ITA.txt"
+
+      - name: Pacchetto (zip)
+        if: matrix.archive == 'zip'
+        run: |
+          cd publish/${{ matrix.rid }}
+          zip -qr "../../MediEvilRecomp-ITA-${{ github.ref_name }}-${{ matrix.asset }}.zip" .
+
+      - name: Pacchetto (tar.gz)
+        if: matrix.archive == 'tar'
+        run: |
+          cd publish/${{ matrix.rid }}
+          tar -czf "../../MediEvilRecomp-ITA-${{ github.ref_name }}-${{ matrix.asset }}.tar.gz" .
+
+      - name: Upload pacchetto
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-${{ matrix.asset }}
+          path: MediEvilRecomp-ITA-${{ github.ref_name }}-${{ matrix.asset }}.*
+
+  release:
+    needs: build
+    if: startsWith(github.ref, 'refs/tags/')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout MediEvilRecomp ITA
+        uses: actions/checkout@v4
+
+      - name: Download pacchetti
+        uses: actions/download-artifact@v4
+        with:
+          pattern: package-*
+          path: dist
+          merge-multiple: true
+
+      - name: Note di rilascio (prima sezione di changelog.md)
+        run: |
+          awk 'NR>1 && /^---[[:space:]]*$/ {exit} {print}' changelog.md > release_notes.md
+          [ -s release_notes.md ] || printf 'MediEvilRecomp ITA %s\n' "$GITHUB_REF_NAME" > release_notes.md
+
+      - name: Release su GitHub
+        uses: softprops/action-gh-release@v2
+        with:
+          name: MediEvilRecomp ITA ${{ github.ref_name }}
+          body_path: release_notes.md
+          files: dist/*

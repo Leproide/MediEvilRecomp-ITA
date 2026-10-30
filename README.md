@@ -196,6 +196,17 @@ Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "B
 
 ---
 
+## Release automatiche (GitHub Actions)
+
+`.github/workflows/release.yml` compila Windows (x64, ARM64), Linux x64 e macOS (Intel, Apple Silicon) e pubblica la release quando si pusha un tag `v*` (es. `git tag v1.0.0-ita && git push origin v1.0.0-ita`). Da Actions -> Release -> Run workflow si ottengono solo gli artifact, senza release.
+
+Il workflow ha bisogno dei soli eseguibili del disco (circa 2 MB), presi da un repository **privato**:
+1. Crea un repository privato (es. `MediEvilRecomp-ITA-Disc`) con, nella radice, `SYSTEM.CNF`, `SCES_014.94`, `MEDIEVIL.EXE` e la cartella `OVERLAYS` estratti dal disco PAL italiano. Deve restare privato.
+2. Crea un token (Settings -> Developer settings -> Fine-grained tokens) con accesso in sola lettura (Contents: Read) a quel repository.
+3. In questo repository, Settings -> Secrets and variables -> Actions: secret `DISC_SOURCE_PAT` = il token, variable `DISC_SOURCE_REPO` = `Leproide/MediEvilRecomp-ITA-Disc`.
+
+`tools/ci/make_disc.py` ricostruisce da quei file un'immagine minima per il recompiler. I pacchetti non contengono dati del gioco: chi gioca usa il proprio disco. Le note della release sono la prima sezione di `changelog.md`.
+
 ## Strumenti di porting
 
 In [`tools/pal-port/`](tools/pal-port/) ci sono gli script Python che hanno generato questo port a partire dal progetto USA:
