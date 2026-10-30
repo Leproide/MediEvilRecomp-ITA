@@ -1,6 +1,15 @@
 // PAL port: addresses/constants rewritten for the PAL release by
 // medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide
 // Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.
+//
+// Correzioni PAL ITA (Author: https://github.com/Leproide, GPL-3.0-or-later):
+//  - inquadratura che tremava: se in un frame il gioco non ricalcola la telecamera, la
+//    patch trovava ancora la propria matrice/posizione dell'aggiornamento prima e ci
+//    applicava sopra di nuovo la rotazione (scatto di un frame). Ora la patch ricorda
+//    i valori scritti e in quel caso riparte dai valori originali del gioco;
+//  - avvicinamento ai muri e alle recinzioni: il controllo di collisione che alternava
+//    "colpito/libero" faceva entrare e uscire la telecamera a ogni frame. Ora entra
+//    in fretta ma senza scatti ed esce solo dopo qualche frame senza ostacoli.
 
 using RecompOne.Runtime;
 using RecompOne.Runtime.Context;
@@ -50,7 +59,19 @@ public static class CameraControlPatch
     private static float _heading;
     private static bool _free;
     private static float _reach = 1f;
-    private const float ReachRecover = 0.15f;
+    private const float ReachRecover = 0.12f;
+    private const float ReachApproach = 0.45f;
+    private const int ReachHoldFrames = 8;
+    private static int _reachHold;
+
+    // ultimo aggiornamento: valori originali del gioco e valori scritti dalla patch
+    private static bool _wrote;
+    private static readonly short[] _baseMatrix = new short[9];
+    private static readonly short[] _wroteMatrix = new short[9];
+    private static int _baseX, _baseY, _baseZ, _baseYaw;
+    private static int _wroteX, _wroteY, _wroteZ, _wroteYaw;
+    private static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
+    private static int _staleLogs;
     private static float _idle;
     private static bool _hasLast;
     private static float _lastX, _lastY, _lastZ;
@@ -76,16 +97,42 @@ public static class CameraControlPatch
         var frame = m.ReadU32(viewport + ViewportCamera);
         if (!IsRam(frame)) return;
 
-        var px = (float)(int)m.ReadU32(frame + FramePosition);
-        var py = (float)(int)m.ReadU32(frame + FramePosition + 4);
-        var pz = (float)(int)m.ReadU32(frame + FramePosition + 8);
+        // valori del gioco; se il gioco non ha ricalcolato la telecamera ci sono ancora
+        // quelli scritti da noi: si riparte dagli originali salvati
+        Span<short> gameMatrix = stackalloc short[9];
+        for (var i = 0; i < 9; i++) gameMatrix[i] = (short)m.ReadU16(frame + FrameMatrix + (uint)(i * 2));
+        var rawX = (int)m.ReadU32(frame + FramePosition);
+        var rawY = (int)m.ReadU32(frame + FramePosition + 4);
+        var rawZ = (int)m.ReadU32(frame + FramePosition + 8);
+        var rawYaw = (int)m.ReadU32(frame + FrameYaw);
+        if (_wrote && rawX == _wroteX && rawY == _wroteY && rawZ == _wroteZ && rawYaw == _wroteYaw &&
+            gameMatrix.SequenceEqual((ReadOnlySpan<short>)_wroteMatrix))
+        {
+            if (DiagOn && _staleLogs++ < 40) Console.WriteLine("[CameraControl] telecamera non ricalcolata dal gioco: uso i valori originali");
+            _baseMatrix.CopyTo(gameMatrix);
+            rawX = _baseX;
+            rawY = _baseY;
+            rawZ = _baseZ;
+            rawYaw = _baseYaw;
+        }
+
+        _wrote = false;
+        gameMatrix.CopyTo(_baseMatrix);
+        _baseX = rawX;
+        _baseY = rawY;
+        _baseZ = rawZ;
+        _baseYaw = rawYaw;
+
+        var px = (float)rawX;
+        var py = (float)rawY;
+        var pz = (float)rawZ;
         if (_hasLast && Distance(px - _lastX, py - _lastY, pz - _lastZ) > CutDistance) Release();
         _lastX = px;
         _lastY = py;
         _lastZ = pz;
         _hasLast = true;
 
-        var gameYaw = ((int)m.ReadU32(frame + FrameYaw) >> 16) * (MathF.PI * 2f) / AngleUnits;
+        var gameYaw = (rawYaw >> 16) * (MathF.PI * 2f) / AngleUnits;
         Steer(gameYaw);
         if (MathF.Abs(_yaw) < 1e-4f && MathF.Abs(_pitch) < 1e-4f) return;
 
@@ -94,7 +141,7 @@ public static class CameraControlPatch
         var fz = (float)(int)m.ReadU32(camera + FocusPos + 8) + (int)m.ReadU32(camera + FocalOffset + 8);
 
         Span<float> matrix = stackalloc float[9];
-        for (var i = 0; i < 9; i++) matrix[i] = (short)m.ReadU16(frame + FrameMatrix + (uint)(i * 2)) / 4096f;
+        for (var i = 0; i < 9; i++) matrix[i] = gameMatrix[i] / 4096f;
 
         Span<float> yaw = stackalloc float[9];
         AxisRotation(0f, 1f, 0f, _yaw, yaw);
@@ -119,14 +166,22 @@ public static class CameraControlPatch
         (ox, oy, oz) = Collide(c, m, fx, fy, fz, px - fx, py - fy, pz - fz, ox, oy, oz);
 
         for (var i = 0; i < 9; i++)
-            m.WriteU16(frame + FrameMatrix + (uint)(i * 2), (ushort)(short)Math.Clamp(MathF.Round(rotated[i] * 4096f), -32768f, 32767f));
+        {
+            _wroteMatrix[i] = (short)Math.Clamp(MathF.Round(rotated[i] * 4096f), -32768f, 32767f);
+            m.WriteU16(frame + FrameMatrix + (uint)(i * 2), (ushort)_wroteMatrix[i]);
+        }
 
-        m.WriteU32(frame + FramePosition, (uint)(int)MathF.Round(fx + ox));
-        m.WriteU32(frame + FramePosition + 4, (uint)(int)MathF.Round(fy + oy));
-        m.WriteU32(frame + FramePosition + 8, (uint)(int)MathF.Round(fz + oz));
+        _wroteX = (int)MathF.Round(fx + ox);
+        _wroteY = (int)MathF.Round(fy + oy);
+        _wroteZ = (int)MathF.Round(fz + oz);
+        m.WriteU32(frame + FramePosition, (uint)_wroteX);
+        m.WriteU32(frame + FramePosition + 4, (uint)_wroteY);
+        m.WriteU32(frame + FramePosition + 8, (uint)_wroteZ);
 
         var turn = (int)MathF.Round(_yaw / (MathF.PI * 2f) * AngleUnits);
-        m.WriteU32(frame + FrameYaw, (uint)((int)m.ReadU32(frame + FrameYaw) + (turn << 16)));
+        _wroteYaw = rawYaw + (turn << 16);
+        m.WriteU32(frame + FrameYaw, (uint)_wroteYaw);
+        _wrote = true;
     }
 
     private static bool Scripted(CpuContext c, IMemory m)
@@ -148,7 +203,15 @@ public static class CameraControlPatch
                 target = Math.Clamp(reach - WallMargin, MathF.Min(MinDistance, full), full) / full;
         }
 
-        _reach = target < _reach ? target : _reach + (target - _reach) * ReachRecover;
+        // verso il personaggio: veloce ma graduale; all'indietro solo dopo qualche frame
+        // libero, cosi' un ostacolo che compare e sparisce (recinzioni) non fa pompare
+        if (target < _reach - 0.002f)
+        {
+            _reach += (target - _reach) * ReachApproach;
+            _reachHold = ReachHoldFrames;
+        }
+        else if (_reachHold > 0) _reachHold--;
+        else _reach += (target - _reach) * ReachRecover;
         return (ox * _reach, oy * _reach, oz * _reach);
     }
 
@@ -212,6 +275,7 @@ public static class CameraControlPatch
     private static void Release()
     {
         _reach = 1f;
+        _reachHold = 0;
         _yaw = _pitch = 0f;
         _idle = 0f;
         _free = false;

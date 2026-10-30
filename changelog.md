@@ -1,3 +1,9 @@
+# MediEvilRecomp ITA v1.1.2
+
+- Telecamera libera (levetta destra): niente piu' tremolio. Quando il gioco non ricalcolava la telecamera in un frame, la rotazione veniva applicata due volte; vicino a muri e recinzioni la telecamera entrava e usciva a ogni frame. Ora riparte sempre dai valori del gioco e si avvicina e si allontana dagli ostacoli in modo graduale.
+
+---
+
 # MediEvilRecomp ITA v1.1.1
 
 - Shader **Dan's Curse V2** incluso nei pacchetti: basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte (nebbia lineare e lontana, niente figure squadrate al limite di disegno, foschia a terra con banchi in movimento, ombre senza rumore). Si attiva accendendo la mod **Shaders** dal pannello **Mods**. Consigliato: **Draw distance** a 3x in Settings → Display.
