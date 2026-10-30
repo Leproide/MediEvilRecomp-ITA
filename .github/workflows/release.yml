@@ -143,15 +143,16 @@ jobs:
           cp README.md changelog.md "publish/${{ matrix.rid }}/"
           cp tools/pal-port/LICENSE "publish/${{ matrix.rid }}/LICENSE-ITA.txt"
 
-      # Dan's Curse V2 (GPL-3.0): stessa versione degli script di prima compilazione e del Mod Hub
+      # Dan's Curse V2 (GPL-3.0): ultima versione del ramo main; il commit scaricato
+      # viene scritto nel marcatore del Mod Hub (voce dans-curse-v2-shader)
       - name: Shader Dan's Curse V2
         env:
           DC_REPO: https://github.com/Leproide/DansCurseV2
-          DC_COMMIT: 38b3e13eaa7f4d469b653abe8250994db6d10052
         run: |
           DIR="publish/${{ matrix.rid }}/shaders/dans-curse-v2-shader"
-          git clone -q "$DC_REPO" "$DIR"
-          git -C "$DIR" -c advice.detachedHead=false checkout -q "$DC_COMMIT"
+          git clone -q --depth 1 "$DC_REPO" "$DIR"
+          DC_COMMIT="$(git -C "$DIR" rev-parse HEAD)"
+          echo "Dan's Curse V2: $DC_COMMIT"
           rm -rf "$DIR/.git"
           printf '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%s","Repository":"%s"}' "$DC_COMMIT" "$DC_REPO" > "$DIR/.modhub"
 

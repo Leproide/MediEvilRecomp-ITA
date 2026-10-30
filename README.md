@@ -192,7 +192,7 @@ L'indirizzo dell'hub si imposta in `Program.cs` (`DefaultModHub`) oppure, senza 
 
 Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo inizia con `gitea.` o `forgejo.`. Con altri server git serve il comando `git` installato sul PC di chi gioca. Se l'indirizzo è vuoto, il menu resta disattivato.
 
-Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) è già incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione, alla versione fissata, in `shaders/dans-curse-v2-shader`. Si attiva accendendo la mod **Shaders** dal pannello **Mods**; dal menu **Shaders** si regolano i parametri. Consigliato: **Draw distance** a 3x in Settings → Display.
+Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) è già incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione in `shaders/dans-curse-v2-shader`, sempre all'ultima versione del suo ramo `main`. Si attiva accendendo la mod **Shaders** dal pannello **Mods**; dal menu **Shaders** si regolano i parametri. Consigliato: **Draw distance** a 3x in Settings → Display.
 
 <img width="880" height="690" alt="modhub" src="https://github.com/user-attachments/assets/e05a8519-f56d-405c-8f2f-099e490f5747" />
 

@@ -119,18 +119,17 @@ dotnet build "$RECOMPONE/RecompOne.sln" || fail "compilazione di MediEvilRecomp 
 echo "Compilazione completata."
 
 # ------------------------------------------------------------------ shader Dan's Curse V2 (opzionale)
-# Dan's Curse V2 (GPL-3.0, basato su Dan's Curse di flaffymg) scaricato alla versione fissata,
-# la stessa della voce dans-curse-v2-shader del Mod Hub.
+# Dan's Curse V2 (GPL-3.0, basato su Dan's Curse di flaffymg): ultima versione del ramo main.
+# Il commit scaricato viene scritto nel marcatore del Mod Hub (voce dans-curse-v2-shader).
 # Viene messo in shaders/ come se fosse installato dal Mod Hub. Se il download fallisce si continua.
 DCDIR="shaders/dans-curse-v2-shader"
-DCCOMMIT="38b3e13eaa7f4d469b653abe8250994db6d10052"
 if [ ! -f "$DCDIR/dans-curse-v2.slangp" ]; then
     say "Scarico lo shader Dan's Curse V2..."
     rm -rf "$DCDIR"
-    if git clone -q https://github.com/Leproide/DansCurseV2 "$DCDIR" >/dev/null 2>&1 \
-        && git -C "$DCDIR" -c advice.detachedHead=false checkout -q "$DCCOMMIT" >/dev/null 2>&1; then
+    if git clone -q --depth 1 https://github.com/Leproide/DansCurseV2 "$DCDIR" >/dev/null 2>&1; then
+        DCCOMMIT="$(git -C "$DCDIR" rev-parse HEAD)"
         rm -rf "$DCDIR/.git"
-        printf '%s' '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"38b3e13eaa7f4d469b653abe8250994db6d10052","Repository":"https://github.com/Leproide/DansCurseV2"}' > "$DCDIR/.modhub"
+        printf '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%s","Repository":"https://github.com/Leproide/DansCurseV2"}' "$DCCOMMIT" > "$DCDIR/.modhub"
         echo "Shader installato: si attiva accendendo la mod Shaders in Mods, con \"Better rendering\" acceso."
     else
         rm -rf "$DCDIR"
