@@ -70,6 +70,7 @@ public class FilmatiSchermoInteroMod : IMod
 
     static readonly bool DiagOn = !string.IsNullOrEmpty(Environment.GetEnvironmentVariable("MEDIEVIL_DEBUG"));
     static int _lines;
+    static int _afterMovieLogs;   // PutDispEnv da registrare dopo la fine di un filmato
     static void Diag(string s)
     {
         if (DiagOn && _lines++ < 300) Console.WriteLine("[FilmatiSchermoIntero] " + s);
@@ -130,8 +131,10 @@ public class FilmatiSchermoInteroMod : IMod
     {
         RestoreAspect();
         _info = "nessun filmato";
+        Diag($"fine filmato: ritaglio fatto={_croppedThisMovie}, dispenv={_envCopyAddr:X8}");
         if (_croppedThisMovie) ReissueDisplay(c, m);
         _croppedThisMovie = false;
+        _afterMovieLogs = 12;
     }
 
     // Rimanda a PutDispEnv la DISPENV originale dell'ultimo ritaglio: usa per un istante
@@ -181,6 +184,12 @@ public class FilmatiSchermoInteroMod : IMod
     static void BeforePutDispEnv(CpuContext c, IMemory m, uint infoSlot)
     {
         _patched = false;
+        if (DiagOn && _afterMovieLogs > 0)
+        {
+            _afterMovieLogs--;
+            uint e = c.A0;
+            Diag($"PutDispEnv {e:X8} slot={infoSlot:X}: disp {m.ReadU16(e)},{m.ReadU16(e + 2u)} {m.ReadU16(e + 4u)}x{m.ReadU16(e + 6u)} screen y={m.ReadU16(e + 0xAu)} h={m.ReadU16(e + 0xEu)}");
+        }
         if (!Enabled || infoSlot == 0)
         {
             RestoreAspect();

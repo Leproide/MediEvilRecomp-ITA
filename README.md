@@ -185,7 +185,7 @@ L'indirizzo dell'hub si imposta in `Program.cs` (`DefaultModHub`) oppure, senza 
 {
   "options": {
     "modhub.repository": "https://github.com/Leproide/MediEvilRecomp-ITA-ModHub",
-    "modhub.branch": "main"
+    "modhub.branch": "master"
   }
 }
 ```

@@ -39,13 +39,20 @@ AutoUpdater.Register();
 const string DefaultModHub = "https://github.com/Leproide/MediEvilRecomp-ITA-ModHub";
 var modHub = RecompOne.Runtime.Config.Settings.Get("modhub.repository", DefaultModHub);
 if (!string.IsNullOrWhiteSpace(modHub))
-    RecompOne.Runtime.Hub.ModHub.Configure(modHub, RecompOne.Runtime.Config.Settings.Get("modhub.branch", "main"));
+    RecompOne.Runtime.Hub.ModHub.Configure(modHub, RecompOne.Runtime.Config.Settings.Get("modhub.branch", "master"));
 
 // Shader: di default l'immagine passata allo shader e' quella alla risoluzione scelta,
 // non quella nativa della PSX (con "Native resolution input" attivo Dan's Curse e gli
 // altri shader non CRT diventano pixelosi). Resta attivabile da Shaders.
 if (!RecompOne.Runtime.Config.Settings.Has("mods.shaders.native"))
     RecompOne.Runtime.Config.Settings.Set("mods.shaders.native", false);
+
+// Predefiniti del fork: colore a 24 bit e "Better rendering" attivi. Valgono solo se
+// l'utente non ha mai cambiato l'opzione (settings.json senza quella chiave).
+if (!RecompOne.Runtime.Config.Settings.Has("display.true_color"))
+    RecompOne.Runtime.Config.Settings.Set("display.true_color", true);
+if (!RecompOne.Runtime.Config.Settings.Has("render.better_rendering"))
+    RecompOne.Runtime.Config.Settings.Set("render.better_rendering", true);
 
 RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(0x00400000), args.Length > 0 ? args[0] : null, title));
 return 0;
