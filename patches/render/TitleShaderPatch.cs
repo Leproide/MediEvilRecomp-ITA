@@ -36,9 +36,10 @@ public static class TitleShaderPatch
 
     static readonly (string Name, float Value)[] MenuValues =
     [
-        ("DC_FOG", 0.12f),
-        ("DC_FOG_START", 9000f),
-        ("DC_GROUND_FOG", 0.04f),
+        // valori di Dan's Curse: nebbia 0.6, inizio 2600, foschia a terra 0.18
+        ("DC_FOG", 0.3f),
+        ("DC_FOG_START", 5000f),
+        ("DC_GROUND_FOG", 0.1f),
     ];
 
     static bool _active;

@@ -21,7 +21,7 @@ Port PAL della versione 1.0 di MediEvilRecomp (BlackLabelHQ, commit 6383fe8) con
 - Dan's Curse: nebbia piu' leggera solo nel menu principale (`patches/render/TitleShaderPatch.cs`), dove la scena e' inquadrata da lontano e finiva quasi tutta nella nebbia.
 - Mod **Filmati a schermo intero** 1.2: saltando molto in fretta il filmato iniziale lo schermo restava tagliato alle righe del video (dialogo del gargoyle e gioco). A fine filmato la mod rimanda la DISPENV originale. Log con `MEDIEVIL_DEBUG`.
 - Iride con uno shader attivo: l'anello sfumato (sottrattivo) diventa nero opaco, perche' gli shader non sanno rappresentarlo e mostravano luci e nebbia sopra il nero.
-- Mod Hub configurabile (`DefaultModHub` in `Program.cs`, oppure `modhub.repository` e `modhub.branch` in `settings.json`), senza l'hub originale, le cui mod sono per la versione USA. Vuoto = disattivato.
+- Mod Hub della versione PAL: https://github.com/Leproide/MediEvilRecomp-ITA-ModHub (`DefaultModHub` in `Program.cs`, sostituibile con `modhub.repository` e `modhub.branch` in `settings.json`). L'hub originale non e' usato: le sue mod sono per la versione USA.
 - Aggiornate le copie di riserva in `BACKUP_Dipendenze`.
 
 Da provare: filmati (saltati e non), mappa e Mausoleo, gargoyle della cripta, dissolvenze in widescreen, distanza visiva al massimo e uscita dai livelli, telecamera, Asylum, Scarecrow Fields, Pumpkin Gorge e Zarok.
