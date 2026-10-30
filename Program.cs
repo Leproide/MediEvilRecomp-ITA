@@ -26,6 +26,7 @@ Dispatcher.Tolerant = true;
 
 TerrainPatch.Register();
 WaterMaterialPatch.Register();
+TitleShaderPatch.Register();
 WidescreenPatch.Register();
 QualityOfLifeMenu.Register();
 AutoUpdater.Register();
@@ -39,6 +40,12 @@ const string DefaultModHub = "";
 var modHub = RecompOne.Runtime.Config.Settings.Get("modhub.repository", DefaultModHub);
 if (!string.IsNullOrWhiteSpace(modHub))
     RecompOne.Runtime.Hub.ModHub.Configure(modHub, RecompOne.Runtime.Config.Settings.Get("modhub.branch", "main"));
+
+// Shader: di default l'immagine passata allo shader e' quella alla risoluzione scelta,
+// non quella nativa della PSX (con "Native resolution input" attivo Dan's Curse e gli
+// altri shader non CRT diventano pixelosi). Resta attivabile da Shaders.
+if (!RecompOne.Runtime.Config.Settings.Has("mods.shaders.native"))
+    RecompOne.Runtime.Config.Settings.Set("mods.shaders.native", false);
 
 RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(0x00400000), args.Length > 0 ? args[0] : null, title));
 return 0;

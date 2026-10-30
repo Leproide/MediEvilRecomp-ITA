@@ -17,6 +17,9 @@ Port PAL della versione 1.0 di MediEvilRecomp (BlackLabelHQ, commit 6383fe8) con
 - Mantenute tutte le correzioni PAL del fork: callback CD, LibCrypt (Mausoleo), filmati, 256 righe, dialoghi XA, iride.
 - Mod Trucchi e Filmati a schermo intero passate al nuovo sistema di impostazioni e attive di default.
 - Shader Dan's Curse scaricato dagli script di prima compilazione (Windows e Linux) dal repository dell'autore, alla versione fissata, in `shaders/dans-curse-shader`, gia' registrato come installato dal Mod Hub. Non e' incluso nel repository: non ha una licenza che ne permetta la ridistribuzione.
+- Shader: "Native resolution input" disattivato di default (con l'opzione attiva Dan's Curse diventa pixeloso). Resta attivabile da Shaders, per esempio per gli shader CRT.
+- Dan's Curse: nebbia piu' leggera solo nel menu principale (`patches/render/TitleShaderPatch.cs`), dove la scena e' inquadrata da lontano e finiva quasi tutta nella nebbia.
+- `PalXaSpeech.cs`: dopo l'avvio di una nuova traccia XA i marcatori di fine vengono ignorati per 400 ms, per il dialogo del gargoyle che si chiudeva saltando in fretta il filmato. Log diagnostici con `MEDIEVIL_DEBUG`.
 - Mod Hub configurabile (`DefaultModHub` in `Program.cs`, oppure `modhub.repository` e `modhub.branch` in `settings.json`), senza l'hub originale, le cui mod sono per la versione USA. Vuoto = disattivato.
 - Aggiornate le copie di riserva in `BACKUP_Dipendenze`.
 
