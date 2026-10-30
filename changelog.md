@@ -1,3 +1,30 @@
+# MediEvilRecomp ITA - ramo pal-1.0 (sperimentale)
+
+Port PAL della versione 1.0 di MediEvilRecomp (BlackLabelHQ, commit 6383fe8) con il suo RecompOne (cc18281).
+
+## Dalla 1.0 del progetto originale
+- Telecamera con la levetta destra (`patches/qol/`). In PAL la velocita' e' calcolata su 25 fotogrammi al secondo.
+- Interpolazione migliorata, acqua per gli shader, shader slang (ShaderMod aggiornata), colore a 24 bit, opzione per il dithering, editor di asset pack.
+- Funzioni ricompilate in modalita' `"precise"` al posto delle vecchie patch in virgola mobile.
+- Crash all'uscita da un livello e con distanza visiva alta, sfarfallio a inizio dissolvenza.
+- Dissolvenze in widescreen (`FadeWidenPatch.cs`): in PAL esclude l'iride, che resta a `IrisFadePatch.cs` con il foro rotondo.
+- Nuovo sistema di impostazioni: le impostazioni precedenti non vengono riprese.
+
+## Port PAL
+- `tools/pal-port` aggiornato: gestisce le voci `"precise"` e la cartella `wrapers/`.
+- Offset rispetto a `$gp` in `wrapers/Game.cs` e `wrapers/Mr.cs` tradotti a mano, tutti verificati come corrispondenze esatte.
+- `WaterMaterialPatch.EndLevel` agganciata a mano a `0x800658BC`: in PAL la funzione di fine livello e' diversa nella parte finale, quindi lo strumento la scartava.
+- Mantenute tutte le correzioni PAL del fork: callback CD, LibCrypt (Mausoleo), filmati, 256 righe, dialoghi XA, iride.
+- Mod Trucchi e Filmati a schermo intero passate al nuovo sistema di impostazioni e attive di default.
+- Mod Hub disattivato: le mod dell'hub originale sono per la versione USA.
+- Aggiornate le copie di riserva in `BACKUP_Dipendenze`.
+
+Da provare: filmati (saltati e non), mappa e Mausoleo, gargoyle della cripta, dissolvenze in widescreen, distanza visiva al massimo e uscita dai livelli, telecamera, Asylum, Scarecrow Fields, Pumpkin Gorge e Zarok.
+
+Autore del port: https://github.com/Leproide
+
+---
+
 # MediEvilRecomp ITA - script per Linux
 
 ## Novità

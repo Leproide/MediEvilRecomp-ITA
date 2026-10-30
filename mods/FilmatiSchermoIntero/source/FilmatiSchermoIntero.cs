@@ -59,7 +59,7 @@ public class FilmatiSchermoInteroMod : IMod
 
     public void OnLoad()
     {
-        Enabled = RecompOne.Runtime.Runtime.View.GetString(SettingKey, "1") != "0";
+        Enabled = RecompOne.Runtime.Config.Settings.Get<string>(SettingKey, "1") != "0";
     }
 
     public void OnUnload()
@@ -71,7 +71,7 @@ public class FilmatiSchermoInteroMod : IMod
     public void DrawSettings()
     {
         if (ImGui.Checkbox("Filmati a schermo intero", ref Enabled))
-            RecompOne.Runtime.Runtime.View.SetString(SettingKey, Enabled ? "1" : "0");
+            RecompOne.Runtime.Config.Settings.Set(SettingKey, Enabled ? "1" : "0");
         ImGui.TextDisabled(_info);
     }
 

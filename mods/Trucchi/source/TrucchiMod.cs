@@ -65,7 +65,7 @@ public class TrucchiMod : IMod
 
     public void OnLoad()
     {
-        _mode = ModeFromSetting(RecompOne.Runtime.Runtime.View.GetString(SettingKey, "0"));
+        _mode = ModeFromSetting(RecompOne.Runtime.Config.Settings.Get<string>(SettingKey, "0"));
     }
 
     public void OnUnload()
@@ -86,7 +86,7 @@ public class TrucchiMod : IMod
             int newMode = index switch { 1 => 1, 2 => 3, _ => 0 };
             if (newMode == 0 && _mode != 0) _clearPending = true;
             _mode = newMode;
-            RecompOne.Runtime.Runtime.View.SetString(SettingKey, newMode.ToString());
+            RecompOne.Runtime.Config.Settings.Set(SettingKey, newMode.ToString());
         }
 
         ImGui.TextWrapped("Le voci compaiono nel menu di pausa (Start), come con le combinazioni originali.");

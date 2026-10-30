@@ -25,6 +25,10 @@
 //    modalita' "emulate"). Quello HLE no: dopo un filmato resta installato
 //    StCdInterrupt come callback "ready" e viene richiamato centinaia di migliaia
 //    di volte al secondo.
+//    Dal RecompOne di MediEvilRecomp 1.0 (cc18281) lo StUnSetRing HLE azzera da solo
+//    questi callback (LibCd.ClearStreamCallbacks); gli agganci qui sotto restano
+//    perche' aggiornano anche la variabile CD_cbready in memoria e rispettano la
+//    modalita' "emulate" come l'originale.
 //
 // 2) Il controllo LibCrypt (0x80065D20..0x80065FC0, vedi PalLibCrypt.cs) scrive i propri callback
 //    direttamente nelle variabili di libcd (CD_cbsync 0x800EB660, CD_cbready

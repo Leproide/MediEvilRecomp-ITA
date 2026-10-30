@@ -4,5 +4,6 @@
     "version": "1.1",
     "author": "https://github.com/Leproide",
     "description": "Durante i filmati mostra solo l'area del video e la adatta allo schermo senza deformarla. Solo MediEvil PAL italiano. Licenza GPL-3.0-or-later.",
+    "defaultEnabled": true,
     "dependencies": []
 }

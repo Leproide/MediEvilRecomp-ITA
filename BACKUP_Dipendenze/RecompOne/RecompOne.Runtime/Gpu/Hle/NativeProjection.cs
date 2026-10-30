@@ -1,33 +1,42 @@
-// PAL port: addresses/constants rewritten for the PAL release by
-// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide
-// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.
-
 using System.Numerics;
-using RecompOne.Runtime;
-using RecompOne.Runtime.Hle;
 
-namespace Recompiled;
+namespace RecompOne.Runtime.Hle;
 
-public static class EntityFloatProjection
+public static class NativeProjection
 {
+    private const uint ScratchpadBase = 0x1F800000u;
+    private const uint ScratchpadSize = 0x400u;
+    private const uint StackWindow = 0x1000u;
+
     private static readonly NativeVertex[] Fifo = new NativeVertex[3];
     private static readonly short[] Rotation = new short[9];
     private static readonly int[] Translation = new int[3];
     private static readonly int[] View = new int[3];
-    private static int _serial;
+    private static int _serial = -1;
+    private static NativeVertex _first;
+    private static uint _firstWord;
+    private static bool _firstValid;
+
+    public static bool Enabled { get; set; } = true;
+
+    public static bool Active => Enabled && NativeGeometry.Enabled;
 
     public static void Reset()
     {
         Array.Clear(Fifo);
-        _serial = 0;
+        _serial = -1;
+        _first = default;
+        _firstWord = 0;
+        _firstValid = false;
     }
 
     public static void Rtpt(int shift, bool lm)
     {
-        if (NativeGeometry.Enabled && TerrainPatch.NoTriangleSubdivision && shift == 12)
+        _firstValid = false;
+        if (Active && shift == 12)
         {
             Refresh();
-            LoadInputs();
+            LoadInputs(3);
             Gte.RtptFloat();
             for (var i = 0; i < 3; i++) Fifo[i] = Project(i);
         }
@@ -36,10 +45,13 @@ public static class EntityFloatProjection
 
     public static void Rtps(int shift, bool lm)
     {
-        if (NativeGeometry.Enabled && TerrainPatch.NoTriangleSubdivision && shift == 12)
+        if (Active && shift == 12)
         {
             Refresh();
-            LoadInputs();
+            LoadInputs(1);
+            _first = Fifo[0];
+            _firstWord = Gte.Read(12);
+            _firstValid = true;
             Gte.RtpsFloat();
             Fifo[0] = Fifo[1];
             Fifo[1] = Fifo[2];
@@ -48,13 +60,26 @@ public static class EntityFloatProjection
         Gte.Rtps(shift, lm);
     }
 
-    public static void Store(int register, uint address, uint word)
+    public static void Store(int register, uint address, uint word, bool ignoreDepth = false)
     {
-        if (NativeGeometry.Enabled && TerrainPatch.NoTriangleSubdivision && register is >= 12 and <= 14)
-        {
-            var vertex = Fifo[register - 12];
-            NativeGeometry.Store(address, word, vertex.Camera, vertex.Screen, vertex.Transform);
-        }
+        if (!Active || register is < 12 or > 14) return;
+
+        var vertex = ignoreDepth ? Fifo[register - 12] with { IgnoreDepth = true } : Fifo[register - 12];
+        NativeGeometry.Store(address, word, in vertex);
+        if (IsLocal(address)) NativeGeometry.Anchor(word, in vertex);
+    }
+
+    private static bool IsLocal(uint address)
+    {
+        var physical = address & 0x1FFFFFFFu;
+        if (physical - ScratchpadBase < ScratchpadSize) return true;
+        return Runtime.Cpu is { } cpu && physical - (cpu.SP & 0x1FFFFFFFu) < StackWindow;
+    }
+
+    public static void StoreFirst(uint address, uint word)
+    {
+        if (Active && _firstValid && word == _firstWord)
+            NativeGeometry.Store(address, word, in _first);
     }
 
     private static void Refresh()
@@ -69,9 +94,9 @@ public static class EntityFloatProjection
         _serial = serial;
     }
 
-    private static void LoadInputs()
+    private static void LoadInputs(int count)
     {
-        for (var i = 0; i < 3; i++)
+        for (var i = 0; i < count; i++)
         {
             var xy = Gte.Read(i * 2);
             Gte.LoadVertexFloat(i, (short)xy, (short)(xy >> 16), (short)Gte.Read(i * 2 + 1));

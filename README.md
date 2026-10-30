@@ -13,6 +13,8 @@ Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLab
 Pagina del progetto:
 [MediEvil Recomp - ITA](https://muninn.ovh/medievil_recomp_ita)
 
+> **Ramo `pal-1.0` (sperimentale).** Questo ramo porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub è disattivato, perché le sue mod usano indirizzi della versione USA. Le impostazioni dei rami precedenti non vengono riprese. Per giocare in modo stabile usa il ramo `master`.
+
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
 <img width="1920" height="1032" alt="MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/76ff3ae2-808c-4718-90fa-134b96d0b832" />
