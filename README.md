@@ -194,6 +194,19 @@ Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo in
 
 Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) è già incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione, alla versione fissata, in `shaders/dans-curse-v2`. Si attiva accendendo la mod **Shaders** dal pannello **Mods**; dal menu **Shaders** si regolano i parametri. Consigliato: **Draw distance** a 3x in Settings → Display.
 
+<img width="880" height="690" alt="modhub" src="https://github.com/user-attachments/assets/e05a8519-f56d-405c-8f2f-099e490f5747" />
+
+<img width="1144" height="644" alt="v2-collina" src="https://github.com/user-attachments/assets/0368b567-9020-4379-8d38-cbb616ede017" />
+
+<img width="1144" height="644" alt="cimitero-off" src="https://github.com/user-attachments/assets/f4d73122-030e-4222-9c1e-c3a966a6967c" />
+
+<img width="1144" height="644" alt="cimitero-v2" src="https://github.com/user-attachments/assets/a4f400b2-ecaf-4ba6-858d-8ba09b5a4f94" />
+
+<img width="1144" height="644" alt="shader-off" src="https://github.com/user-attachments/assets/56a77238-b066-420e-9730-2d3aa2161a07" />
+
+<img width="1144" height="644" alt="shader-on" src="https://github.com/user-attachments/assets/267d7d33-eaa9-4625-b0e1-196eed13ec36" />
+
+
 ---
 
 ## Release automatiche (GitHub Actions)
