@@ -192,7 +192,7 @@ L'indirizzo dell'hub si imposta in `Program.cs` (`DefaultModHub`) oppure, senza 
 
 Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo inizia con `gitea.` o `forgejo.`. Con altri server git serve il comando `git` installato sul PC di chi gioca. Se l'indirizzo è vuoto, il menu resta disattivato.
 
-Gli shader (per esempio Dan's Curse) non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo.
+Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **Dan's Curse** viene scaricato dagli script di prima compilazione dal repository del suo autore (flaffymg), alla versione fissata, in `shaders/dans-curse-shader`. Non è incluso nel repository perché non ha una licenza che ne permetta la ridistribuzione. Si attiva da **Mods**, nella scheda degli shader.
 
 ---
 

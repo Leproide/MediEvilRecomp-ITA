@@ -118,5 +118,25 @@ say "Compilo MediEvilRecomp..."
 dotnet build "$RECOMPONE/RecompOne.sln" || fail "compilazione di MediEvilRecomp fallita."
 echo "Compilazione completata."
 
+# ------------------------------------------------------------------ shader Dan's Curse (opzionale)
+# Scaricato dal repository del suo autore (flaffymg) alla versione fissata: non e' incluso nel
+# repository di questo fork perche' non ha una licenza che ne permetta la ridistribuzione.
+# Viene messo in shaders/ come se fosse installato dal Mod Hub. Se il download fallisce si continua.
+DCDIR="shaders/dans-curse-shader"
+DCCOMMIT="1747991195f82da3afb3350c78cf66a142fa2c14"
+if [ ! -f "$DCDIR/dans-curse.slangp" ]; then
+    say "Scarico lo shader Dan's Curse..."
+    rm -rf "$DCDIR"
+    if git clone -q https://github.com/flafmg/DansCurse "$DCDIR" >/dev/null 2>&1 \
+        && git -C "$DCDIR" -c advice.detachedHead=false checkout -q "$DCCOMMIT" >/dev/null 2>&1; then
+        rm -rf "$DCDIR/.git"
+        printf '%s' '{"Id":"dans-curse-shader","Type":"shader","Commit":"1747991195f82da3afb3350c78cf66a142fa2c14","Repository":"https://github.com/flafmg/DansCurse"}' > "$DCDIR/.modhub"
+        echo "Shader installato: si attiva da Mods, con \"Better rendering\" acceso."
+    else
+        rm -rf "$DCDIR"
+        echo "Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub."
+    fi
+fi
+
 echo
 echo "Fatto! Usa ./linux_run.sh per giocare."

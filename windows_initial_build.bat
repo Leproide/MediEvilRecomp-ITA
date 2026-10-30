@@ -215,6 +215,28 @@ if errorlevel 1 (
 
 echo Compilazione completata.
 echo.
+
+REM ================================ Shader Dan's Curse (opzionale) =================================
+REM Scaricato dal repository del suo autore (flaffymg) alla versione fissata: non e' incluso nel
+REM repository di questo fork perche' non ha una licenza che ne permetta la ridistribuzione.
+REM Viene messo in shaders\ come se fosse installato dal Mod Hub. Se il download fallisce si continua.
+set "DCDIR=shaders\dans-curse-shader"
+set "DCCOMMIT=1747991195f82da3afb3350c78cf66a142fa2c14"
+if not exist "%DCDIR%\dans-curse.slangp" (
+    echo ^> Scarico lo shader Dan's Curse...
+    if exist "%DCDIR%" rmdir /s /q "%DCDIR%"
+    git clone -q https://github.com/flafmg/DansCurse "%DCDIR%" >nul 2>&1
+    if exist "%DCDIR%\.git" (
+        git -C "%DCDIR%" -c advice.detachedHead=false checkout -q %DCCOMMIT% >nul 2>&1
+        attrib -r -h "%DCDIR%\.git\*" /s /d >nul 2>&1
+        rmdir /s /q "%DCDIR%\.git"
+        >"%DCDIR%\.modhub" echo {"Id":"dans-curse-shader","Type":"shader","Commit":"1747991195f82da3afb3350c78cf66a142fa2c14","Repository":"https://github.com/flafmg/DansCurse"}
+        echo Shader installato: si attiva da Mods, con "Better rendering" acceso.
+    ) else (
+        echo Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub.
+    )
+)
+echo.
 REM ===================================================================================================
 
 REM ======================================== Come avviare il gioco ====================================
