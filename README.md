@@ -13,7 +13,7 @@ Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLab
 Pagina del progetto:
 [MediEvil Recomp - ITA](https://muninn.ovh/medievil_recomp_ita)
 
-> **Ramo `pal-1.0` (sperimentale).** Questo ramo porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub originale non è usato, perché le sue mod usano indirizzi della versione USA: si può puntare a un hub dedicato alla versione PAL (vedi "Mod Hub"). Le impostazioni dei rami precedenti non vengono riprese. Per giocare in modo stabile usa il ramo `master`.
+> **Versione basata su MediEvilRecomp 1.0.** Porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub originale non è usato, perché le sue mod usano indirizzi della versione USA: si può puntare a un hub dedicato alla versione PAL (vedi "Mod Hub"). Le impostazioni delle versioni precedenti non vengono riprese.
 
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
@@ -175,7 +175,7 @@ La mod opzionale **Filmati a schermo intero** ingrandisce i filmati: invece di v
 
 ---
 
-## Mod Hub (ramo `pal-1.0`)
+## Mod Hub
 
 Il menu **Mods → Explore Mod Hub** installa mod, asset pack e shader da un repository git che elenca le voci (formato e regole nel README dell'hub). L'hub originale non è usato, perché le sue mod sono per la versione USA.
 

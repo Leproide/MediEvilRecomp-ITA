@@ -1,4 +1,4 @@
-# MediEvilRecomp ITA - ramo pal-1.0 (sperimentale)
+# MediEvilRecomp ITA v1.1 - basato su MediEvilRecomp 1.0
 
 Port PAL della versione 1.0 di MediEvilRecomp (BlackLabelHQ, commit 6383fe8) con il suo RecompOne (cc18281).
 
