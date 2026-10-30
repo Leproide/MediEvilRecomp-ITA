@@ -29,8 +29,16 @@ WaterMaterialPatch.Register();
 WidescreenPatch.Register();
 QualityOfLifeMenu.Register();
 AutoUpdater.Register();
-// Mod Hub non configurato: le mod dell'hub originale usano indirizzi della versione USA
-// e su questa build PAL romperebbero il gioco. Il menu "Explore Mod Hub" resta disattivato.
+// Mod Hub della versione PAL (MediEvilRecomp ITA, Author: https://github.com/Leproide).
+// Non usare l'hub originale BlackLabelHQ/MediEvilRecompModHub: le sue mod usano indirizzi
+// della versione USA e su questa build romperebbero il gioco.
+// L'indirizzo e' un repository git https (GitHub, GitLab, Gitea/Forgejo/Codeberg o altro
+// server git). Si puo' cambiare senza ricompilare con la chiave "modhub.repository" in
+// settings.json. Stringa vuota = hub disattivato (menu "Explore Mod Hub" grigio).
+const string DefaultModHub = "";
+var modHub = RecompOne.Runtime.Config.Settings.Get("modhub.repository", DefaultModHub);
+if (!string.IsNullOrWhiteSpace(modHub))
+    RecompOne.Runtime.Hub.ModHub.Configure(modHub, RecompOne.Runtime.Config.Settings.Get("modhub.branch", "main"));
 
 RecompOne.Runtime.Runtime.Run(() => Entry.Run(new PSMemory(0x00400000), args.Length > 0 ? args[0] : null, title));
 return 0;

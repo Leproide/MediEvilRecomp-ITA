@@ -13,7 +13,7 @@ Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLab
 Pagina del progetto:
 [MediEvil Recomp - ITA](https://muninn.ovh/medievil_recomp_ita)
 
-> **Ramo `pal-1.0` (sperimentale).** Questo ramo porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub è disattivato, perché le sue mod usano indirizzi della versione USA. Le impostazioni dei rami precedenti non vengono riprese. Per giocare in modo stabile usa il ramo `master`.
+> **Ramo `pal-1.0` (sperimentale).** Questo ramo porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub originale non è usato, perché le sue mod usano indirizzi della versione USA: si può puntare a un hub dedicato alla versione PAL (vedi "Mod Hub"). Le impostazioni dei rami precedenti non vengono riprese. Per giocare in modo stabile usa il ramo `master`.
 
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
@@ -172,6 +172,27 @@ In alternativa, la mod inclusa **Trucchi (MediEvil ITA)** li attiva dal pannello
 La mod opzionale **Filmati a schermo intero** ingrandisce i filmati: invece di vederli piccoli al centro del riquadro 4:3, mostra solo l'area del video e la adatta alla finestra senza deformarla. Si attiva dal pannello delle mod. I dettagli sono nel [README della mod](mods/FilmatiSchermoIntero/README.md).
 
 <img width="1920" height="1080" alt="immagine" src="https://github.com/user-attachments/assets/dd6fb230-6839-4da4-ad41-76bc2b32bdd0" />
+
+---
+
+## Mod Hub (ramo `pal-1.0`)
+
+Il menu **Mods → Explore Mod Hub** installa mod, asset pack e shader da un repository git che elenca le voci (formato e regole nel README dell'hub). L'hub originale non è usato, perché le sue mod sono per la versione USA.
+
+L'indirizzo dell'hub si imposta in `Program.cs` (`DefaultModHub`) oppure, senza ricompilare, in `settings.json`:
+
+```json
+{
+  "options": {
+    "modhub.repository": "https://github.com/Leproide/MediEvilRecomp-ITA-ModHub",
+    "modhub.branch": "main"
+  }
+}
+```
+
+Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo inizia con `gitea.` o `forgejo.`. Con altri server git serve il comando `git` installato sul PC di chi gioca. Se l'indirizzo è vuoto, il menu resta disattivato.
+
+Gli shader (per esempio Dan's Curse) non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo.
 
 ---
 
