@@ -4,6 +4,10 @@
   License: GPL-3.0-or-later
 -->
 
+# ATTENZIONE!
+
+Questa ricompilazione funziona SOLO con DUMP puliti della versione PAL Italiana (SCES-01494), NON utilizzate immagini con patch LibCrypt altrimenti il gioco non funziona.
+
 # MediEvilRecomp ITA
 
 Ricompilazione statica di **MediEvil per PlayStation, versione PAL italiana (SCES-01494)**, per giocarlo in modo nativo sui computer moderni, con widescreen e rendering migliorato.
