@@ -218,10 +218,10 @@ echo.
 
 REM ================================ Shader Dan's Curse V2 (opzionale) =================================
 REM Dan's Curse V2 (GPL-3.0, basato su Dan's Curse di flaffymg) scaricato alla versione fissata,
-REM la stessa della voce dans-curse-v2 del Mod Hub.
+REM la stessa della voce dans-curse-v2-shader del Mod Hub.
 REM Viene messo in shaders\ come se fosse installato dal Mod Hub. Se il download fallisce si continua.
-set "DCDIR=shaders\dans-curse-v2"
-set "DCCOMMIT=cfd655710653545488984574070c3076f2768914"
+set "DCDIR=shaders\dans-curse-v2-shader"
+set "DCCOMMIT=38b3e13eaa7f4d469b653abe8250994db6d10052"
 if not exist "%DCDIR%\dans-curse-v2.slangp" (
     echo ^> Scarico lo shader Dan's Curse V2...
     if exist "%DCDIR%" rmdir /s /q "%DCDIR%"
@@ -230,7 +230,7 @@ if not exist "%DCDIR%\dans-curse-v2.slangp" (
         git -C "%DCDIR%" -c advice.detachedHead=false checkout -q %DCCOMMIT% >nul 2>&1
         attrib -r -h "%DCDIR%\.git\*" /s /d >nul 2>&1
         rmdir /s /q "%DCDIR%\.git"
-        >"%DCDIR%\.modhub" echo {"Id":"dans-curse-v2","Type":"shader","Commit":"cfd655710653545488984574070c3076f2768914","Repository":"https://github.com/Leproide/DansCurseV2"}
+        >"%DCDIR%\.modhub" echo {"Id":"dans-curse-v2-shader","Type":"shader","Commit":"38b3e13eaa7f4d469b653abe8250994db6d10052","Repository":"https://github.com/Leproide/DansCurseV2"}
         echo Shader installato: si attiva accendendo la mod Shaders in Mods, con "Better rendering" acceso.
     ) else (
         echo Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub.

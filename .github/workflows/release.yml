@@ -147,13 +147,13 @@ jobs:
       - name: Shader Dan's Curse V2
         env:
           DC_REPO: https://github.com/Leproide/DansCurseV2
-          DC_COMMIT: cfd655710653545488984574070c3076f2768914
+          DC_COMMIT: 38b3e13eaa7f4d469b653abe8250994db6d10052
         run: |
-          DIR="publish/${{ matrix.rid }}/shaders/dans-curse-v2"
+          DIR="publish/${{ matrix.rid }}/shaders/dans-curse-v2-shader"
           git clone -q "$DC_REPO" "$DIR"
           git -C "$DIR" -c advice.detachedHead=false checkout -q "$DC_COMMIT"
           rm -rf "$DIR/.git"
-          printf '{"Id":"dans-curse-v2","Type":"shader","Commit":"%s","Repository":"%s"}' "$DC_COMMIT" "$DC_REPO" > "$DIR/.modhub"
+          printf '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%s","Repository":"%s"}' "$DC_COMMIT" "$DC_REPO" > "$DIR/.modhub"
 
       - name: Pacchetto (zip)
         if: matrix.archive == 'zip'
