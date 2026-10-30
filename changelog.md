@@ -1,3 +1,9 @@
+# MediEvilRecomp ITA v1.1.1
+
+- Shader **Dan's Curse V2** incluso nei pacchetti: basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte (nebbia lineare e lontana, niente figure squadrate al limite di disegno, foschia a terra con banchi in movimento, ombre senza rumore). Si attiva accendendo la mod **Shaders** dal pannello **Mods**. Consigliato: **Draw distance** a 3x in Settings → Display.
+
+---
+
 # MediEvilRecomp ITA v1.1 - basato su MediEvilRecomp 1.0
 
 Port PAL della versione 1.0 di MediEvilRecomp (BlackLabelHQ, commit 6383fe8) con il suo RecompOne (cc18281).

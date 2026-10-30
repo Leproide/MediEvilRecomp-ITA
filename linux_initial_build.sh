@@ -123,14 +123,14 @@ echo "Compilazione completata."
 # la stessa della voce dans-curse-v2 del Mod Hub.
 # Viene messo in shaders/ come se fosse installato dal Mod Hub. Se il download fallisce si continua.
 DCDIR="shaders/dans-curse-v2"
-DCCOMMIT="6b7b805b9c5c6740bfd0a2b1bda0d246112565ff"
+DCCOMMIT="cfd655710653545488984574070c3076f2768914"
 if [ ! -f "$DCDIR/dans-curse-v2.slangp" ]; then
     say "Scarico lo shader Dan's Curse V2..."
     rm -rf "$DCDIR"
     if git clone -q https://github.com/Leproide/DansCurseV2 "$DCDIR" >/dev/null 2>&1 \
         && git -C "$DCDIR" -c advice.detachedHead=false checkout -q "$DCCOMMIT" >/dev/null 2>&1; then
         rm -rf "$DCDIR/.git"
-        printf '%s' '{"Id":"dans-curse-v2","Type":"shader","Commit":"6b7b805b9c5c6740bfd0a2b1bda0d246112565ff","Repository":"https://github.com/Leproide/DansCurseV2"}' > "$DCDIR/.modhub"
+        printf '%s' '{"Id":"dans-curse-v2","Type":"shader","Commit":"cfd655710653545488984574070c3076f2768914","Repository":"https://github.com/Leproide/DansCurseV2"}' > "$DCDIR/.modhub"
         echo "Shader installato: si attiva accendendo la mod Shaders in Mods, con \"Better rendering\" acceso."
     else
         rm -rf "$DCDIR"

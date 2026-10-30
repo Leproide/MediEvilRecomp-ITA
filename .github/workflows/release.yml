@@ -147,7 +147,7 @@ jobs:
       - name: Shader Dan's Curse V2
         env:
           DC_REPO: https://github.com/Leproide/DansCurseV2
-          DC_COMMIT: 6b7b805b9c5c6740bfd0a2b1bda0d246112565ff
+          DC_COMMIT: cfd655710653545488984574070c3076f2768914
         run: |
           DIR="publish/${{ matrix.rid }}/shaders/dans-curse-v2"
           git clone -q "$DC_REPO" "$DIR"
