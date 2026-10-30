@@ -27,6 +27,7 @@ Dispatcher.Tolerant = true;
 TerrainPatch.Register();
 WaterMaterialPatch.Register();
 TitleShaderPatch.Register();
+GpuDisplayDiag.Register();
 WidescreenPatch.Register();
 QualityOfLifeMenu.Register();
 AutoUpdater.Register();
