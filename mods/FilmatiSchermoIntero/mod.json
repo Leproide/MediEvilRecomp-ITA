@@ -1,7 +1,7 @@
 {
     "id": "filmati-schermo-intero",
     "name": "Filmati a schermo intero",
-    "version": "1.1",
+    "version": "1.2",
     "author": "https://github.com/Leproide",
     "description": "Durante i filmati mostra solo l'area del video e la adatta allo schermo senza deformarla. Solo MediEvil PAL italiano. Licenza GPL-3.0-or-later.",
     "defaultEnabled": true,
