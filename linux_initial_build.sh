@@ -118,20 +118,20 @@ say "Compilo MediEvilRecomp..."
 dotnet build "$RECOMPONE/RecompOne.sln" || fail "compilazione di MediEvilRecomp fallita."
 echo "Compilazione completata."
 
-# ------------------------------------------------------------------ shader Dan's Curse (opzionale)
-# Scaricato dal repository del suo autore (flaffymg) alla versione fissata: non e' incluso nel
-# repository di questo fork perche' non ha una licenza che ne permetta la ridistribuzione.
+# ------------------------------------------------------------------ shader Dan's Curse V2 (opzionale)
+# Dan's Curse V2 (GPL-3.0, basato su Dan's Curse di flaffymg) scaricato alla versione fissata,
+# la stessa della voce dans-curse-v2 del Mod Hub.
 # Viene messo in shaders/ come se fosse installato dal Mod Hub. Se il download fallisce si continua.
-DCDIR="shaders/dans-curse-shader"
-DCCOMMIT="1747991195f82da3afb3350c78cf66a142fa2c14"
-if [ ! -f "$DCDIR/dans-curse.slangp" ]; then
-    say "Scarico lo shader Dan's Curse..."
+DCDIR="shaders/dans-curse-v2"
+DCCOMMIT="6b7b805b9c5c6740bfd0a2b1bda0d246112565ff"
+if [ ! -f "$DCDIR/dans-curse-v2.slangp" ]; then
+    say "Scarico lo shader Dan's Curse V2..."
     rm -rf "$DCDIR"
-    if git clone -q https://github.com/flafmg/DansCurse "$DCDIR" >/dev/null 2>&1 \
+    if git clone -q https://github.com/Leproide/DansCurseV2 "$DCDIR" >/dev/null 2>&1 \
         && git -C "$DCDIR" -c advice.detachedHead=false checkout -q "$DCCOMMIT" >/dev/null 2>&1; then
         rm -rf "$DCDIR/.git"
-        printf '%s' '{"Id":"dans-curse-shader","Type":"shader","Commit":"1747991195f82da3afb3350c78cf66a142fa2c14","Repository":"https://github.com/flafmg/DansCurse"}' > "$DCDIR/.modhub"
-        echo "Shader installato: si attiva da Mods, con \"Better rendering\" acceso."
+        printf '%s' '{"Id":"dans-curse-v2","Type":"shader","Commit":"6b7b805b9c5c6740bfd0a2b1bda0d246112565ff","Repository":"https://github.com/Leproide/DansCurseV2"}' > "$DCDIR/.modhub"
+        echo "Shader installato: si attiva accendendo la mod Shaders in Mods, con \"Better rendering\" acceso."
     else
         rm -rf "$DCDIR"
         echo "Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub."

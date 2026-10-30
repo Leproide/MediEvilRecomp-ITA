@@ -143,6 +143,18 @@ jobs:
           cp README.md changelog.md "publish/${{ matrix.rid }}/"
           cp tools/pal-port/LICENSE "publish/${{ matrix.rid }}/LICENSE-ITA.txt"
 
+      # Dan's Curse V2 (GPL-3.0): stessa versione degli script di prima compilazione e del Mod Hub
+      - name: Shader Dan's Curse V2
+        env:
+          DC_REPO: https://github.com/Leproide/DansCurseV2
+          DC_COMMIT: 6b7b805b9c5c6740bfd0a2b1bda0d246112565ff
+        run: |
+          DIR="publish/${{ matrix.rid }}/shaders/dans-curse-v2"
+          git clone -q "$DC_REPO" "$DIR"
+          git -C "$DIR" -c advice.detachedHead=false checkout -q "$DC_COMMIT"
+          rm -rf "$DIR/.git"
+          printf '{"Id":"dans-curse-v2","Type":"shader","Commit":"%s","Repository":"%s"}' "$DC_COMMIT" "$DC_REPO" > "$DIR/.modhub"
+
       - name: Pacchetto (zip)
         if: matrix.archive == 'zip'
         run: |

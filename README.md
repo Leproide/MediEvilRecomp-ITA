@@ -4,10 +4,6 @@
   License: GPL-3.0-or-later
 -->
 
-# ATTENZIONE!
-
-Questa ricompilazione funziona SOLO con DUMP puliti della versione PAL Italiana (SCES-01494), NON utilizzate immagini con patch LibCrypt altrimenti il gioco non funziona.
-
 # MediEvilRecomp ITA
 
 Ricompilazione statica di **MediEvil per PlayStation, versione PAL italiana (SCES-01494)**, per giocarlo in modo nativo sui computer moderni, con widescreen e rendering migliorato.
@@ -196,12 +192,7 @@ L'indirizzo dell'hub si imposta in `Program.cs` (`DefaultModHub`) oppure, senza 
 
 Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo inizia con `gitea.` o `forgejo.`. Con altri server git serve il comando `git` installato sul PC di chi gioca. Se l'indirizzo è vuoto, il menu resta disattivato.
 
-Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **Dan's Curse** viene scaricato dagli script di prima compilazione dal repository del suo autore (flaffymg), alla versione fissata, in `shaders/dans-curse-shader`. Non è incluso nel repository perché non ha una licenza che ne permetta la ridistribuzione. Si attiva da **Mods**, nella scheda degli shader.
-
-<img width="1280" height="672" alt="immagine" src="https://github.com/user-attachments/assets/fe5e1d0b-4df4-47cb-ae0e-e2ce565b58b8" />
-
-
-<img width="1280" height="688" alt="immagine" src="https://github.com/user-attachments/assets/e99fad5b-edbd-49cd-a3f2-7243fd80f0c4" />
+Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) è già incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione, alla versione fissata, in `shaders/dans-curse-v2`. Si attiva accendendo la mod **Shaders** dal pannello **Mods**; dal menu **Shaders** si regolano i parametri. Consigliato: **Draw distance** a 3x in Settings → Display.
 
 ---
 
