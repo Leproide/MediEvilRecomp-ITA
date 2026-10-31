@@ -1,6 +1,8 @@
-// MediEvilRecomp ITA (port PAL italiano): aggiornamenti scaricati dalle release del fork.
-// Modifica: Author: https://github.com/Leproide - GPL-3.0-or-later per la modifica;
-// il resto del file e' codice originale di BlackLabelHQ con i loro termini.
+// Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alla versione PAL italiana.
+// MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi
+// autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file
+// scritti da zero per il port (vedi la sezione Licenza del README).
+// Modifica del fork (https://github.com/Leproide): aggiornamenti dalle release di questo fork.
 
 using System;
 using System.Diagnostics;

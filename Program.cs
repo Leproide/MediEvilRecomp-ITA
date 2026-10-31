@@ -1,3 +1,8 @@
+// Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alla versione PAL italiana.
+// MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi
+// autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file
+// scritti da zero per il port (vedi la sezione Licenza del README).
+// Aggiunte del fork (registrazione delle patch PAL, Mod Hub ITA): https://github.com/Leproide
 using RecompOne.Runtime.Memory;
 using Recompiled;
 using RecompOne.Runtime.Dispatch;

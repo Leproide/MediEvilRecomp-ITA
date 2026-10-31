@@ -1,8 +1,10 @@
-// PAL port: addresses/constants rewritten for the PAL release by
-// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide
-// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.
+// Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alla versione PAL italiana.
+// MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi
+// autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file
+// scritti da zero per il port (vedi la sezione Licenza del README).
+// Indirizzi e costanti PAL: https://github.com/Leproide
 //
-// Correzioni PAL ITA (Author: https://github.com/Leproide, GPL-3.0-or-later):
+// Correzioni PAL ITA (https://github.com/Leproide):
 //  - inquadratura che tremava: se in un frame il gioco non ricalcola la telecamera, la
 //    patch trovava ancora la propria matrice/posizione dell'aggiornamento prima e ci
 //    applicava sopra di nuovo la rotazione (scatto di un frame). Ora la patch ricorda

@@ -52,10 +52,13 @@ GP_REG = 28
 
 # Prepended to every ported C# file. The original code belongs to the
 # MediEvilRecomp authors (BlackLabelHQ); only the PAL address port is ours.
+# Il file risultante NON e' GPL: MediEvilRecomp non ha una licenza esplicita.
 PORT_HEADER = (
-    '// PAL port: addresses/constants rewritten for the PAL release by\n'
-    '// medievil-pal-port (GPL-3.0-or-later), Author: https://github.com/Leproide\n'
-    '// Original code: MediEvilRecomp by BlackLabelHQ - their license terms apply to it.\n\n')
+    "// Codice originale di MediEvilRecomp (BlackLabelHQ), adattato alla versione PAL italiana.\n"
+    "// MediEvilRecomp non ha una licenza esplicita: i diritti su questo codice restano ai suoi\n"
+    "// autori. Questo file NON e' rilasciato sotto GPL-3.0: la GPL del fork copre solo i file\n"
+    "// scritti da zero per il port (vedi la sezione Licenza del README).\n"
+    "// Indirizzi e costanti PAL: https://github.com/Leproide\n\n")
 
 
 class Report:

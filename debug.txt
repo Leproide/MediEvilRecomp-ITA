@@ -1,0 +1,139 @@
+========
+Crediti:
+========
+
+Progetto originale MediEvilRecomp:
+
+BlackLabelHQ:
+- Derp Princess
+- flaffymg
+
+Port PAL italiano:
+- https://github.com/Leproide
+
+
+> Avvio MediEvilRecomp ITA...
+[PalDebug] log channels: 1
+[AutoUpdater] development build, update check skipped
+[Host] monitor refresh: 60 hz
+[Gpu] context: 4.5 (4.5.0 Core Profile Context 26.10.1.261008) on AMD Radeon RX 7800 XT
+[Gpu] backend: Gl45
+[Host] swap interval: 0
+[Host] display scale: 1x
+[Host] gl context 4.5 Core
+[assets] game=SCES-01494 packs=0 xa=0 tex=0 cluts=0 rules=0 sfx=0 root=D:\Dati\APOCALISSE SE PERDI QUESTO\Repo_GIT\MEDIEVIL_RECOMP\MediEvilRecomp-ITA\packs
+[Mods] building filmati-schermo-intero...
+[Mods] filmati-schermo-intero v1.2: 8 hook(s)
+[Mods] building shaders...
+[Mods] shaders v1.0: 0 hook(s)
+[Mods] building trucchi-ita...
+[Mods] trucchi-ita v1.0: 1 hook(s)
+[Mods] loaded 3/3 mod(s), 5 function(s) hooked
+[Dispatcher] loaded overlay: main
+[GpuDiag] overlay main
+ResetGraph:jtb=801cd32c,env=801cd374
+[GpuDiag] GlCore trovato
+[GpuDiag] frame 1: modo 1 gpu 256x240 scala 4 mostrato 0x0 | aree: | rt:
+[FilmatiSchermoIntero] inizio filmato (avvio)
+[GpuDiag] frame 2: modo 1 gpu 256x240 scala 4 mostrato 256x240 | aree: | rt:
+[FilmatiSchermoIntero] ritaglio: video 176 righe da y=40
+[GpuDiag] frame 3: modo 1 gpu 320x176 scala 4 mostrato 256x240 | aree: [0,296 320x176] | rt:
+[GpuDiag] frame 4: modo 1 gpu 320x176 scala 4 mostrato 256x240 | aree: [0,40 320x176] [0,296 320x176] | rt:
+[GpuDiag] frame 52: modo 1 gpu 320x176 scala 4 mostrato 320x176 | aree: [0,40 320x176] [0,296 320x176] | rt:
+[FilmatiSchermoIntero] fine filmato (avvio)
+[FilmatiSchermoIntero] fine filmato: ritaglio fatto=True, dispenv=801CFEEC
+[FilmatiSchermoIntero] schermo ripristinato: disp y=256 h=256
+[GpuDiag] frame 455: modo 1 gpu 320x256 scala 4 mostrato 320x256 | aree: [0,256 320x256] [0,296 320x176] | rt:
+[FilmatiSchermoIntero] PutDispEnv 801CFEEC slot=0: disp 0,0 640x512 screen y=16 h=256
+[GpuDiag] frame 458: modo 1 gpu 640x512 scala 4 mostrato 640x512 | aree: [0,256 320x256] [0,0 640x512] | rt:
+[FilmatiSchermoIntero] PutDispEnv 801CFED8 slot=0: disp 0,0 640x512 screen y=16 h=256
+[Dispatcher] loaded overlay: game
+[GpuDiag] overlay game
+ResetGraph:jtb=801cd32c,env=801cd374
+ResetGraph:jtb=800e10d4,env=800e111c
+[Dispatcher] loaded overlay: credits
+[GpuDiag] overlay credits
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 640x512 screen y=16 h=256
+[GpuDiag] frame 464: modo 1 gpu 640x512 scala 4 mostrato 640x512 | aree: [0,256 320x256] [0,0 640x512] | rt: [0,0 640x512 m107]
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,0 640x512 screen y=16 h=256
+[GameLight] ambiente 0,21 0,21 0,21  luce 0,81 0,81 0,81
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 640x512 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,0 640x512 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 640x512 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,0 640x512 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 640x512 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,0 640x512 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 640x512 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,0 640x512 screen y=16 h=256
+[Dispatcher] skipped an unmapped call to 0x00000001
+[GpuDiag] frame 541: modo 1 gpu 512x256 scala 4 mostrato 640x512 | aree: [0,256 320x256] [0,0 512x256] | rt: [0,0 640x512 m107]
+[GpuDiag] frame 544: modo 1 gpu 512x256 scala 4 mostrato 512x256 | aree: [0,256 320x256] [0,0 512x256] | rt: [0,0 640x512 m107]
+[GpuDiag] frame 545: modo 1 gpu 320x256 scala 4 mostrato 512x256 | aree: [0,256 320x256] [0,0 320x256] | rt: [0,0 640x512 m107]
+[FilmatiSchermoIntero] inizio filmato (gioco)
+[GpuDiag] frame 548: modo 1 gpu 320x256 scala 4 mostrato 320x256 | aree: [0,256 320x256] [0,0 320x256] | rt: [0,0 640x512 m107]
+[FilmatiSchermoIntero] ritaglio: video 176 righe da y=40
+[GpuDiag] frame 549: modo 1 gpu 320x176 scala 4 mostrato 320x176 | aree: [0,296 320x176] [0,0 320x256] | rt: [0,0 640x512 m107]
+[GpuDiag] frame 550: modo 1 gpu 320x176 scala 4 mostrato 320x176 | aree: [0,296 320x176] [0,40 320x176] | rt: [0,0 640x512 m107]
+[FilmatiSchermoIntero] fine filmato (gioco)
+[FilmatiSchermoIntero] fine filmato: ritaglio fatto=True, dispenv=800F1EA8
+[FilmatiSchermoIntero] schermo ripristinato: disp y=0 h=256
+[GpuDiag] frame 572: modo 1 gpu 320x256 scala 4 mostrato 320x256 | aree: [0,0 320x256] [0,40 320x176] | rt: [0,0 640x512 m107]
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[GpuDiag] frame 573: modo 1 gpu 512x256 scala 4 mostrato 320x256 | aree: [0,0 512x256] [0,40 320x176] | rt: [0,0 640x512 m107]
+[Dispatcher] overlay credits overwritten by tl
+[Dispatcher] loaded overlay: tl
+[GpuDiag] overlay tl
+[GpuDiag] frame 576: modo 1 gpu 512x256 scala 4 mostrato 512x256 | aree: [0,0 512x256] [0,40 320x176] | rt: [0,0 640x512 m107]
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[GpuDiag] frame 581: modo 1 gpu 512x256 scala 4 mostrato 512x256 | aree: [0,0 512x256] [0,256 512x256] | rt: [0,0 512x256 m86]
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[GpuDiag] frame 582: modo 1 gpu 512x256 scala 4 mostrato 512x256 | aree: [0,0 512x256] [0,256 512x256] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[GpuDiag] frame 1080: modo 1 gpu 320x256 scala 4 mostrato 512x256 | aree: [0,0 320x256] [0,256 512x256] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[FilmatiSchermoIntero] inizio filmato (gioco)
+[GpuDiag] frame 1083: modo 1 gpu 320x256 scala 4 mostrato 320x256 | aree: [0,0 320x256] [0,256 512x256] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[FilmatiSchermoIntero] ritaglio: video 176 righe da y=40
+[GpuDiag] frame 1084: modo 1 gpu 320x176 scala 4 mostrato 320x176 | aree: [0,0 320x256] [0,296 320x176] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[GpuDiag] frame 1085: modo 1 gpu 320x176 scala 4 mostrato 320x176 | aree: [0,40 320x176] [0,296 320x176] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[FilmatiSchermoIntero] fine filmato (gioco)
+[FilmatiSchermoIntero] fine filmato: ritaglio fatto=True, dispenv=800F1EA8
+[FilmatiSchermoIntero] schermo ripristinato: disp y=0 h=256
+[GpuDiag] frame 1127: modo 1 gpu 320x256 scala 4 mostrato 320x256 | aree: [0,40 320x176] [0,0 320x256] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[GpuDiag] frame 1128: modo 1 gpu 512x256 scala 4 mostrato 320x256 | aree: [0,40 320x176] [0,0 512x256] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[GpuDiag] frame 1131: modo 1 gpu 512x256 scala 4 mostrato 512x256 | aree: [0,40 320x176] [0,0 512x256] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[GpuDiag] frame 1136: modo 1 gpu 512x256 scala 4 mostrato 512x256 | aree: [0,256 512x256] [0,0 512x256] | rt: [0,256 512x256 m86] [0,0 512x256 m86]
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EA8 slot=0: disp 0,0 512x256 screen y=16 h=256
+[FilmatiSchermoIntero] PutDispEnv 800F1EBC slot=0: disp 0,256 512x256 screen y=16 h=256
+[Dispatcher] loaded overlay: cr
+[GpuDiag] overlay cr
+[GameLight] ambiente 0,21 0,21 0,21  luce 0,75 0,75 0,75
+[GameLight] ambiente 0,21 0,21 0,22  luce 0,75 0,78 0,79
+[GameLight] ambiente 0,21 0,21 0,21  luce 0,75 0,75 0,75
+[Dispatcher] overlay cr overwritten by landmap
+[Dispatcher] loaded overlay: landmap
+[GpuDiag] overlay landmap
+[GameLight] ambiente 0,21 0,21 0,21  luce 0,78 0,78 0,78
+[GameLight] ambiente 0,21 0,21 0,21  luce 0,81 0,81 0,81
+[Dispatcher] loaded overlay: gy1
+[GpuDiag] overlay gy1
+[GameLight] ambiente 0,21 0,21 0,21  luce 0,75 0,75 0,75
+
+Premere un tasto per continuare . . . 

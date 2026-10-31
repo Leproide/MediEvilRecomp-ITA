@@ -262,9 +262,24 @@ assets/            icona e lingue dell'interfaccia
 
 ## Licenza
 
-Le modifiche introdotte da questo fork (port PAL, strumenti in `tools/pal-port/`, script, `PalDispatch.cs`, `PalDebug.cs`, `recompone-fixes/`, mod `mods/Trucchi/` e `mods/FilmatiSchermoIntero/`, patch PAL in `patches/`) sono rilasciate sotto **GPL-3.0-or-later**. Il testo completo è in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE).
+Questo repository contiene codice con licenze diverse.
 
-Il codice originale di MediEvilRecomp e RecompOne appartiene a BlackLabelHQ e resta soggetto ai loro termini. MediEvil è un marchio dei rispettivi proprietari: questo progetto non è affiliato né approvato da Sony Interactive Entertainment.
+**Codice di MediEvilRecomp (BlackLabelHQ): nessuna licenza.** MediEvilRecomp non ha una licenza esplicita, quindi i diritti sul suo codice restano ai suoi autori. Questo fork **non** applica la GPL a quel codice, né alle parti adattate alla versione PAL. Sono i file con l'intestazione "Codice originale di MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, le patch in `patches/render/`, `patches/widescreen/` (tranne `IrisFadePatch.cs`) e `patches/qol/`, gli script `windows_*.bat`, `run.sh`, `.github/workflows/release.yml` e la configurazione in `config/`. Lo stesso vale per ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
+
+**RecompOne: licenza MIT**, Copyright (c) 2026 flaffy. Il testo è nel file `LICENSE` del sottomodulo `RecompOne` (e in `BACKUP_Dipendenze/RecompOne`).
+
+**Codice scritto per questo fork: GPL-3.0-or-later.** Testo completo in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
+- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`;
+- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/diag/`;
+- le mod `mods/Trucchi/` e `mods/FilmatiSchermoIntero/`;
+- `recompone-fixes/`;
+- gli strumenti in `tools/pal-port/` e `tools/ci/`;
+- gli script `linux_initial_build.sh` e `linux_run.sh`;
+- la documentazione scritta per il fork (`disc/README.md`, i README delle mod e degli strumenti).
+
+Lo shader [Dan's Curse V2](https://github.com/Leproide/DansCurseV2) ha un repository e una licenza propri (GPL-3.0-or-later, basato su Dan's Curse di flaffymg con il suo permesso).
+
+MediEvil è un marchio dei rispettivi proprietari: questo progetto non è affiliato né approvato da Sony Interactive Entertainment.
 
 ---
 
