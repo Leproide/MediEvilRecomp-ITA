@@ -88,7 +88,7 @@ Questo repository **non contiene i file del gioco** e non ne distribuisce codice
    - genera il codice del gioco dal tuo disco;
    - compila il gioco.
 
-Se non hai la possibilità di ricompilare autonomamente [clicca qui](https://muninn.ovh/medievil_recomp_ita/MediEvilRecomp-ITA.zip)
+Se non hai la possibilità di ricompilare autonomamente, scarica il pacchetto pronto per Windows, Linux o macOS dalle [release](https://github.com/Leproide/MediEvilRecomp-ITA/releases/latest) oppure dalla [pagina del progetto](https://muninn.ovh/medievil_recomp_ita).
 
 ### Linux
 
