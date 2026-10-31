@@ -1,3 +1,10 @@
+# MediEvilRecomp ITA v1.1.3
+
+- Shader Dan's Curse V2 aggiornato: fiamme e magie illuminano davvero (riflessi, calore, tremolio del fuoco, ombre delle sorgenti di luce), onde dell'acqua piu' alte, foschia che parte piu' lontano dal personaggio.
+- I pacchetti delle release e gli script di compilazione includono sempre l'ultima versione di Dan's Curse V2 (prima era fissata a un commit).
+
+---
+
 # MediEvilRecomp ITA v1.1.2
 
 - Telecamera libera (levetta destra): niente piu' tremolio. Quando il gioco non ricalcolava la telecamera in un frame, la rotazione veniva applicata due volte; vicino a muri e recinzioni la telecamera entrava e usciva a ogni frame. Ora riparte sempre dai valori del gioco e si avvicina e si allontana dagli ostacoli in modo graduale.
