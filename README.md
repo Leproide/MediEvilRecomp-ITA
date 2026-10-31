@@ -104,6 +104,9 @@ Servono `git` e l'[SDK di .NET 10](https://dotnet.microsoft.com/download/dotnet/
 
 `run.sh` è il lanciatore del progetto originale per una build Linux già pronta (eseguibile `medievil` nella stessa cartella): non compila nulla.
 
+<img width="1920" height="1144" alt="Schermata_20261031_112933" src="https://github.com/user-attachments/assets/68db1f00-191e-4ce3-918f-1584e34475d3" />
+
+
 ### A mano (Windows, Linux, macOS)
 
 Dalla cartella del repository:
