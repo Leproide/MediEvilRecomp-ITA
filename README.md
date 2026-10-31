@@ -26,9 +26,7 @@ Pagina del progetto:
 
 **A differenza del progetto originale, questo fork accetta contributi scritti o assistiti dall'intelligenza artificiale.** Issue e pull request generate in tutto o in parte con strumenti AI sono accettate e valutate come tutte le altre: conta che il contributo sia corretto, testato e spiegato bene.
 
-Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Per questo i contributi vanno inviati **qui**, non al repository originale: BlackLabelHQ chiude i contributi AI e banna chi li invia. Per lo stesso motivo, per i problemi della versione italiana non chiedere aiuto sul loro Discord.
-
-Segnalo che gli sviluppatori del progetto originali sono estremamente ostili, contribuite al loro repo a vostro rischio.
+Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Il progetto originale non accetta contributi realizzati con l'AI: i contributi per questo fork vanno inviati **qui**. Allo stesso modo, i problemi della versione italiana vanno segnalati in questo repository e non ai canali del progetto originale.
 
 ---
 
