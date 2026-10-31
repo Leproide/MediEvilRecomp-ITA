@@ -277,7 +277,6 @@ Questo repository contiene codice con licenze diverse.
 - gli script `linux_initial_build.sh` e `linux_run.sh`;
 - la documentazione scritta per il fork (`disc/README.md`, i README delle mod e degli strumenti).
 
-Lo shader [Dan's Curse V2](https://github.com/Leproide/DansCurseV2) ha un repository e una licenza propri (GPL-3.0-or-later, basato su Dan's Curse di flaffymg con il suo permesso).
 
 MediEvil è un marchio dei rispettivi proprietari: questo progetto non è affiliato né approvato da Sony Interactive Entertainment.
 
