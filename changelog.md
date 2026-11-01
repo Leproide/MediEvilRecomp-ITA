@@ -1,3 +1,9 @@
+# MediEvilRecomp ITA v1.1.5
+
+- **Sistema → Esci** a schermo intero: prima di chiudere il gioco torna in finestra. Chiudere con lo schermo intero esclusivo attivo poteva bloccare il processo nel driver video, al punto che nemmeno il Task Manager riusciva a terminarlo.
+
+---
+
 # MediEvilRecomp ITA v1.1.4
 
 - Uscita dal menu **Sistema → Esci** senza blocchi: prima il gioco usciva senza fermare l'audio e su Windows poteva restare bloccato (chiudendo con la X funzionava). Ora Esci chiude il gioco come la X della finestra; se dopo qualche secondo il processo e' ancora attivo, viene terminato (`patches/PalQuitFix.cs`).
