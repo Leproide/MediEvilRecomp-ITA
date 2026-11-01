@@ -272,6 +272,51 @@
             "en": "Reverses up and down on the right stick.",
             "pt-BR": "Inverte cima e baixo no analógico direito.",
             "es-419": "Invierte arriba y abajo en el stick derecho."
+        },
+        "menu.updates.modhub_on_startup": {
+            "en": "Mod Hub Updates on Startup",
+            "pt-BR": "Atualizações do Mod Hub ao Iniciar",
+            "es-419": "Actualizaciones del Mod Hub al Iniciar"
+        },
+        "menu.updates.modhub_check_now": {
+            "en": "Check Mod Hub Updates Now",
+            "pt-BR": "Verificar Atualizações do Mod Hub Agora",
+            "es-419": "Buscar Actualizaciones del Mod Hub Ahora"
+        },
+        "modhub_updates.title": {
+            "en": "Mod Hub Updates",
+            "pt-BR": "Atualizações do Mod Hub",
+            "es-419": "Actualizaciones del Mod Hub"
+        },
+        "modhub_updates.headline": {
+            "en": "Updates available for {0} installed item(s)",
+            "pt-BR": "Atualizações disponíveis para {0} item(ns) instalado(s)",
+            "es-419": "Actualizaciones disponibles para {0} elemento(s) instalado(s)"
+        },
+        "modhub_updates.headline.done": {
+            "en": "Mod Hub update finished",
+            "pt-BR": "Atualização do Mod Hub concluída",
+            "es-419": "Actualización del Mod Hub terminada"
+        },
+        "modhub_updates.update_all": {
+            "en": "Update All",
+            "pt-BR": "Atualizar Tudo",
+            "es-419": "Actualizar Todo"
+        },
+        "modhub_updates.updating": {
+            "en": "Updating...",
+            "pt-BR": "Atualizando...",
+            "es-419": "Actualizando..."
+        },
+        "modhub_updates.updated": {
+            "en": "Updated",
+            "pt-BR": "Atualizado",
+            "es-419": "Actualizado"
+        },
+        "modhub_updates.hint": {
+            "en": "You can turn this notice off in the Updates menu.",
+            "pt-BR": "Você pode desativar este aviso no menu Atualizações.",
+            "es-419": "Puedes desactivar este aviso en el menú Actualizaciones."
         }
     }
 }

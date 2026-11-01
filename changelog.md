@@ -1,3 +1,11 @@
+# MediEvilRecomp ITA v1.1.6
+
+- **Aggiornamenti del Mod Hub all'avvio**: se una mod, un pacchetto o uno shader installato dal Mod Hub ha una versione nuova, compare un avviso con l'elenco e il pulsante **Update All**. Se lo shader in uso viene aggiornato si ricarica subito, tenendo i parametri cambiati. Si disattiva dal menu **Updates → Mod Hub Updates on Startup** (`misc/ModHubUpdateNotice.cs`).
+- La distanza di disegno del gioco viene passata agli shader (`patches/render/ShaderDrawDistance.cs`): Dan's Curse V2 la usa per sfumare il limite di disegno al nero, come nell'originale, senza che la nebbia si avvicini davanti ai muri.
+- Shader Dan's Curse V2 aggiornato: limite di disegno e vuoto sotto l'orizzonte scuri invece che grigi, bloom predefinito a 0.70.
+
+---
+
 # MediEvilRecomp ITA v1.1.5
 
 - **Sistema → Esci** a schermo intero: prima di chiudere il gioco torna in finestra. Chiudere con lo schermo intero esclusivo attivo poteva bloccare il processo nel driver video, al punto che nemmeno il Task Manager riusciva a terminarlo.

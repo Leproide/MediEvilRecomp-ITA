@@ -31,12 +31,14 @@ Dispatcher.Tolerant = true;
 
 TerrainPatch.Register();
 WaterMaterialPatch.Register();
+ShaderDrawDistance.Register();
 TitleShaderPatch.Register();
 PalQuitFix.Register();
 GpuDisplayDiag.Register();
 WidescreenPatch.Register();
 QualityOfLifeMenu.Register();
 AutoUpdater.Register();
+ModHubUpdateNotice.Register();
 // Mod Hub della versione PAL (MediEvilRecomp ITA, Author: https://github.com/Leproide).
 // Non usare l'hub originale BlackLabelHQ/MediEvilRecompModHub: le sue mod usano indirizzi
 // della versione USA e su questa build romperebbero il gioco.
