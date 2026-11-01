@@ -45,6 +45,7 @@ Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Il proge
 | `patches/PalDisplay.cs` | — | 256 righe PAL: filmati centrati invece che spostati in basso |
 | `patches/PalLibCrypt.cs` | — | protezione LibCrypt con un dump bin/cue: il Mausoleo in Cima alla Collina si apre |
 | `patches/PalXaSpeech.cs` | — | i dialoghi non si chiudono più da soli quando parte un discorso mentre suona la musica |
+| `patches/PalQuitFix.cs` | — | Sistema → Esci chiude il gioco come la X della finestra, senza bloccarsi |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
 | Script di compilazione | solo Windows, nomi file USA, in inglese | Windows e Linux (`linux_*.sh`), nomi file `(Italy)`, in italiano, correzione applicata in automatico |
 | Aggiornamento automatico | release di BlackLabelHQ | release di questo fork |
@@ -267,7 +268,7 @@ Questo repository contiene codice con licenze diverse.
 **RecompOne: licenza MIT**, Copyright (c) 2026 flaffy. Il testo è nel file `LICENSE` del sottomodulo `RecompOne` (e in `BACKUP_Dipendenze/RecompOne`).
 
 **Codice scritto per questo fork: GPL-3.0-or-later.** Testo completo in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
-- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`;
+- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`;
 - `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/diag/`;
 - le mod `mods/Trucchi/` e `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;

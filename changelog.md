@@ -1,3 +1,9 @@
+# MediEvilRecomp ITA v1.1.4
+
+- Uscita dal menu **Sistema → Esci** senza blocchi: prima il gioco usciva senza fermare l'audio e su Windows poteva restare bloccato (chiudendo con la X funzionava). Ora Esci chiude il gioco come la X della finestra; se dopo qualche secondo il processo e' ancora attivo, viene terminato (`patches/PalQuitFix.cs`).
+
+---
+
 # MediEvilRecomp ITA v1.1.3
 
 - Shader Dan's Curse V2 aggiornato: fiamme e magie illuminano davvero (riflessi, calore, tremolio del fuoco, ombre delle sorgenti di luce), onde dell'acqua piu' alte, foschia che parte piu' lontano dal personaggio.

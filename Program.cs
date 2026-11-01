@@ -32,6 +32,7 @@ Dispatcher.Tolerant = true;
 TerrainPatch.Register();
 WaterMaterialPatch.Register();
 TitleShaderPatch.Register();
+PalQuitFix.Register();
 GpuDisplayDiag.Register();
 WidescreenPatch.Register();
 QualityOfLifeMenu.Register();
