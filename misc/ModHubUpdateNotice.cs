@@ -20,7 +20,11 @@
 // All'avvio legge l'indice del Mod Hub e confronta il commit installato di ogni mod, pacchetto
 // o shader (file .modhub nella sua cartella) con quello dell'indice. Se qualcosa e' rimasto
 // indietro mostra un avviso con l'elenco e il pulsante "Aggiorna tutto".
-// - Disattivabile: menu Updates -> "Mod Hub updates on startup" (chiave modhub.notify_on_startup).
+// - Disattivabile: menu Updates -> "Mod Hub Updates on Startup" (chiave modhub.notify_on_startup).
+//   Avvisa ad ogni avvio finche' ci sono aggiornamenti; "Not now" vale solo fino alla chiusura.
+// - Si apre solo a caricamento finito (gioco avviato da qualche secondo, nessun altro popup
+//   aperto). Si chiude solo con i suoi pulsanti: se l'interfaccia lo chiude da sola (un altro
+//   popup aperto durante il caricamento) viene riaperto poco dopo.
 // - Gli aggiornamenti usano lo stesso installatore del Mod Hub (ModHub.Install).
 // - Se lo shader attivo viene aggiornato si ricarica subito, tenendo i parametri cambiati
 //   dall'utente; quelli lasciati al valore predefinito prendono il nuovo predefinito.
@@ -45,6 +49,18 @@ public static class ModHubUpdateNotice
     static volatile Stage _stage = Stage.Idle;
     static List<HubEntry> _outdated = [];
     static bool _dismissed;
+    static bool _startupDone;
+    static bool _autoClosing;
+    static bool _userClosing;
+    static int _frames;        // frame dell'interfaccia dall'avvio
+    static int _openAfter;     // primo frame in cui l'avviso puo' aprirsi
+    static int _reopens;
+    static bool _manual;       // controllo chiesto dal menu: nessuna attesa
+
+    // attesa dopo la fine del controllo e dopo una chiusura forzata (frame dell'interfaccia)
+    const int SettleFrames = 180;
+    const int ReopenFrames = 60;
+    const int MaxReopens = 20;
 
     internal static Stage Current => _stage;
     internal static IReadOnlyList<HubEntry> Outdated => _outdated;
@@ -62,8 +78,12 @@ public static class ModHubUpdateNotice
             .Item("menu.updates.modhub_check_now", CheckNow)
                 .Enabled(() => ModHub.Configured && _stage is Stage.Idle or Stage.Finished);
 
+        // RuntimeReadyEvent arriva piu' volte (una per ogni eseguibile caricato: avvio e gioco):
+        // il controllo si fa solo la prima. Rifarlo chiudeva l'avviso appena aperto.
         Event.AddListener<RuntimeReadyEvent>(_ =>
         {
+            if (_startupDone) return;
+            _startupDone = true;
             if (!NotifyOnStartup)
             {
                 Log("startup check disabled in settings");
@@ -76,13 +96,15 @@ public static class ModHubUpdateNotice
 
     static void CheckNow()
     {
-        _dismissed = false;
+        _manual = true;
         Start();
+        _dismissed = false;
     }
 
     static void Start()
     {
-        if (!ModHub.Configured || _stage is Stage.Checking or Stage.Updating) return;
+        // con l'avviso gia' aperto (o un aggiornamento in corso) non si ricomincia
+        if (!ModHub.Configured || _stage is Stage.Checking or Stage.Available or Stage.Updating) return;
         _stage = Stage.Checking;
         Log("checking the mod hub for updates...");
         ModHub.Refresh(true);
@@ -91,6 +113,7 @@ public static class ModHubUpdateNotice
     // chiamato ad ogni frame dal popup (thread dell'interfaccia), anche quando e' chiuso
     internal static void Tick()
     {
+        _frames++;
         ModHub.Update();
 
         switch (_stage)
@@ -103,6 +126,9 @@ public static class ModHubUpdateNotice
                     ? "everything installed from the mod hub is up to date"
                     : "updates available: " + string.Join(", ", _outdated.Select(e => e.Id)));
                 _stage = _outdated.Count > 0 ? Stage.Available : Stage.Idle;
+                _openAfter = _frames + (_manual ? 0 : SettleFrames);
+                _manual = false;
+                _reopens = 0;
                 break;
 
             case Stage.Updating when _outdated.All(e => ModHub.JobOf(e) is null or { Error: not null }):
@@ -126,7 +152,41 @@ public static class ModHubUpdateNotice
         }
     }
 
-    internal static void Dismiss() => _dismissed = true;
+    internal static bool CanOpen => ShouldShow && _frames >= _openAfter && !PopupManager.AnyOpen;
+
+    // chiusura con i pulsanti dell'avviso: resta chiuso fino al prossimo avvio
+    internal static void UserClose(Popup popup)
+    {
+        _userClosing = true;
+        popup.Close();
+        _userClosing = false;
+    }
+
+    internal static void Closed()
+    {
+        if (_autoClosing) return;
+        if (_userClosing)
+        {
+            _dismissed = true;
+            Log("notice closed");
+            return;
+        }
+
+        // chiuso dall'interfaccia (es. un altro popup aperto mentre il gioco si carica): si riapre
+        if (_reopens++ < MaxReopens)
+        {
+            _openAfter = _frames + ReopenFrames;
+            Log("notice closed by the interface, reopening");
+        }
+        else _dismissed = true;
+    }
+
+    internal static void AutoClose(Popup popup)
+    {
+        _autoClosing = true;
+        popup.Close();
+        _autoClosing = false;
+    }
 
     internal static bool Failed(HubEntry entry) => ModHub.JobOf(entry)?.Error != null;
 
@@ -170,14 +230,17 @@ public sealed class ModHubUpdatePopup : Popup
     protected override string TitleKey => "modhub_updates.title";
     protected override Vector2 Size => new(520f, 380f);
 
+    // niente X ne' Esc: si chiude con "Not now" / "Close", cosi' ogni altra chiusura e' forzata
+    protected override bool Closable => false;
+
     protected override void Update()
     {
         ModHubUpdateNotice.Tick();
-        if (ModHubUpdateNotice.ShouldShow && !IsOpen) Open();
-        else if (!ModHubUpdateNotice.ShouldShow && IsOpen) Close();
+        if (!IsOpen && ModHubUpdateNotice.CanOpen) Open();
+        else if (!ModHubUpdateNotice.ShouldShow && IsOpen) ModHubUpdateNotice.AutoClose(this);
     }
 
-    protected override void OnClosed() => ModHubUpdateNotice.Dismiss();
+    protected override void OnClosed() => ModHubUpdateNotice.Closed();
 
     protected override void DrawContent()
     {
@@ -200,7 +263,7 @@ public sealed class ModHubUpdatePopup : Popup
         {
             case ModHubUpdateNotice.Stage.Available:
                 if (Row(0, 2, Localization.T("modhub_updates.update_all"))) ModHubUpdateNotice.UpdateAll();
-                if (Row(1, 2, Localization.T("update.not_now"))) Close();
+                if (Row(1, 2, Localization.T("update.not_now"))) ModHubUpdateNotice.UserClose(this);
                 break;
 
             case ModHubUpdateNotice.Stage.Updating:
@@ -214,7 +277,7 @@ public sealed class ModHubUpdatePopup : Popup
                     ModHubUpdateNotice.UpdateAll();
                 if (Row(entries.Any(ModHubUpdateNotice.Failed) ? 1 : 0, entries.Any(ModHubUpdateNotice.Failed) ? 2 : 1,
                         Localization.T("common.close")))
-                    Close();
+                    ModHubUpdateNotice.UserClose(this);
                 break;
         }
 
@@ -240,7 +303,12 @@ public sealed class ModHubUpdatePopup : Popup
         else if (stage == ModHubUpdateNotice.Stage.Finished)
             ImGui.TextDisabled(Localization.T("modhub_updates.updated"));
         else if (entry.Description.Length > 0)
-            ImGui.TextDisabled(entry.Description.Length > 90 ? entry.Description[..90] + "..." : entry.Description);
+        {
+            // descrizione a capo entro la larghezza del riquadro
+            ImGui.PushTextWrapPos(0f);
+            ImGui.TextDisabled(entry.Description);
+            ImGui.PopTextWrapPos();
+        }
 
         ImGui.Spacing();
     }
