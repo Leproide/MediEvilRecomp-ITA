@@ -1,6 +1,7 @@
 # MediEvilRecomp ITA v1.1.7
 
 - Telecamera libera con la levetta destra **spenta di default**: si gioca con la telecamera originale. Si riaccende da **Misc → Quality of life → Right stick camera**. Chi l'aveva già cambiata nelle impostazioni mantiene la sua scelta.
+- **R3** (pressione della levetta destra) accende e spegne la telecamera libera in qualsiasi momento, con un avviso a schermo; la scelta viene salvata (`patches/qol/CameraToggle.cs`).
 
 ---
 
