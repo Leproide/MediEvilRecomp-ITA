@@ -17,6 +17,8 @@ Pagina del progetto:
 
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
+> **Telecamera libera: premi R3** (la pressione della levetta destra) per accenderla o spegnerla in qualsiasi momento. Accesa, la levetta destra ruota la visuale a 360° attorno a Dan; spenta, si gioca con la telecamera originale del gioco, che è quella predefinita. Un avviso a schermo conferma il cambio e la scelta resta salvata. La stessa opzione è in **Misc → Quality of life → Right stick camera**.
+
 <img width="1920" height="1032" alt="MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/76ff3ae2-808c-4718-90fa-134b96d0b832" />
 <img width="1920" height="1032" alt="2_MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/7017f74a-eed7-4d3b-8e09-200d7f5ea67f" />
 
