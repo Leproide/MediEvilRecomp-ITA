@@ -1,3 +1,9 @@
+# MediEvilRecomp ITA v1.1.7
+
+- Telecamera libera con la levetta destra **spenta di default**: si gioca con la telecamera originale. Si riaccende da **Misc → Quality of life → Right stick camera**. Chi l'aveva già cambiata nelle impostazioni mantiene la sua scelta.
+
+---
+
 # MediEvilRecomp ITA v1.1.6
 
 - **Aggiornamenti del Mod Hub all'avvio**: se una mod, un pacchetto o uno shader installato dal Mod Hub ha una versione nuova, compare un avviso con l'elenco e il pulsante **Update All**. Se lo shader in uso viene aggiornato si ricarica subito, tenendo i parametri cambiati. Si disattiva dal menu **Updates → Mod Hub Updates on Startup** (`misc/ModHubUpdateNotice.cs`).
