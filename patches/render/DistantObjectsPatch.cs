@@ -32,7 +32,8 @@
 //    lo sostituisce con un elemento fermo (+0x70 -> [0]) marcato nascosto (0x40 in +0xA);
 //    oltre la disattivazione esce dalla lista.
 //
-// Correzione (distanza = soglia di disattivazione x Draw distance, al massimo x3):
+// Correzione (distanza = soglia di disattivazione x Draw distance, almeno x1.5 anche a 1x,
+// perche' con lo shader la nebbia lontana mostra le comparse anche li', al massimo x3):
 //  1. raggio di caricamento: durante il caricatore la soglia [0] vale la distanza allargata,
 //     quindi gli oggetti vengono creati prima (addormentati);
 //  2. durante il controllo la soglia [4] vale la distanza allargata: restano nella lista;
@@ -46,7 +47,8 @@
 // +0x4C) non vengono ridisegnate: la fiamma la fanno solo da sveglie, da lontano sparirebbero
 // spente; restano come nell'originale.
 // Opzione: Misc -> Quality of life -> "Distant objects" (attiva di default).
-// Con MEDIEVIL_DEBUG: righe "[DistantObjects]" con le soglie del livello.
+// Con MEDIEVIL_DEBUG: righe "[DistantObjects]" con soglie, oggetti precaricati e oggetti
+// svegliati dal gioco (con tipo e posizione), per riconoscere i tipi da escludere.
 
 using RecompOne.Runtime.Config;
 using RecompOne.Runtime.Context;
@@ -58,6 +60,7 @@ public static class DistantObjectsPatch
 {
     public static readonly Option<bool> Setting = Options.Bool("qol.distant_objects", true);
 
+    const float MinFactor = 1.5f;
     const float MaxFactor = 3f;
 
     const uint ThingList = 0x800EEA50u;
@@ -73,6 +76,9 @@ public static class DistantObjectsPatch
     const uint ThingItems = 0x70u;
     const uint TypeRadius = 0x54u;
     const uint ItemFlags = 0x0Au;
+
+    // tipi esclusi dal precaricamento (svegliarli un frame fa partire suoni/eventi, es. le casse)
+    static readonly HashSet<uint> NoPreload = new() { };
 
     const uint FlagAsleep = 0x20000000u;
     const uint KindLight = 0x00000080u;
@@ -90,9 +96,18 @@ public static class DistantObjectsPatch
         Setting.Changed += value => _enabled = value;
     }
 
-    static float Factor() => Math.Clamp(TerrainPatch.DrawDistanceScale, 1f, MaxFactor);
+    static float Factor() => Math.Clamp(TerrainPatch.DrawDistanceScale, MinFactor, MaxFactor);
 
-    static bool Active => _enabled && Factor() > 1f;
+    static bool Active => _enabled;
+
+    // diagnostica (MEDIEVIL_DEBUG): oggetti che il gioco sveglia, per riconoscere i tipi
+    static readonly HashSet<uint> _asleepLast = new();
+    static int _lines;
+
+    static void Log(string s)
+    {
+        if (DiagOn && _lines++ < 4000) Console.WriteLine("[DistantObjects] " + s);
+    }
 
     static uint Extended(float factor)
     {
@@ -136,7 +151,8 @@ public static class DistantObjectsPatch
             _origFar = far;
             _shown.Clear();
             _preloaded.Clear();
-            if (DiagOn) Console.WriteLine($"[DistantObjects] soglie: sveglia {Math.Sqrt(wake):0}, disattivazione {Math.Sqrt(far):0}");
+            _asleepLast.Clear();
+            Log($"soglie: sveglia {Math.Sqrt(wake):0}, disattivazione {Math.Sqrt(far):0}");
         }
 
         if (!Active) return;
@@ -149,8 +165,11 @@ public static class DistantObjectsPatch
         {
             uint items = m.ReadU32(thing + ThingItems);
             if ((m.ReadU32(thing + ThingFlags) & FlagAsleep) != 0 && Ram(items) && !Ram(m.ReadU32(items)) &&
-                _preloaded.Add(thing))
+                !NoPreload.Contains(m.ReadU32(thing + ThingType)) && _preloaded.Add(thing))
+            {
                 m.WriteU8(thing + ThingWakeCounter, 1);
+                Log($"precarico {thing:X8} tipo {m.ReadU32(thing + ThingType):X8}");
+            }
             thing = m.ReadU32(thing + ThingNext);
         }
     }
@@ -171,6 +190,12 @@ public static class DistantObjectsPatch
             uint item = Item(m, thing);
             bool sleeping = (m.ReadU32(thing + ThingFlags) & FlagAsleep) != 0;
             bool light = (m.ReadU32(thing + ThingKind) & KindLight) != 0;
+            if (DiagOn)
+            {
+                if (sleeping) _asleepLast.Add(thing);
+                else if (_asleepLast.Remove(thing))
+                    Log($"il gioco sveglia {thing:X8} tipo {m.ReadU32(thing + ThingType):X8} pos {(int)m.ReadU32(thing + ThingPos)},{(int)m.ReadU32(thing + ThingPos + 4u)},{(int)m.ReadU32(thing + ThingPos + 8u)}");
+            }
 
             if (item != 0 && sleeping && !light)
             {
