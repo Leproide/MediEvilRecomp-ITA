@@ -1,3 +1,9 @@
+# MediEvilRecomp ITA v1.1.9
+
+- **Oggetti visibili da lontano**: con **Draw distance** oltre 1x porte, cancelli e decorazioni vengono caricati e disegnati da lontano invece di comparire solo vicino a Dan (per esempio i battenti del cancello del cimitero). Vale con qualsiasi telecamera. Nemici, trappole ed eventi si attivano alla distanza originale; da lontano gli oggetti restano fermi e le fiaccole compaiono, come nell'originale, solo avvicinandosi. Attivo di default, si spegne da **Misc → Quality of life → Distant objects** (`patches/render/DistantObjectsPatch.cs`).
+
+---
+
 # MediEvilRecomp ITA v1.1.8
 
 - Il cursore del mouse sparisce dopo qualche secondo fermo (anche a schermo intero e giocando col controller) e ricompare muovendolo.
