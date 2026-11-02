@@ -21,8 +21,11 @@
 // "Right stick camera" (Misc -> Quality of life), la salva nelle impostazioni e mostra un
 // avviso in sovrimpressione. Spegnendola la telecamera torna subito quella del gioco
 // (CameraControlPatch rilascia la rotazione al frame dopo).
+// Il tasto si legge ad ogni frame dell'interfaccia (popup invisibile che non si apre mai):
+// l'evento VSync del runtime dipende dal riconoscimento della VSync della libreria nel gioco
+// e con R3 non scattava.
 
-using RecompOne.Runtime.Events;
+using System.Diagnostics;
 using RecompOne.Runtime.Hardware;
 using RecompOne.Runtime.Host.Window;
 
@@ -30,23 +33,23 @@ namespace Recompiled;
 
 public static class CameraToggle
 {
-    const int DebounceFrames = 10;   // pressioni piu' ravvicinate vengono ignorate
+    const long DebounceMs = 250;   // pressioni piu' ravvicinate vengono ignorate
 
     static bool _held;
-    static long _lastToggle = long.MinValue;
+    static readonly Stopwatch _sinceToggle = Stopwatch.StartNew();
 
     public static void Register()
     {
-        Event.AddListener<VSyncEvent>(OnVSync);
+        PopupManager.Register(new Ticker());
     }
 
-    static void OnVSync(VSyncEvent e)
+    internal static void Poll()
     {
         // State e' attivo basso: bit a 0 = tasto premuto
         bool pressed = (Controller.State & Controller.R3) == 0;
-        if (pressed && !_held && e.Frame - _lastToggle >= DebounceFrames)
+        if (pressed && !_held && _sinceToggle.ElapsedMilliseconds >= DebounceMs)
         {
-            _lastToggle = e.Frame;
+            _sinceToggle.Restart();
             bool enabled = !QualityOfLifeOptions.CameraControl.Value;
             QualityOfLifeOptions.CameraControl.Value = enabled;
             ToastNotifications.Show("qol.camera_control",
@@ -55,5 +58,13 @@ public static class CameraToggle
         }
 
         _held = pressed;
+    }
+
+    // popup mai aperto: serve solo perche' Update viene chiamato ad ogni frame dell'interfaccia
+    sealed class Ticker : Popup
+    {
+        protected override string TitleKey => "qol.camera_control";
+        protected override void Update() => Poll();
+        protected override void DrawContent() { }
     }
 }
