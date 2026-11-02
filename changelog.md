@@ -1,3 +1,10 @@
+# MediEvilRecomp ITA v1.1.8
+
+- Il cursore del mouse sparisce dopo qualche secondo fermo (anche a schermo intero e giocando col controller) e ricompare muovendolo.
+- **System → Autohide Menu Bar** ora funziona (prima era una voce disattivata): la barra dei menu si nasconde dopo qualche secondo senza muovere il mouse e ricompare muovendolo. F1 resta per mostrarla o nasconderla a mano (`misc/InterfaceAutoHide.cs`).
+
+---
+
 # MediEvilRecomp ITA v1.1.7
 
 - Telecamera libera con la levetta destra **spenta di default**: si gioca con la telecamera originale. Si riaccende da **Misc → Quality of life → Right stick camera**. Chi l'aveva già cambiata nelle impostazioni mantiene la sua scelta.

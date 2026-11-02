@@ -38,6 +38,7 @@ GpuDisplayDiag.Register();
 WidescreenPatch.Register();
 QualityOfLifeMenu.Register();
 CameraToggle.Register();
+InterfaceAutoHide.Register();
 AutoUpdater.Register();
 ModHubUpdateNotice.Register();
 // Mod Hub della versione PAL (MediEvilRecomp ITA, Author: https://github.com/Leproide).
