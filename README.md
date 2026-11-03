@@ -288,18 +288,21 @@ assets/            icona e lingue dell'interfaccia
 
 Questo repository contiene codice con licenze diverse.
 
-**Codice di MediEvilRecomp (BlackLabelHQ): nessuna licenza.** MediEvilRecomp non ha una licenza esplicita, quindi i diritti sul suo codice restano ai suoi autori. Questo fork **non** applica la GPL a quel codice, né alle parti adattate alla versione PAL. Sono i file con l'intestazione "Codice originale di MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, le patch in `patches/render/`, `patches/widescreen/` (tranne `IrisFadePatch.cs`) e `patches/qol/`, gli script `windows_*.bat`, `run.sh`, `.github/workflows/release.yml` e la configurazione in `config/`. Lo stesso vale per ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
+**Codice di MediEvilRecomp (BlackLabelHQ): nessuna licenza.** MediEvilRecomp non ha una licenza esplicita, quindi i diritti sul suo codice restano ai suoi autori. Questo fork **non** applica la GPL a quel codice, né alle parti adattate alla versione PAL. Sono i file con l'intestazione "Codice originale di MediEvilRecomp": `Program.cs`, `RecompOne.MediEvil.csproj`, `wrapers/`, `misc/AutoUpdater.cs`, `assets/`, le patch in `patches/render/`, `patches/widescreen/` e `patches/qol/` (tranne i file GPL elencati sotto), gli script `windows_*.bat` (tranne `windows_run_debug*.bat`), `run.sh`, `.github/workflows/release.yml` e la configurazione in `config/`. Lo stesso vale per ShaderMod (`mods/ShaderMod`, `BACKUP_Dipendenze/ShaderMod`).
 
 **RecompOne: licenza MIT**, Copyright (c) 2026 flaffy. Il testo è nel file `LICENSE` del sottomodulo `RecompOne` (e in `BACKUP_Dipendenze/RecompOne`).
 
 **Codice scritto per questo fork: GPL-3.0-or-later.** Testo completo in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
 - `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`;
-- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/diag/`;
+- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
+- `misc/ModHubUpdateNotice.cs` e `misc/InterfaceAutoHide.cs`;
 - le mod `mods/Trucchi/` e `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;
 - gli strumenti in `tools/pal-port/` e `tools/ci/`;
-- gli script `linux_initial_build.sh` e `linux_run.sh`;
+- gli script `linux_initial_build.sh`, `linux_run.sh`, `windows_run_debug.bat` e `windows_run_debug - nobuild.bat`;
 - la documentazione scritta per il fork (`disc/README.md`, i README delle mod e degli strumenti).
+
+L'elenco riporta i file principali, ma non è esaustivo: altri file scritti per il fork possono essere GPL. Fa fede l'intestazione di ogni file: i file GPL hanno l'intestazione GPL-3.0-or-later (`SPDX-License-Identifier: GPL-3.0-or-later`, autore https://github.com/Leproide), quelli di MediEvilRecomp l'intestazione "Codice originale di MediEvilRecomp". I file di BlackLabelHQ con piccole aggiunte del fork (per esempio `patches/qol/QualityOfLifePanel.cs`, `config/MediEvil.json`, `assets/languages.json`) restano sotto le condizioni di MediEvilRecomp.
 
 
 MediEvil è un marchio dei rispettivi proprietari: questo progetto non è affiliato né approvato da Sony Interactive Entertainment.
