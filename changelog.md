@@ -1,3 +1,10 @@
+# MediEvilRecomp ITA v1.1.11
+
+- **Muri distruttibili visibili da lontano**: il gioco li disegna solo quando sono "svegli", quindi da lontano (Draw distance alta, shader o telecamera libera) sparivano in qualsiasi stato, lasciando vedere la stanza dietro. Ora entro la distanza allargata restano svegli e visibili; rottura e colpi funzionano come prima (`patches/render/DistantObjectsPatch.cs`).
+- Diagnostica degli oggetti lontani più completa con `MEDIEVIL_DEBUG`; il README spiega come funziona il caricamento degli oggetti lontani e come trovare il tipo di un oggetto che sparisce.
+
+---
+
 # MediEvilRecomp ITA v1.1.10
 
 - **Oggetti visibili da lontano**: ora anche le fiaccole vengono disegnate da lontano invece di sparire; da lontano sono spente e si accendono avvicinandosi, come nell'originale (`patches/render/DistantObjectsPatch.cs`).

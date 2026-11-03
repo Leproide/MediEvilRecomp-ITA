@@ -157,6 +157,29 @@ Allega `debug.txt` alle issue quando segnali un blocco o un crash.
 
 ---
 
+## Oggetti visibili da lontano
+
+Con **Draw distance** alta, con gli shader (la nebbia lascia vedere lontano) o con la telecamera libera si vedono zone che il gioco originale non mostrava mai da quella distanza. Il gioco però carica e disegna gli oggetti del livello (porte, cancelli, muri distruttibili, decorazioni) solo vicino a Dan: da lontano un cancello chiuso sembrava aperto, e un muro distruttibile spariva lasciando vedere la stanza dietro, come un trucco. `patches/render/DistantObjectsPatch.cs` lo corregge. È attivo di default e si spegne da **Misc → Quality of life → Distant objects**; non serve premere R3, vale con qualsiasi telecamera.
+
+Come funziona, in breve (i dettagli sono nei commenti del file):
+
+| Passo | Cosa fa | Quando serve |
+|---|---|---|
+| Raggio di caricamento | quando Dan cambia zona, il gioco crea gli oggetti più lontano (distanza originale × Draw distance, minimo ×1,5 anche a 1x, massimo ×3) | sempre: senza, gli oggetti lontani non esistono proprio |
+| Lista allargata | gli oggetti restano caricati fino alla stessa distanza invece di essere scartati | sempre |
+| Precaricamento | un oggetto creato lontano non è mai stato "sveglio" e non ha ancora il modello fermo da disegnare: per un frame il gioco lo considera vicino e lo crea | porte e cancelli visti da lontano la prima volta |
+| Modello fermo visibile | gli oggetti addormentati lontani vengono disegnati fermi nell'ultima posa | porte, cancelli, decorazioni, fiaccole (spente, si accendono avvicinandosi) |
+| Tenuti svegli | alcuni oggetti non hanno il modello fermo e il gioco li disegna solo da svegli: per i tipi nella lista `KeepAwake` (oggi i muri distruttibili, tipo `800109F8`) il gioco non li riaddormenta entro la distanza allargata | muri distruttibili, in qualsiasi stato (integro, crepato, in pezzi) |
+
+La sveglia vera resta quella del gioco: nemici, trappole ed eventi partono alla distanza originale. Due liste nel file permettono di regolare i casi particolari:
+
+- `NoPreload`: tipi da non precaricare, se svegliarli per un frame fa partire suoni o eventi;
+- `KeepAwake`: tipi senza modello fermo da tenere svegli lontano. Solo oggetti senza IA: un nemico tenuto sveglio si muoverebbe anche lontano.
+
+Per trovare il tipo di un oggetto che sparisce da lontano: avvia con `MEDIEVIL_DEBUG` impostata (vedi [Debug](#debug)), resta fermo una decina di secondi dove l'oggetto non si vede e poi dove si vede. Le righe `[DistantObjects]` elencano ogni ~4 secondi gli oggetti addormentati con tipo, flag, modello fermo (`el=00000000` se manca), posizione e distanza: quello che compare solo nel primo elenco è l'oggetto cercato.
+
+---
+
 ## Trucchi
 
 Il gioco ha due menu trucchi integrati, e nel recomp funzionano come sulla console. In pausa tieni premuto **L2** e premi:
