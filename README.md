@@ -160,9 +160,7 @@ Allega `debug.txt` alle issue quando segnali un blocco o un crash.
 
 ## Oggetti visibili da lontano
 
-Con **Draw distance** alta, con gli shader (la nebbia lascia vedere lontano) o con la telecamera libera si vedono zone che il gioco originale non mostrava mai da quella distanza. Il gioco però carica e disegna gli oggetti del livello (porte, cancelli, muri distruttibili, decorazioni) solo vicino a Dan: da lontano un cancello chiuso sembrava aperto, e un muro distruttibile spariva lasciando vedere la stanza dietro, come un trucco. `patches/render/DistantObjectsPatch.cs` lo corregge. Si attiva da **Misc → Quality of life → Distant objects** e vale con qualsiasi telecamera (non serve premere R3).
-
-> **Spento di default dalla v1.1.12:** con questa opzione attiva il Villaggio Addormentato può crashare (il gioco inizializza un oggetto del livello caricato molto prima del normale). Il problema è in corso di analisi; chi la attiva lo fa a suo rischio, soprattutto nei livelli grandi.
+Con **Draw distance** alta, con gli shader (la nebbia lascia vedere lontano) o con la telecamera libera si vedono zone che il gioco originale non mostrava mai da quella distanza. Il gioco però carica e disegna gli oggetti del livello (porte, cancelli, muri distruttibili, decorazioni) solo vicino a Dan: da lontano un cancello chiuso sembrava aperto, e un muro distruttibile spariva lasciando vedere la stanza dietro, come un trucco. `patches/render/DistantObjectsPatch.cs` lo corregge. È attivo di default e si spegne da **Misc → Quality of life → Distant objects**; vale con qualsiasi telecamera (non serve premere R3).
 
 Come funziona, in breve (i dettagli sono nei commenti del file):
 
@@ -170,7 +168,7 @@ Come funziona, in breve (i dettagli sono nei commenti del file):
 |---|---|---|
 | Raggio di caricamento | quando Dan cambia zona, il gioco crea gli oggetti più lontano (distanza originale × Draw distance, minimo ×1,5 anche a 1x, massimo ×3) | sempre: senza, gli oggetti lontani non esistono proprio |
 | Lista allargata | gli oggetti restano caricati fino alla stessa distanza invece di essere scartati | sempre |
-| Precaricamento | un oggetto creato lontano non è mai stato "sveglio" e non ha ancora il modello fermo da disegnare: per un frame il gioco lo considera vicino e lo crea. Solo per gli oggetti di scena: i personaggi con la loro logica (tipo nel codice del livello) restano invisibili da lontano come nell'originale, perché inizializzarli lontano da Dan fa crashare il gioco | porte e cancelli visti da lontano la prima volta |
+| Precaricamento | un oggetto creato lontano non è mai stato "sveglio" e non ha ancora il modello fermo da disegnare: per un frame il gioco lo considera vicino e lo crea | porte e cancelli visti da lontano la prima volta |
 | Modello fermo visibile | gli oggetti addormentati lontani vengono disegnati fermi nell'ultima posa | porte, cancelli, decorazioni, fiaccole (spente, si accendono avvicinandosi) |
 | Tenuti svegli | alcuni oggetti non hanno il modello fermo e il gioco li disegna solo da svegli: per i tipi nella lista `KeepAwake` (oggi i muri distruttibili, tipo `800109F8`) il gioco non li riaddormenta entro la distanza allargata | muri distruttibili, in qualsiasi stato (integro, crepato, in pezzi) |
 
@@ -193,6 +191,8 @@ Il gioco ha due menu trucchi integrati, e nel recomp funzionano come sulla conso
 - **Modalità Trucchi Estesa**: Triangolo, Cerchio, Triangolo, Cerchio, Cerchio, Triangolo, Sinistra, Cerchio, Su, Giù, Destra, Cerchio, Sinistra, Sinistra, Triangolo, Destra, Cerchio, Sinistra, Sinistra, Triangolo, Cerchio, Giù, Cerchio, Cerchio, Destra
 
 In alternativa, la mod inclusa **Trucchi (MediEvil ITA)** li attiva dal pannello delle mod, senza combinazioni. I dettagli sono nel [README della mod](mods/Trucchi/README.md).
+
+> **Attenzione: i trucchi possono far crashare il gioco.** Alcuni livelli caricano i modelli a gruppi, man mano che la trama va avanti. Se con i trucchi si salta un passaggio della trama (per esempio prendendo subito un oggetto che andrebbe ottenuto più avanti), il gruppo successivo non viene mai caricato: quando Dan si avvicina a un oggetto di quella parte del livello, il gioco cerca un modello che non è in memoria e crasha. Non dipende dalle modifiche di questo fork; il caso noto è il **Villaggio Addormentato**, arrivando con i trucchi alla casa dopo aver messo la croce in chiesa ed entrando dal camino (modello 429, oggetto `0xB1D1`). Per evitarlo, nei livelli con eventi di trama usa i trucchi senza saltare passaggi, oppure riparti da un salvataggio fatto prima.
 
 <img width="1920" height="1032" alt="Trucchi_MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/144797de-3c78-4dd3-a886-1cb8ca9e8337" />
 <img width="1920" height="1032" alt="Trucchi2_MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/0e52fbf0-33db-491f-8d57-0e539577089f" />

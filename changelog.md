@@ -1,3 +1,10 @@
+# MediEvilRecomp ITA v1.1.13
+
+- **Oggetti visibili da lontano di nuovo attivi di default** (Misc → Quality of life → Distant objects), con il precaricamento per tutti gli oggetti come prima della v1.1.12. Il crash al Villaggio Addormentato non dipendeva dalle modifiche del fork (succede anche con gli oggetti lontani spenti): lo causa il salto di un passaggio della trama con i trucchi. Il livello carica i modelli a gruppi man mano che la trama avanza; ottenendo l'oggetto coi trucchi il gruppo successivo non viene mai caricato e, entrando dal camino della casa dopo aver messo la croce in chiesa, il gioco inizializza un oggetto il cui modello (429) non è in memoria. Spiegato nella sezione Trucchi del README. Chi aveva cambiato l'opzione nelle impostazioni mantiene la sua scelta.
+- Restano i 2 MB di memoria in più e la protezione per memoria quasi esaurita della v1.1.12.
+
+---
+
 # MediEvilRecomp ITA v1.1.12
 
 - **Oggetti visibili da lontano spenti di default** (Misc → Quality of life → Distant objects): con l'opzione attiva il Villaggio Addormentato può crashare, perché il gioco inizializza un oggetto del livello caricato molto prima del normale. In corso di analisi; i fix restano e l'opzione si può riattivare a proprio rischio. Chi l'aveva già cambiata nelle impostazioni mantiene la sua scelta.
