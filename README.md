@@ -48,6 +48,7 @@ Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Il proge
 | `patches/PalLibCrypt.cs` | — | protezione LibCrypt con un dump bin/cue: il Mausoleo in Cima alla Collina si apre |
 | `patches/PalXaSpeech.cs` | — | i dialoghi non si chiudono più da soli quando parte un discorso mentre suona la musica |
 | `patches/PalQuitFix.cs` | — | Sistema → Esci chiude il gioco come la X della finestra, senza bloccarsi |
+| `patches/HeapExpansion.cs` | — | 2 MB di memoria in più per il gioco: niente crash per memoria esaurita con gli oggetti lontani |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
 | Script di compilazione | solo Windows, nomi file USA, in inglese | Windows e Linux (`linux_*.sh`), nomi file `(Italy)`, in italiano, correzione applicata in automatico |
 | Aggiornamento automatico | release di BlackLabelHQ | release di questo fork |
@@ -159,7 +160,9 @@ Allega `debug.txt` alle issue quando segnali un blocco o un crash.
 
 ## Oggetti visibili da lontano
 
-Con **Draw distance** alta, con gli shader (la nebbia lascia vedere lontano) o con la telecamera libera si vedono zone che il gioco originale non mostrava mai da quella distanza. Il gioco però carica e disegna gli oggetti del livello (porte, cancelli, muri distruttibili, decorazioni) solo vicino a Dan: da lontano un cancello chiuso sembrava aperto, e un muro distruttibile spariva lasciando vedere la stanza dietro, come un trucco. `patches/render/DistantObjectsPatch.cs` lo corregge. È attivo di default e si spegne da **Misc → Quality of life → Distant objects**; non serve premere R3, vale con qualsiasi telecamera.
+Con **Draw distance** alta, con gli shader (la nebbia lascia vedere lontano) o con la telecamera libera si vedono zone che il gioco originale non mostrava mai da quella distanza. Il gioco però carica e disegna gli oggetti del livello (porte, cancelli, muri distruttibili, decorazioni) solo vicino a Dan: da lontano un cancello chiuso sembrava aperto, e un muro distruttibile spariva lasciando vedere la stanza dietro, come un trucco. `patches/render/DistantObjectsPatch.cs` lo corregge. Si attiva da **Misc → Quality of life → Distant objects** e vale con qualsiasi telecamera (non serve premere R3).
+
+> **Spento di default dalla v1.1.12:** con questa opzione attiva il Villaggio Addormentato può crashare (il gioco inizializza un oggetto del livello caricato molto prima del normale). Il problema è in corso di analisi; chi la attiva lo fa a suo rischio, soprattutto nei livelli grandi.
 
 Come funziona, in breve (i dettagli sono nei commenti del file):
 
@@ -167,9 +170,11 @@ Come funziona, in breve (i dettagli sono nei commenti del file):
 |---|---|---|
 | Raggio di caricamento | quando Dan cambia zona, il gioco crea gli oggetti più lontano (distanza originale × Draw distance, minimo ×1,5 anche a 1x, massimo ×3) | sempre: senza, gli oggetti lontani non esistono proprio |
 | Lista allargata | gli oggetti restano caricati fino alla stessa distanza invece di essere scartati | sempre |
-| Precaricamento | un oggetto creato lontano non è mai stato "sveglio" e non ha ancora il modello fermo da disegnare: per un frame il gioco lo considera vicino e lo crea | porte e cancelli visti da lontano la prima volta |
+| Precaricamento | un oggetto creato lontano non è mai stato "sveglio" e non ha ancora il modello fermo da disegnare: per un frame il gioco lo considera vicino e lo crea. Solo per gli oggetti di scena: i personaggi con la loro logica (tipo nel codice del livello) restano invisibili da lontano come nell'originale, perché inizializzarli lontano da Dan fa crashare il gioco | porte e cancelli visti da lontano la prima volta |
 | Modello fermo visibile | gli oggetti addormentati lontani vengono disegnati fermi nell'ultima posa | porte, cancelli, decorazioni, fiaccole (spente, si accendono avvicinandosi) |
 | Tenuti svegli | alcuni oggetti non hanno il modello fermo e il gioco li disegna solo da svegli: per i tipi nella lista `KeepAwake` (oggi i muri distruttibili, tipo `800109F8`) il gioco non li riaddormenta entro la distanza allargata | muri distruttibili, in qualsiasi stato (integro, crepato, in pezzi) |
+
+Ogni oggetto caricato occupa memoria del gioco, che in un livello ha poco più di 100 KB liberi: nei livelli grandi (per esempio Scarecrow Fields a 3x) la memoria finiva e il gioco crashava. `patches/HeapExpansion.cs` aggiunge al gioco 2 MB di memoria (la memoria emulata passa da 4 a 8 MB); come protezione estrema, se la memoria libera scende comunque sotto 96 KB il fix sospende gli oggetti lontani finché non torna sopra 256 KB.
 
 La sveglia vera resta quella del gioco: nemici, trappole ed eventi partono alla distanza originale. Due liste nel file permettono di regolare i casi particolari:
 
@@ -293,7 +298,7 @@ Questo repository contiene codice con licenze diverse.
 **RecompOne: licenza MIT**, Copyright (c) 2026 flaffy. Il testo è nel file `LICENSE` del sottomodulo `RecompOne` (e in `BACKUP_Dipendenze/RecompOne`).
 
 **Codice scritto per questo fork: GPL-3.0-or-later.** Testo completo in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
-- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`;
+- `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `HeapExpansion.cs`;
 - `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
 - `misc/ModHubUpdateNotice.cs` e `misc/InterfaceAutoHide.cs`;
 - le mod `mods/Trucchi/` e `mods/FilmatiSchermoIntero/`;

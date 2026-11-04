@@ -1,3 +1,12 @@
+# MediEvilRecomp ITA v1.1.12
+
+- **Oggetti visibili da lontano spenti di default** (Misc → Quality of life → Distant objects): con l'opzione attiva il Villaggio Addormentato può crashare, perché il gioco inizializza un oggetto del livello caricato molto prima del normale. In corso di analisi; i fix restano e l'opzione si può riattivare a proprio rischio. Chi l'aveva già cambiata nelle impostazioni mantiene la sua scelta.
+- **Crash per memoria esaurita corretto** (per esempio a Scarecrow Fields con Draw distance alta): gli oggetti caricati da lontano riempivano la memoria del gioco (poco più di 100 KB liberi) e il gioco crashava in punti diversi. Ora il gioco ha 2 MB di memoria in più: la memoria emulata passa da 4 a 8 MB e il blocco viene aggiunto all'allocatore del gioco all'avvio (`patches/HeapExpansion.cs`). I controlli degli indirizzi delle patch usano tutta la memoria.
+- Precaricamento degli oggetti lontani limitato agli oggetti di scena (porte, cancelli, decorazioni): i personaggi del livello non vengono più svegliati per un frame da lontano e restano invisibili da lontano come nell'originale.
+- Protezione: se la memoria libera scende comunque sotto 96 KB, gli oggetti lontani vengono sospesi finché non torna sopra 256 KB (`patches/render/DistantObjectsPatch.cs`).
+
+---
+
 # MediEvilRecomp ITA v1.1.11
 
 - **Muri distruttibili visibili da lontano**: il gioco li disegna solo quando sono "svegli", quindi da lontano (Draw distance alta, shader o telecamera libera) sparivano in qualsiasi stato, lasciando vedere la stanza dietro. Ora entro la distanza allargata restano svegli e visibili; rottura e colpi funzionano come prima (`patches/render/DistantObjectsPatch.cs`).
