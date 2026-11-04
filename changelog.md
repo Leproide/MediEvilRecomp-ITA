@@ -1,3 +1,17 @@
+# MediEvilRecomp ITA v1.1.14
+
+- **RecompOne aggiornato alla versione di MediEvilRecomp 1.0.3** (`b18bec0`, prima `cc18281`). Correzioni incluse:
+  - pacchetti di texture: l'area di VRAM disegnata veniva calcolata male e alcune texture sostitutive venivano associate alle texture sbagliate;
+  - pacchetti di texture: entrando in un livello che inizia con un filmato le texture sostitutive non venivano caricate bene;
+  - audio XA sostituito: riproduzione e ricerca più affidabili, e il lettore CD non riempie il buffer XA mentre è in corso una ricerca;
+  - selettore dei file (disco, pacchetti di texture): su Windows si apre in un thread separato e non blocca più la finestra, su Linux con Wayland non crasha più;
+  - piccole correzioni all'editor dei pacchetti di texture e alla telecamera degli shader.
+- **Nuova opzione Disable camera collision** (Misc → Quality of life, dalla 1.0.3 originale): con la telecamera libera, la telecamera non si avvicina più a Dan quando c'è un muro o una recinzione in mezzo. Spenta di default; le correzioni del fork alla telecamera restano.
+- **Barra dei menu nascosta automaticamente: resta quella del fork.** RecompOne ora ha una sua versione (la barra compare portando il mouse in cima allo schermo) sulla stessa impostazione; il fork usa un'impostazione propria e lascia spenta quella di RecompOne. Chi aveva l'opzione accesa la ritrova accesa.
+- La correzione del lettore CD del fork (`recompone-fixes/`) si applica senza modifiche al nuovo RecompOne.
+
+---
+
 # MediEvilRecomp ITA v1.1.13
 
 - **Oggetti visibili da lontano di nuovo attivi di default** (Misc → Quality of life → Distant objects), con il precaricamento per tutti gli oggetti come prima della v1.1.12. Il crash al Villaggio Addormentato non dipendeva dalle modifiche del fork (succede anche con gli oggetti lontani spenti): lo causa il salto di un passaggio della trama con i trucchi. Il livello carica i modelli a gruppi man mano che la trama avanza; ottenendo l'oggetto coi trucchi il gruppo successivo non viene mai caricato e, entrando dal camino della casa dopo aver messo la croce in chiesa, il gioco inizializza un oggetto il cui modello (429) non è in memoria. Spiegato nella sezione Trucchi del README. Chi aveva cambiato l'opzione nelle impostazioni mantiene la sua scelta.

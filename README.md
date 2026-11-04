@@ -13,11 +13,11 @@ Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLab
 Pagina del progetto:
 [MediEvil Recomp - ITA](https://muninn.ovh/medievil_recomp_ita)
 
-> **Versione basata su MediEvilRecomp 1.0.** Porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub originale non è usato, perché le sue mod usano indirizzi della versione USA: si può puntare a un hub dedicato alla versione PAL (vedi "Mod Hub"). Le impostazioni delle versioni precedenti non vengono riprese.
+> **Versione basata su MediEvilRecomp 1.0**, con il RecompOne della 1.0.3 (dalla v1.1.14). Porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub originale non è usato, perché le sue mod usano indirizzi della versione USA: si può puntare a un hub dedicato alla versione PAL (vedi "Mod Hub"). Le impostazioni delle versioni precedenti non vengono riprese.
 
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
-> **Telecamera libera: premi R3** (la pressione della levetta destra) per accenderla o spegnerla in qualsiasi momento. Accesa, la levetta destra ruota la visuale a 360° attorno a Dan; spenta, si gioca con la telecamera originale del gioco, che è quella predefinita. Un avviso a schermo conferma il cambio e la scelta resta salvata. La stessa opzione è in **Misc → Quality of life → Right stick camera**.
+> **Telecamera libera: premi R3** (la pressione della levetta destra) per accenderla o spegnerla in qualsiasi momento. Accesa, la levetta destra ruota la visuale a 360° attorno a Dan; spenta, si gioca con la telecamera originale del gioco, che è quella predefinita. Un avviso a schermo conferma il cambio e la scelta resta salvata. La stessa opzione è in **Misc → Quality of life → Right stick camera**; lì c'è anche **Disable camera collision**, che non fa avvicinare la telecamera a Dan quando c'è un muro in mezzo.
 
 <img width="1920" height="1032" alt="MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/76ff3ae2-808c-4718-90fa-134b96d0b832" />
 <img width="1920" height="1032" alt="2_MediEvil_PAL_ITA" src="https://github.com/user-attachments/assets/7017f74a-eed7-4d3b-8e09-200d7f5ea67f" />
@@ -50,6 +50,7 @@ Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Il proge
 | `patches/PalQuitFix.cs` | — | Sistema → Esci chiude il gioco come la X della finestra, senza bloccarsi |
 | `patches/HeapExpansion.cs` | — | 2 MB di memoria in più per il gioco: niente crash per memoria esaurita con gli oggetti lontani |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
+| `misc/InterfaceAutoHide.cs` | barra dei menu che compare portando il mouse in cima allo schermo | cursore e barra dei menu nascosti dopo qualche secondo senza muovere il mouse, ricompaiono muovendolo |
 | Script di compilazione | solo Windows, nomi file USA, in inglese | Windows e Linux (`linux_*.sh`), nomi file `(Italy)`, in italiano, correzione applicata in automatico |
 | Aggiornamento automatico | release di BlackLabelHQ | release di questo fork |
 | `tools/pal-port/` | — | strumenti che hanno generato il port, con verifica |
