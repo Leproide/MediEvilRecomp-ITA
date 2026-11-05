@@ -1,3 +1,13 @@
+# MediEvilRecomp ITA v1.1.17
+
+- **Shader Gallowmere aggiornato** (incluso nei pacchetti e nel Mod Hub):
+  - **acqua del lago**: dove lo sguardo incontra il livello del lago si disegna l'acqua dello shader (onde, riflessi della scena, della luna e delle luci, caustiche), come in Dan's Curse V2. Prima al lago restava il nero con qualche scintilla;
+  - **foschia su cielo e fondale**: le montagne e gli sfondi dipinti sfumano nel colore del cielo, più fitta all'orizzonte, invece di restare sagome nere. *Fog over sky* passa a 0.5 di default;
+  - **vuoto oltre i bordi della mappa nero** anche appena sotto l'orizzonte: lo shader stima la quota del terreno e annerisce solo dove il terreno dovrebbe esserci entro il limite di disegno, lasciando la foschia sul fondale lontano.
+- Mod Hub: le voci degli shader seguono da sole l'ultima versione dei loro repository.
+
+---
+
 # MediEvilRecomp ITA v1.1.16
 
 - **Nuovo shader predefinito [Gallowmere](https://github.com/Leproide/gallowmere-shader)** (GPL-3.0), scritto per il fork sui dati veri del rendering: luce del gioco con occlusione, luna e luci 3D, ombre, riflessi su metallo e acqua, nebbia e foschia, bloom. Incluso nelle release, scaricato dagli script di compilazione e disponibile nel Mod Hub. Al primo avvio viene selezionato se non è già scelto un altro shader. Dan's Curse V2 resta incluso.
