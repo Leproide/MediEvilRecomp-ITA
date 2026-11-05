@@ -15,6 +15,8 @@ Pagina del progetto:
 
 > **Versione basata su MediEvilRecomp 1.0**, con il RecompOne della 1.0.3 (dalla v1.1.14). Porta in PAL la versione 1.0 di MediEvilRecomp e il suo RecompOne: telecamera con la levetta destra, interpolazione migliorata, shader slang, colore a 24 bit, nuovo sistema di impostazioni e correzioni dei crash. Le correzioni PAL di questo fork sono tutte incluse. Il Mod Hub originale non è usato, perché le sue mod usano indirizzi della versione USA: si può puntare a un hub dedicato alla versione PAL (vedi "Mod Hub"). Le impostazioni delle versioni precedenti non vengono riprese.
 
+> **Shader Gallowmere predefinito (dalla v1.1.16).** Lo shader scritto per questo fork è incluso, sempre all'ultima versione, e si attiva da solo al primo avvio: luce con occlusione, luna e luci 3D, ombre, riflessi su metallo e acqua, nebbia e foschia. Vedi [Shader](#shader).
+
 > **Progetto in beta.** Possono esserci bug, anche gravi. Segnalali nelle [issue di questo fork](https://github.com/Leproide/MediEvilRecomp-ITA/issues).
 
 > **Telecamera libera: premi R3** (la pressione della levetta destra) per accenderla o spegnerla in qualsiasi momento. Accesa, la levetta destra ruota la visuale a 360° attorno a Dan; spenta, si gioca con la telecamera originale del gioco, che è quella predefinita. Un avviso a schermo conferma il cambio e la scelta resta salvata. La stessa opzione è in **Misc → Quality of life → Right stick camera**; lì c'è anche **Disable camera collision**, che non fa avvicinare la telecamera a Dan quando c'è un muro in mezzo.
@@ -50,6 +52,7 @@ Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Il proge
 | `patches/PalQuitFix.cs` | — | Sistema → Esci chiude il gioco come la X della finestra, senza bloccarsi |
 | `patches/HeapExpansion.cs` | — | 2 MB di memoria in più per il gioco: niente crash per memoria esaurita con gli oggetti lontani |
 | `patches/render/TerrainEdgeFade.cs` | — | opzione Map edge fade (spenta di default): il terreno vicino al vuoto oltre i bordi della mappa sfuma al nero invece di finire a scalini |
+| Shader predefinito | nessuno | [Gallowmere](https://github.com/Leproide/gallowmere-shader), scaricato all'ultima versione e attivato al primo avvio (vedi [Shader](#shader)) |
 | `patches/render/MaterialTags.cs` | — | materiali delle texture per gli shader (metallo, vetro, legno...): metalli fissi (armatura di Dan, armi, cancelli), marcature locali e selettore in Development mode |
 | `recompone-fixes/` | — | correzioni di RecompOne: lettore CD (modalità settore intero), G-buffer e luci degli effetti per gli shader, selettore dei materiali |
 | `misc/InterfaceAutoHide.cs` | barra dei menu che compare portando il mouse in cima allo schermo | cursore e barra dei menu nascosti dopo qualche secondo senza muovere il mouse, ricompaiono muovendolo |
@@ -192,7 +195,7 @@ Per trovare il tipo di un oggetto: avvia con `MEDIEVIL_DEBUG` impostata (vedi [D
 
 Il terreno è una griglia di quadrati da 512 unità: dove il livello finisce sul vuoto il bordo segue i quadrati e, con la telecamera libera o alta, si vedono gli scalini contro il nero. Nel gioco originale la telecamera non li mostra quasi mai.
 
-- Con lo shader Dan's Curse V2 il vuoto oltre i bordi resta nero come nell'originale (prima la nebbia lo rendeva grigio).
+- Con gli shader Gallowmere e Dan's Curse V2 il vuoto oltre i bordi resta nero come nell'originale (prima la nebbia lo rendeva grigio). Gallowmere stima la quota del terreno e annerisce solo dove il terreno dovrebbe esserci entro il limite di disegno: le montagne dipinte sul fondale restano visibili, velate dalla foschia.
 - **Misc → Quality of life → Map edge fade** (spenta di default) sfuma al nero il terreno vicino al vuoto, in base alla distanza vera dal bordo: gli scalini spariscono nel nero. Scurisce però anche gli oggetti di scena vicini al bordo e, nei livelli con molti quadrati vuoti sotto altra geometria (per esempio il cimitero), zone che non sono bordi.
 
 ### Materiali delle texture
@@ -254,13 +257,34 @@ L'indirizzo dell'hub si imposta in `Program.cs` (`DefaultModHub`) oppure, senza 
 
 Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo inizia con `gitea.` o `forgejo.`. Con altri server git serve il comando `git` installato sul PC di chi gioca. Se l'indirizzo è vuoto, il menu resta disattivato.
 
-Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo.
-
-Lo shader predefinito è **[Gallowmere](https://github.com/Leproide/gallowmere-shader)** (GPL-3.0), scritto per questo fork: usa i dati veri del rendering (colore delle texture, luce dei vertici, profondità, materiali) forniti dalle correzioni di `recompone-fixes/`. È incluso nei pacchetti delle release, viene scaricato dagli script di prima compilazione in `shaders/gallowmere-shader` (sempre l'ultima versione) ed è anche nel Mod Hub, che si aggiorna da solo all'ultima versione. Al primo avvio viene selezionato da solo, se non ne è già scelto un altro; dal menu **Shaders** si cambia o si spegne.
-
-Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) è già incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione in `shaders/dans-curse-v2-shader`, sempre all'ultima versione del suo ramo `main`. Si attiva accendendo la mod **Shaders** dal pannello **Mods**; dal menu **Shaders** si regolano i parametri. Consigliato: **Draw distance** a 3x in Settings → Display.
+Le voci degli shader nell'hub (Gallowmere, Dan's Curse V2) seguono da sole l'ultima versione dei loro repository: un workflow dell'hub aggiorna il commit ogni ora, e nel gioco lo shader installato risulta da aggiornare.
 
 <img width="880" height="690" alt="modhub" src="https://github.com/user-attachments/assets/e05a8519-f56d-405c-8f2f-099e490f5747" />
+
+
+---
+
+## Shader
+
+Gli shader non dipendono dalla versione del gioco e funzionano con **Better rendering** attivo (lo è di default). Si scelgono, si regolano o si spengono dal menu **Shaders**. Consigliato: **Draw distance** a 3x in Settings → Display.
+
+### Gallowmere (predefinito)
+
+**[Gallowmere](https://github.com/Leproide/gallowmere-shader)** (GPL-3.0) è lo shader scritto per questo fork. Invece di stimare tutto dall'immagine finale usa i dati veri del rendering, che RecompOne fornisce grazie alle correzioni in `recompone-fixes/`: colore delle texture senza luce, luce dei vertici del gioco, profondità, materiali, luci degli effetti.
+
+- Luce del gioco con occlusione ambientale, luna e cielo notturno anche sulle superfici di spalle, luci puntiformi 3D di fiaccole, fuoco, fonti di vita e magie (le fiamme tremolano), ombre di luna e luce principale.
+- Riflessi su armi, scudi e armatura (metallo dai [materiali delle texture](#materiali-delle-texture) e stimato dal colore).
+- Acqua con onde, increspature, rifrazione del fondo, caustiche e riflessi della scena, della luna e delle luci; al lago l'acqua viene disegnata sul livello dell'acqua, dove il gioco lascia il nero.
+- Nebbia di distanza, foschia a terra a chiazze, foschia del colore del cielo su cielo e fondale (montagne), raggi di luna, bloom.
+- Scritte, decalcomanie e menu restano come nel gioco; nelle dissolvenze al nero lo shader non schiarisce la scena.
+
+È incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione in `shaders/gallowmere-shader`, **sempre all'ultima versione** del suo repository a ogni compilazione. Al primo avvio viene selezionato da solo, solo se non è già scelto un altro shader; dopo resta la scelta di chi gioca. È anche nel Mod Hub. I parametri sono spiegati nel [README dello shader](https://github.com/Leproide/gallowmere-shader).
+
+Senza le correzioni di `recompone-fixes/` (per esempio con un RecompOne compilato a mano senza applicarle) Gallowmere lascia l'immagine del gioco com'è.
+
+### Dan's Curse V2
+
+**[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) resta incluso nei pacchetti e viene scaricato dagli script di prima compilazione in `shaders/dans-curse-v2-shader`, sempre all'ultima versione. Lavora sull'immagine finale e non richiede le correzioni di RecompOne. Si sceglie dal menu **Shaders**.
 
 <img width="1144" height="644" alt="v2-collina" src="https://github.com/user-attachments/assets/0368b567-9020-4379-8d38-cbb616ede017" />
 
@@ -277,7 +301,7 @@ Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0
 
 ## Release automatiche (GitHub Actions)
 
-`.github/workflows/release.yml` compila Windows (x64, ARM64), Linux x64 e macOS (Intel, Apple Silicon) e pubblica la release quando si pusha un tag `v*` (es. `git tag v1.0.0-ita && git push origin v1.0.0-ita`). Da Actions -> Release -> Run workflow si ottengono solo gli artifact, senza release.
+`.github/workflows/release.yml` compila Windows (x64, ARM64), Linux x64 e macOS (Intel, Apple Silicon) e pubblica la release quando si pusha un tag `v*` (es. `git tag v1.0.0-ita && git push origin v1.0.0-ita`). Da Actions -> Release -> Run workflow si ottengono solo gli artifact, senza release. Prima di compilare applica a RecompOne le correzioni di `recompone-fixes/`; nei pacchetti mette gli shader Gallowmere e Dan's Curse V2 all'ultima versione dei loro repository.
 
 Il workflow ha bisogno dei soli eseguibili del disco (circa 2 MB), presi da un repository **privato**:
 1. Crea un repository privato (es. `MediEvilRecomp-ITA-Disc`) con, nella radice, `SYSTEM.CNF`, `SCES_014.94`, `MEDIEVIL.EXE` e la cartella `OVERLAYS` estratti dal disco PAL italiano. Deve restare privato.
@@ -311,6 +335,7 @@ tools/pal-port/Debug Mod/  mod di diagnostica usate per trovare i bug (zip, non 
 BACKUP_Dipendenze/ copia di riserva di RecompOne e ShaderMod
 misc/              aggiornamento automatico
 assets/            icona e lingue dell'interfaccia (materials.json, se c'è, è locale)
+shaders/           shader scaricati dagli script (Gallowmere, Dan's Curse V2), non nel repo
 ```
 
 ---
