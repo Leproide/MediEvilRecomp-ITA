@@ -18,6 +18,9 @@ set "RECOMPILER=%RECOMPONE%\RecompOne.Recompiler"
 set "MISSING=0"
 set "MEDIEVILJSON=%CONFIG%/MediEvil.json"
 set "CDFIX=recompone-fixes\cd-whole-sector-mode.patch"
+set "GBUFFIX=recompone-fixes\shader-gbuffer.patch"
+set "LIGHTFIX=recompone-fixes\effect-lights.patch"
+set "PICKFIX=recompone-fixes\material-picker.patch"
 REM ===================================================================================================
 
 REM ============================================= Crediti =============================================
@@ -79,21 +82,23 @@ if errorlevel 1 (
 echo.
 REM ===================================================================================================
 
-REM =================================== Correzione RecompOne (CD) =====================================
-REM Applica la correzione della modalita' "settore intero" del lettore CD al sottomodulo RecompOne.
-REM Se e' gia' applicata non fa nulla.
-echo ^> Correzione RecompOne per il boot PAL...
-git -C "%RECOMPONE%" apply --reverse --check "..\%CDFIX%" >nul 2>&1
-if errorlevel 1 (
-    git -C "%RECOMPONE%" apply "..\%CDFIX%"
+REM =================================== Correzioni RecompOne ===========================================
+REM Applica al sottomodulo RecompOne le correzioni del fork (lettore CD in modalita' "settore intero" e
+REM G-buffer e luci degli effetti per gli shader). Quelle gia' applicate vengono saltate.
+echo ^> Correzioni RecompOne...
+for %%P in ("%CDFIX%" "%GBUFFIX%" "%LIGHTFIX%" "%PICKFIX%") do (
+    git -C "%RECOMPONE%" apply --reverse --check "..\%%~P" >nul 2>&1
     if errorlevel 1 (
-        echo Impossibile applicare %CDFIX%. Controlla che il sottomodulo RecompOne sia alla versione prevista.
-        pause
-        exit /b 1
+        git -C "%RECOMPONE%" apply "..\%%~P"
+        if errorlevel 1 (
+            echo Impossibile applicare %%~P. Controlla che il sottomodulo RecompOne sia alla versione prevista.
+            pause
+            exit /b 1
+        )
+        echo %%~P applicata.
+    ) else (
+        echo %%~P gia' presente.
     )
-    echo Correzione applicata.
-) else (
-    echo Correzione gia' presente.
 )
 echo.
 REM ===================================================================================================
@@ -234,6 +239,25 @@ if not exist "%DCDIR%\dans-curse-v2.slangp" (
         attrib -r -h "%DCDIR%\.git\*" /s /d >nul 2>&1
         rmdir /s /q "%DCDIR%\.git"
         echo Shader installato: si attiva accendendo la mod Shaders in Mods, con "Better rendering" acceso.
+    ) else (
+        echo Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub.
+    )
+)
+echo.
+
+REM ================================ Shader Gallowmere (predefinito) ==================================
+REM Gallowmere (GPL-3.0): shader predefinito del fork, ultima versione del ramo principale, voce
+REM gallowmere-shader del Mod Hub. Al primo avvio viene selezionato se non ne e' gia' scelto un altro.
+set "GMDIR=shaders\gallowmere-shader"
+if not exist "%GMDIR%\gallowmere.slangp" (
+    echo ^> Scarico lo shader Gallowmere...
+    if exist "%GMDIR%" rmdir /s /q "%GMDIR%"
+    git clone -q --depth 1 https://github.com/Leproide/gallowmere-shader "%GMDIR%" >nul 2>&1
+    if exist "%GMDIR%\.git" (
+        for /f "delims=" %%c in ('git -C "%GMDIR%" rev-parse HEAD') do >"%GMDIR%\.modhub" echo {"Id":"gallowmere-shader","Type":"shader","Commit":"%%c","Repository":"https://github.com/Leproide/gallowmere-shader"}
+        attrib -r -h "%GMDIR%\.git\*" /s /d >nul 2>&1
+        rmdir /s /q "%GMDIR%\.git"
+        echo Shader Gallowmere installato: viene attivato al primo avvio.
     ) else (
         echo Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub.
     )

@@ -47,8 +47,11 @@ jobs:
           pip install --quiet pycdlib
           python3 tools/ci/make_disc.py disc-files "disc/MediEvil (Italy).cue"
 
-      - name: Correzione RecompOne (lettore CD)
-        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+      - name: Correzioni RecompOne (lettore CD, G-buffer, luci degli effetti, selettore materiali)
+        run: |
+          for p in cd-whole-sector-mode shader-gbuffer effect-lights material-picker; do
+            git -C RecompOne apply "../recompone-fixes/$p.patch"
+          done
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
@@ -103,8 +106,11 @@ jobs:
         with:
           submodules: recursive
 
-      - name: Correzione RecompOne (lettore CD)
-        run: git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+      - name: Correzioni RecompOne (lettore CD, G-buffer, luci degli effetti, selettore materiali)
+        run: |
+          for p in cd-whole-sector-mode shader-gbuffer effect-lights material-picker; do
+            git -C RecompOne apply "../recompone-fixes/$p.patch"
+          done
 
       - name: Download codice generato
         uses: actions/download-artifact@v4
@@ -157,6 +163,19 @@ jobs:
           echo "Dan's Curse V2: $DC_COMMIT"
           rm -rf "$DIR/.git"
           printf '{"Id":"dans-curse-v2-shader","Type":"shader","Commit":"%s","Repository":"%s"}' "$DC_COMMIT" "$DC_REPO" > "$DIR/.modhub"
+
+      # Gallowmere (GPL-3.0): shader predefinito, ultima versione del ramo principale (voce
+      # gallowmere-shader del Mod Hub); il gioco lo seleziona al primo avvio
+      - name: Shader Gallowmere
+        env:
+          GM_REPO: https://github.com/Leproide/gallowmere-shader
+        run: |
+          DIR="publish/${{ matrix.rid }}/shaders/gallowmere-shader"
+          git clone -q --depth 1 "$GM_REPO" "$DIR"
+          GM_COMMIT="$(git -C "$DIR" rev-parse HEAD)"
+          echo "Gallowmere: $GM_COMMIT"
+          rm -rf "$DIR/.git"
+          printf '{"Id":"gallowmere-shader","Type":"shader","Commit":"%s","Repository":"%s"}' "$GM_COMMIT" "$GM_REPO" > "$DIR/.modhub"
 
       - name: Pacchetto (zip)
         if: matrix.archive == 'zip'

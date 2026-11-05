@@ -29,6 +29,9 @@ RECOMPONE="RecompOne"
 RECOMPILER="$RECOMPONE/RecompOne.Recompiler"
 MEDIEVILJSON="config/MediEvil.json"
 CDFIX="recompone-fixes/cd-whole-sector-mode.patch"
+GBUFFIX="recompone-fixes/shader-gbuffer.patch"
+LIGHTFIX="recompone-fixes/effect-lights.patch"
+PICKFIX="recompone-fixes/material-picker.patch"
 
 say()  { printf '\n\033[1;36m> %s\033[0m\n' "$1"; }
 fail() { printf '\n\033[1;31mERRORE: %s\033[0m\n' "$1" >&2; exit 1; }
@@ -67,15 +70,18 @@ if ! git submodule update --init --recursive >/dev/null 2>&1; then
     echo "Continuo comunque..."
 fi
 
-# ------------------------------------------------------------------ correzione CD
-say "Correzione RecompOne per il boot PAL..."
-if git -C "$RECOMPONE" apply --reverse --check "../$CDFIX" >/dev/null 2>&1; then
-    echo "Correzione gia' presente."
-else
-    git -C "$RECOMPONE" apply "../$CDFIX" \
-        || fail "impossibile applicare $CDFIX. Controlla che il sottomodulo RecompOne sia alla versione prevista."
-    echo "Correzione applicata."
-fi
+# ------------------------------------------------------------------ correzioni RecompOne
+# lettore CD in modalita' "settore intero" e G-buffer per gli shader; quelle gia' applicate vengono saltate
+say "Correzioni RecompOne..."
+for FIX in "$CDFIX" "$GBUFFIX" "$LIGHTFIX" "$PICKFIX"; do
+    if git -C "$RECOMPONE" apply --reverse --check "../$FIX" >/dev/null 2>&1; then
+        echo "$FIX gia' presente."
+    else
+        git -C "$RECOMPONE" apply "../$FIX" \
+            || fail "impossibile applicare $FIX. Controlla che il sottomodulo RecompOne sia alla versione prevista."
+        echo "$FIX applicata."
+    fi
+done
 
 # ------------------------------------------------------------------ .NET
 say "Controllo .NET 10..."
@@ -133,6 +139,24 @@ if [ ! -f "$DCDIR/dans-curse-v2.slangp" ]; then
         echo "Shader installato: si attiva accendendo la mod Shaders in Mods, con \"Better rendering\" acceso."
     else
         rm -rf "$DCDIR"
+        echo "Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub."
+    fi
+fi
+
+# ------------------------------------------------------------------ shader Gallowmere (predefinito)
+# Gallowmere (GPL-3.0): shader predefinito del fork, ultima versione del ramo principale, voce
+# gallowmere-shader del Mod Hub. Al primo avvio viene selezionato se non ne e' gia' scelto un altro.
+GMDIR="shaders/gallowmere-shader"
+if [ ! -f "$GMDIR/gallowmere.slangp" ]; then
+    say "Scarico lo shader Gallowmere..."
+    rm -rf "$GMDIR"
+    if git clone -q --depth 1 https://github.com/Leproide/gallowmere-shader "$GMDIR" >/dev/null 2>&1; then
+        GMCOMMIT="$(git -C "$GMDIR" rev-parse HEAD)"
+        rm -rf "$GMDIR/.git"
+        printf '{"Id":"gallowmere-shader","Type":"shader","Commit":"%s","Repository":"https://github.com/Leproide/gallowmere-shader"}' "$GMCOMMIT" > "$GMDIR/.modhub"
+        echo "Shader Gallowmere installato: viene attivato al primo avvio."
+    else
+        rm -rf "$GMDIR"
         echo "Download non riuscito: lo shader si puo' installare piu' tardi dal Mod Hub."
     fi
 fi

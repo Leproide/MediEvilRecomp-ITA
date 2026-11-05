@@ -19,6 +19,8 @@ __pycache__/
 # mod di diagnostica (sempre chiamate Diag*) e strumenti locali, non vanno nel repo
 mods/Diag*/
 mods/ConvertiTextureDuckStation/
+# materiali delle texture marcati in locale (Development mode), non vanno nel repo
+assets/materials.json
 # log e output di debug
 debug.txt
 *.log

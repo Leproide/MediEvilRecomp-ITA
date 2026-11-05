@@ -1,3 +1,18 @@
+# MediEvilRecomp ITA v1.1.16
+
+- **Nuovo shader predefinito [Gallowmere](https://github.com/Leproide/gallowmere-shader)** (GPL-3.0), scritto per il fork sui dati veri del rendering: luce del gioco con occlusione, luna e luci 3D, ombre, riflessi su metallo e acqua, nebbia e foschia, bloom. Incluso nelle release, scaricato dagli script di compilazione e disponibile nel Mod Hub. Al primo avvio viene selezionato se non è già scelto un altro shader. Dan's Curse V2 resta incluso.
+- **Materiali delle texture per gli shader** (`patches/render/MaterialTags.cs`): metallo, vetro, bagnato, acqua, luminoso, pietra, legno. Usati dagli shader che leggono i materiali di RecompOne per i riflessi.
+  - I metalli principali (armatura di Dan, armi, cancelli e grate) sono fissi nel codice: restano metallo anche con la stima dal colore dello shader accesa. **Nuova opzione Default materials** (Misc → Quality of life, accesa di default) per spegnerli.
+  - Le marcature fatte da sé finiscono in `assets/materials.json`, locale: non è nel repository né nelle release (voci per livello con `"Level"`, `"none"` per togliere un materiale).
+- **Nuova opzione Development mode** (Misc → Quality of life → Development, spenta di default): selettore delle texture per marcare i materiali da sé. Clic sinistro sul gioco per scegliere il punto, un pulsante per il materiale, **Togli** e **Annulla** (fino a 3 modifiche). Spiegato nel README.
+- **Nuove correzioni di RecompOne** in `recompone-fixes/`, applicate dagli script di compilazione e dalle release in quest'ordine dopo quella del lettore CD:
+  - `shader-gbuffer.patch`: colore delle texture e colore dei vertici della scena separati per gli shader (G-buffer);
+  - `effect-lights.patch`: gli effetti luminosi in 3D (fuoco, magie) diventano luci per gli shader;
+  - `material-picker.patch`: lettura della texture sotto il mouse per il selettore dei materiali.
+  Chi compila a mano deve applicarle tutte (comandi nel README).
+
+---
+
 # MediEvilRecomp ITA v1.1.15
 
 - **Runa sulla mano visibile da lontano corretta**: le mani che reggono le rune (tipo `800D73C0`) da lontano mostravano la runa già messa prima di averla messa. Non vengono più precaricate e da lontano si vedono solo nello stato in cui il gioco le ha mostrate l'ultima volta da vicino (`patches/render/DistantObjectsPatch.cs`).

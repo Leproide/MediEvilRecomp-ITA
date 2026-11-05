@@ -50,7 +50,8 @@ Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Il proge
 | `patches/PalQuitFix.cs` | — | Sistema → Esci chiude il gioco come la X della finestra, senza bloccarsi |
 | `patches/HeapExpansion.cs` | — | 2 MB di memoria in più per il gioco: niente crash per memoria esaurita con gli oggetti lontani |
 | `patches/render/TerrainEdgeFade.cs` | — | opzione Map edge fade (spenta di default): il terreno vicino al vuoto oltre i bordi della mappa sfuma al nero invece di finire a scalini |
-| `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
+| `patches/render/MaterialTags.cs` | — | materiali delle texture per gli shader (metallo, vetro, legno...): metalli fissi (armatura di Dan, armi, cancelli), marcature locali e selettore in Development mode |
+| `recompone-fixes/` | — | correzioni di RecompOne: lettore CD (modalità settore intero), G-buffer e luci degli effetti per gli shader, selettore dei materiali |
 | `misc/InterfaceAutoHide.cs` | barra dei menu che compare portando il mouse in cima allo schermo | cursore e barra dei menu nascosti dopo qualche secondo senza muovere il mouse, ricompaiono muovendolo |
 | Script di compilazione | solo Windows, nomi file USA, in inglese | Windows e Linux (`linux_*.sh`), nomi file `(Italy)`, in italiano, correzione applicata in automatico |
 | Aggiornamento automatico | release di BlackLabelHQ | release di questo fork |
@@ -87,7 +88,7 @@ Questo repository **non contiene i file del gioco** e non ne distribuisce codice
    - `MediEvil (Italy).cue`
 3. Avvia **`windows_initial_build.bat`**. Lo script:
    - aggiorna i sottomoduli;
-   - applica a RecompOne la correzione in `recompone-fixes\`;
+   - applica a RecompOne le correzioni in `recompone-fixes\`;
    - compila RecompOne;
    - genera il codice del gioco dal tuo disco;
    - compila il gioco.
@@ -118,12 +119,15 @@ Dalla cartella del repository:
 ```
 git submodule update --init --recursive
 git -C RecompOne apply ../recompone-fixes/cd-whole-sector-mode.patch
+git -C RecompOne apply ../recompone-fixes/shader-gbuffer.patch
+git -C RecompOne apply ../recompone-fixes/effect-lights.patch
+git -C RecompOne apply ../recompone-fixes/material-picker.patch
 dotnet build RecompOne/RecompOne.sln
 dotnet run --project RecompOne/RecompOne.Recompiler config/MediEvil.json
 dotnet build RecompOne/RecompOne.sln
 ```
 
-Il comando `git apply` serve solo la prima volta. Se la correzione è già applicata, segnala un errore che puoi ignorare.
+I comandi `git apply` servono solo la prima volta, nell'ordine indicato. Se le correzioni sono già applicate, segnalano un errore che puoi ignorare. Se una correzione cambia, riporta RecompOne all'originale con `git -C RecompOne checkout -- .` e riapplicale tutte.
 
 ---
 
@@ -191,6 +195,22 @@ Il terreno è una griglia di quadrati da 512 unità: dove il livello finisce sul
 - Con lo shader Dan's Curse V2 il vuoto oltre i bordi resta nero come nell'originale (prima la nebbia lo rendeva grigio).
 - **Misc → Quality of life → Map edge fade** (spenta di default) sfuma al nero il terreno vicino al vuoto, in base alla distanza vera dal bordo: gli scalini spariscono nel nero. Scurisce però anche gli oggetti di scena vicini al bordo e, nei livelli con molti quadrati vuoti sotto altra geometria (per esempio il cimitero), zone che non sono bordi.
 
+### Materiali delle texture
+
+Il gioco non dice di che materiale è una superficie. `patches/render/MaterialTags.cs` passa agli shader un elenco di texture marcate (metallo, vetro, bagnato, acqua, luminoso, pietra, legno), usato per i riflessi.
+
+- I metalli principali (armatura di Dan, armi, cancelli e grate) sono **fissi** nel codice: restano metallo anche con la stima dal colore dello shader accesa. Si spengono da **Misc → Quality of life → Default materials**.
+- Le marcature fatte da sé finiscono in `assets/materials.json`, che è locale (non è nel repository né nelle release). Una voce con `"Level"` vale solo in quel livello; `"none"` toglie il materiale, anche a un metallo fisso.
+- Le texture marcate con un altro materiale (pietra, legno...) non vengono mai prese per metallo dalla stima dal colore.
+
+**Development mode** (Misc → Quality of life → Development, spenta di default) mostra il selettore delle texture, per marcare da sé quello che manca. Serve RecompOne con le correzioni di `recompone-fixes/` (gli script di compilazione le applicano) e uno shader che usa il G-buffer:
+
+1. attiva **Selettore texture**;
+2. fai clic sinistro sull'immagine del gioco: il mirino giallo si sposta lì e il pannello mostra la texture sotto il mirino e il suo materiale (puoi tenere premuto e trascinare);
+3. premi il pulsante del materiale. **Togli** leva il materiale nel punto, **Annulla** torna indietro fino a 3 modifiche. Con **Nuove marcature solo in questo livello** la marcatura vale solo nel livello attuale (utile per i cancelli, le cui texture cambiano da livello a livello).
+
+Il file si salva subito a ogni modifica. Se il mirino legge il punto opposto in verticale, attiva **Inverti verticale**.
+
 ---
 
 ## Trucchi
@@ -234,7 +254,11 @@ L'indirizzo dell'hub si imposta in `Program.cs` (`DefaultModHub`) oppure, senza 
 
 Funziona con GitHub, GitLab, Codeberg e server Gitea/Forgejo il cui indirizzo inizia con `gitea.` o `forgejo.`. Con altri server git serve il comando `git` installato sul PC di chi gioca. Se l'indirizzo è vuoto, il menu resta disattivato.
 
-Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo. Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) è già incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione in `shaders/dans-curse-v2-shader`, sempre all'ultima versione del suo ramo `main`. Si attiva accendendo la mod **Shaders** dal pannello **Mods**; dal menu **Shaders** si regolano i parametri. Consigliato: **Draw distance** a 3x in Settings → Display.
+Gli shader non dipendono dalla versione del gioco e funzionano anche qui, con "Better rendering" attivo.
+
+Lo shader predefinito è **[Gallowmere](https://github.com/Leproide/gallowmere-shader)** (GPL-3.0), scritto per questo fork: usa i dati veri del rendering (colore delle texture, luce dei vertici, profondità, materiali) forniti dalle correzioni di `recompone-fixes/`. È incluso nei pacchetti delle release, viene scaricato dagli script di prima compilazione in `shaders/gallowmere-shader` (sempre l'ultima versione) ed è anche nel Mod Hub, che si aggiorna da solo all'ultima versione. Al primo avvio viene selezionato da solo, se non ne è già scelto un altro; dal menu **Shaders** si cambia o si spegne.
+
+Lo shader **[Dan's Curse V2](https://github.com/Leproide/DansCurseV2)** (GPL-3.0, basato su Dan's Curse di flaffymg, con nebbia e illuminazione riscritte) è già incluso nei pacchetti delle release e viene scaricato dagli script di prima compilazione in `shaders/dans-curse-v2-shader`, sempre all'ultima versione del suo ramo `main`. Si attiva accendendo la mod **Shaders** dal pannello **Mods**; dal menu **Shaders** si regolano i parametri. Consigliato: **Draw distance** a 3x in Settings → Display.
 
 <img width="880" height="690" alt="modhub" src="https://github.com/user-attachments/assets/e05a8519-f56d-405c-8f2f-099e490f5747" />
 
@@ -286,7 +310,7 @@ tools/pal-port/    strumenti di porting e report
 tools/pal-port/Debug Mod/  mod di diagnostica usate per trovare i bug (zip, non attive)
 BACKUP_Dipendenze/ copia di riserva di RecompOne e ShaderMod
 misc/              aggiornamento automatico
-assets/            icona e lingue dell'interfaccia
+assets/            icona e lingue dell'interfaccia (materials.json, se c'è, è locale)
 ```
 
 ---
@@ -309,7 +333,7 @@ Questo repository contiene codice con licenze diverse.
 
 **Codice scritto per questo fork: GPL-3.0-or-later.** Testo completo in [`tools/pal-port/LICENSE`](tools/pal-port/LICENSE). Comprende:
 - `patches/PalDispatch.cs`, `PalDebug.cs`, `PalCdCallbacks.cs`, `PalMovies.cs`, `PalDisplay.cs`, `PalLibCrypt.cs`, `PalXaSpeech.cs`, `PalQuitFix.cs`, `HeapExpansion.cs`;
-- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
+- `patches/widescreen/IrisFadePatch.cs`, `patches/render/TitleShaderPatch.cs`, `patches/render/DistantObjectsPatch.cs`, `patches/render/ShaderDrawDistance.cs`, `patches/render/TerrainEdgeFade.cs`, `patches/render/MaterialTags.cs`, `patches/qol/CameraToggle.cs`, `patches/diag/`;
 - `misc/ModHubUpdateNotice.cs` e `misc/InterfaceAutoHide.cs`;
 - le mod `mods/Trucchi/` e `mods/FilmatiSchermoIntero/`;
 - `recompone-fixes/`;
