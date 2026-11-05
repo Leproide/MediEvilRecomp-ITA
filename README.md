@@ -49,6 +49,7 @@ Lo stesso port PAL è stato realizzato con l'aiuto di uno strumento AI. Il proge
 | `patches/PalXaSpeech.cs` | — | i dialoghi non si chiudono più da soli quando parte un discorso mentre suona la musica |
 | `patches/PalQuitFix.cs` | — | Sistema → Esci chiude il gioco come la X della finestra, senza bloccarsi |
 | `patches/HeapExpansion.cs` | — | 2 MB di memoria in più per il gioco: niente crash per memoria esaurita con gli oggetti lontani |
+| `patches/render/TerrainEdgeFade.cs` | — | opzione Map edge fade (spenta di default): il terreno vicino al vuoto oltre i bordi della mappa sfuma al nero invece di finire a scalini |
 | `recompone-fixes/` | — | correzione del lettore CD di RecompOne (modalità settore intero) |
 | `misc/InterfaceAutoHide.cs` | barra dei menu che compare portando il mouse in cima allo schermo | cursore e barra dei menu nascosti dopo qualche secondo senza muovere il mouse, ricompaiono muovendolo |
 | Script di compilazione | solo Windows, nomi file USA, in inglese | Windows e Linux (`linux_*.sh`), nomi file `(Italy)`, in italiano, correzione applicata in automatico |
@@ -167,7 +168,7 @@ Come funziona, in breve (i dettagli sono nei commenti del file):
 
 | Passo | Cosa fa | Quando serve |
 |---|---|---|
-| Raggio di caricamento | quando Dan cambia zona, il gioco crea gli oggetti più lontano (distanza originale × Draw distance, minimo ×1,5 anche a 1x, massimo ×3) | sempre: senza, gli oggetti lontani non esistono proprio |
+| Raggio di caricamento | quando Dan cambia zona, il gioco crea gli oggetti più lontano (distanza originale × Draw distance, minimo ×1,5 anche a 1x, massimo ×3, e comunque almeno fin dove si vede il terreno) | sempre: senza, gli oggetti lontani non esistono proprio |
 | Lista allargata | gli oggetti restano caricati fino alla stessa distanza invece di essere scartati | sempre |
 | Precaricamento | un oggetto creato lontano non è mai stato "sveglio" e non ha ancora il modello fermo da disegnare: per un frame il gioco lo considera vicino e lo crea | porte e cancelli visti da lontano la prima volta |
 | Modello fermo visibile | gli oggetti addormentati lontani vengono disegnati fermi nell'ultima posa | porte, cancelli, decorazioni, fiaccole (spente, si accendono avvicinandosi) |
@@ -178,9 +179,17 @@ Ogni oggetto caricato occupa memoria del gioco, che in un livello ha poco più d
 La sveglia vera resta quella del gioco: nemici, trappole ed eventi partono alla distanza originale. Due liste nel file permettono di regolare i casi particolari:
 
 - `NoPreload`: tipi da non precaricare, se svegliarli per un frame fa partire suoni o eventi;
-- `KeepAwake`: tipi senza modello fermo da tenere svegli lontano. Solo oggetti senza IA: un nemico tenuto sveglio si muoverebbe anche lontano.
+- `KeepAwake`: tipi senza modello fermo da tenere svegli lontano. Solo oggetti senza IA: un nemico tenuto sveglio si muoverebbe anche lontano;
+- `FollowAwakeVisibility`: tipi che da lontano si vedono solo se erano visibili l'ultima volta che il gioco li ha svegliati. Il modello fermo di questi oggetti mostra uno stato che il gioco nasconde: oggi la runa sulla mano che la regge (`800D73C0`, si vedeva prima di averla messa) e le casse già aperte (`800D528C`, da lontano sembravano chiuse).
 
-Per trovare il tipo di un oggetto che sparisce da lontano: avvia con `MEDIEVIL_DEBUG` impostata (vedi [Debug](#debug)), resta fermo una decina di secondi dove l'oggetto non si vede e poi dove si vede. Le righe `[DistantObjects]` elencano ogni ~4 secondi gli oggetti addormentati con tipo, flag, modello fermo (`el=00000000` se manca), posizione e distanza: quello che compare solo nel primo elenco è l'oggetto cercato.
+Per trovare il tipo di un oggetto: avvia con `MEDIEVIL_DEBUG` impostata (vedi [Debug](#debug)) e apri **Misc → Quality of life**. Sotto Distant objects compare l'elenco dei tipi di oggetti del livello (quanti sono, quanti svegli, precaricati, mostrati, il più vicino); spuntando un tipo i suoi oggetti spariscono del tutto a qualsiasi distanza, subito e senza riavviare, così si riconosce l'oggetto a schermo. Le spunte valgono solo con `MEDIEVIL_DEBUG`. In alternativa resta fermo una decina di secondi dove l'oggetto non si vede e poi dove si vede. Le righe `[DistantObjects]` elencano ogni ~4 secondi gli oggetti addormentati con tipo, flag, modello fermo (`el=00000000` se manca), posizione e distanza: quello che compare solo nel primo elenco è l'oggetto cercato.
+
+### Bordi della mappa
+
+Il terreno è una griglia di quadrati da 512 unità: dove il livello finisce sul vuoto il bordo segue i quadrati e, con la telecamera libera o alta, si vedono gli scalini contro il nero. Nel gioco originale la telecamera non li mostra quasi mai.
+
+- Con lo shader Dan's Curse V2 il vuoto oltre i bordi resta nero come nell'originale (prima la nebbia lo rendeva grigio).
+- **Misc → Quality of life → Map edge fade** (spenta di default) sfuma al nero il terreno vicino al vuoto, in base alla distanza vera dal bordo: gli scalini spariscono nel nero. Scurisce però anche gli oggetti di scena vicini al bordo e, nei livelli con molti quadrati vuoti sotto altra geometria (per esempio il cimitero), zone che non sono bordi.
 
 ---
 

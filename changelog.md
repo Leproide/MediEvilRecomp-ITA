@@ -1,3 +1,15 @@
+# MediEvilRecomp ITA v1.1.15
+
+- **Runa sulla mano visibile da lontano corretta**: le mani che reggono le rune (tipo `800D73C0`) da lontano mostravano la runa già messa prima di averla messa. Non vengono più precaricate e da lontano si vedono solo nello stato in cui il gioco le ha mostrate l'ultima volta da vicino (`patches/render/DistantObjectsPatch.cs`).
+- **Casse già aperte**: da lontano si vedevano chiuse (tipo `800D528C`); ora restano come il gioco le ha mostrate l'ultima volta da vicino.
+- Gli oggetti lontani vengono caricati almeno fin dove si vede il terreno (`TerrainPatch.CurrentViewDistance`): in alcuni livelli le mani vuote comparivano in ritardo.
+- **Pannello di diagnostica degli oggetti lontani** (solo con `MEDIEVIL_DEBUG`, in Misc → Quality of life): elenca i tipi di oggetti del livello e spuntandone uno lo nasconde del tutto a qualsiasi distanza, subito e senza riavviare, per riconoscere gli oggetti a schermo. Spiegato nel README.
+- **Nuova opzione Map edge fade** (Misc → Quality of life, spenta di default): il terreno vicino al vuoto oltre i bordi della mappa sfuma al nero in base alla distanza dal bordo, invece di finire a scalini (`patches/render/TerrainEdgeFade.cs`). Scurisce anche oggetti di scena vicini al bordo e, in alcuni livelli come il cimitero, zone che non sono bordi: per questo è spenta.
+- Shader Dan's Curse V2 aggiornato a parte: nuove opzioni *Disable fog* e *Keep game darkness in fog*, e vuoto oltre i bordi della mappa nero invece che grigio.
+- `.gitignore`: le mod di diagnostica (`mods/Diag*/`), la mod locale di conversione delle texture e i log restano fuori dal repo.
+
+---
+
 # MediEvilRecomp ITA v1.1.14
 
 - **RecompOne aggiornato alla versione di MediEvilRecomp 1.0.3** (`b18bec0`, prima `cc18281`). Correzioni incluse:
