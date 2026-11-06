@@ -6,7 +6,7 @@
 
 # MediEvilRecomp ITA
 
-Ricompilazione statica di **MediEvil per PlayStation, versione PAL italiana (SCES-01494)**, per giocarlo in modo nativo sui computer moderni, con widescreen e rendering migliorato.
+Ricompilazione statica di **MediEvil per PlayStation, versione PAL italiana (SCES-01494)**, per giocarlo in modo nativo sui computer moderni, con widescreen e rendering migliorato con shader.
 
 [![MediEvilRecomp ITA - video](https://img.youtube.com/vi/cfNv3-evlD4/maxresdefault.jpg)](https://youtu.be/cfNv3-evlD4)
 
