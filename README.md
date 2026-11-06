@@ -8,6 +8,8 @@
 
 Ricompilazione statica di **MediEvil per PlayStation, versione PAL italiana (SCES-01494)**, per giocarlo in modo nativo sui computer moderni, con widescreen e rendering migliorato.
 
+[![MediEvilRecomp ITA - video](https://img.youtube.com/vi/cfNv3-evlD4/maxresdefault.jpg)](https://youtu.be/cfNv3-evlD4)
+
 Questo repository è un **fork** di [MediEvilRecomp](https://github.com/BlackLabelHQ/MediEvilRecomp) di **BlackLabelHQ**, che ricompila la versione USA. Tutto il lavoro di base (ricompilazione, patch di rendering e widescreen, runtime RecompOne) è loro. Questo fork lo porta sulla versione italiana.
 
 Pagina del progetto:
